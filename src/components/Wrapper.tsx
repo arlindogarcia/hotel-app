@@ -31,7 +31,7 @@ import { ReactText } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../modules/app/mainReducer';
 import { useLocation } from 'react-router-dom';
-import { loginActions } from '../modules/login/reducer';
+import { loginActions } from '../modules/login/store/reducer';
 
 interface LinkItemProps {
   name: string;

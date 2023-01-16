@@ -9,13 +9,13 @@ import { Form, Formik } from "formik";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { InputField } from "../../components/InputField";
-import { LoaderButton } from "../../components/LoaderButton";
-import { RootState } from "../app/mainReducer";
-import ApplicationLogo from "./components/ApplicationLogo";
-import { loginActions } from "./reducer";
+import { InputField } from "../../../components/InputField";
+import { LoaderButton } from "../../../components/LoaderButton";
+import { RootState } from "../../app/mainReducer";
+import ApplicationLogo from "../components/ApplicationLogo";
+import { loginActions } from "../store/reducer";
 
-export const Login: React.FC<{}> = () => {
+const Login: React.FC<{}> = () => {
   const navigate = useNavigate();
   const isLogged = useSelector((state: RootState) => state.login.isLogged);
   const error = useSelector((state: RootState) => state.login.error);
@@ -103,3 +103,5 @@ export const Login: React.FC<{}> = () => {
     </Flex >
   );
 };
+
+export default Login;

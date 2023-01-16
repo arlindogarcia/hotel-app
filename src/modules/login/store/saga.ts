@@ -2,8 +2,8 @@ import { PayloadAction } from "@reduxjs/toolkit";
 import { all, call, put, takeLatest } from "redux-saga/effects";
 import axios, { AxiosResponse } from "axios";
 import { loginActions, TLoginAction } from "./reducer";
-import { APIURL } from "../app/config";
-import { Usuario } from "./types/usuario";
+import { APIURL } from "../../app/config";
+import { Usuario } from "../types/usuario";
 
 type TLoginRes = {
   token: string;

@@ -1,6 +1,6 @@
 import { configureStore } from "@reduxjs/toolkit";
 import createSagaMiddleware from "redux-saga";
-import loginSlice from "../login/reducer";
+import loginSlice from "../login/store/reducer";
 import { mainSaga } from "./mainSaga";
 import { persistStore, persistReducer } from 'redux-persist';
 import storage from "redux-persist/lib/storage";
