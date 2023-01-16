@@ -56,13 +56,35 @@ export const Login: React.FC<{}> = () => {
           <Heading style={{ marginRight: 'auto', marginLeft: 'auto' }}>Portal do Hotel</Heading>
           <Formik
             initialValues={{ email: "", password: "" }}
-            onSubmit={(values) => {
+
+            onSubmit={(values, { setErrors }) => {
+              let errors = {};
+
+              if (!values.email) {
+                errors = {
+                  ...errors,
+                  email: 'Campo obrigatório'
+                }
+              }
+
+              if (!values.password) {
+                errors = {
+                  ...errors,
+                  password: 'Campo obrigatório'
+                }
+              }
+
+              if (Object.keys(errors).length > 0) {
+                setErrors(errors);
+                return;
+              }
+
               console.log("login form", values);
               dispatch(loginActions.requestLogin(values));
             }}
           >
             <Form>
-              <InputField label="E-mail" name="email" autoFocus type={'email'} />
+              <InputField label="E-mail" name="email" autoFocus type='email' />
               <InputField label="Senha" name="password" type="password" />
               <LoaderButton
                 isLoading={isLoggingIn}
@@ -70,7 +92,7 @@ export const Login: React.FC<{}> = () => {
                 size="lg"
                 mt="1rem"
                 type="submit"
-                style={{width: '100%'}}
+                style={{ width: '100%' }}
               >
                 Entrar
               </LoaderButton>
