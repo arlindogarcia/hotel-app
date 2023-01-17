@@ -16,6 +16,8 @@ interface MultiSelectMenuProps {
 
 const MultiSelectInput = (props: MultiSelectMenuProps): JSX.Element => {
   const setValue = () => {
+    if (!props.value) return []
+
     const retorno = props.value.split(',');
 
     if (retorno.length == 1 && !retorno[0]) {

@@ -20,6 +20,7 @@ import {
   FiHome,
   FiMenu,
   FiUser,
+  FiUsers,
 } from 'react-icons/fi';
 import { IconType } from 'react-icons/lib';
 import { ReactText } from 'react';
@@ -37,6 +38,7 @@ interface LinkItemProps {
 const LinkItems: Array<LinkItemProps> = [
   { name: 'Início', icon: FiHome, href: '/' },
   { name: 'Usuários', icon: FiUser, href: '/usuarios' },
+  { name: 'Clientes', icon: FiUsers, href: '/clientes' },
 ];
 
 export default function Wrapper({

@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { Usuario } from "../login/types/usuario";
+import { Cliente } from "./types/cliente";
 
 type TInitialState = {
   isLoadingList: boolean;
@@ -7,8 +7,8 @@ type TInitialState = {
   showForm: boolean;
   error: string;
   success: string;
-  usuarios: Usuario[];
-  usuario: Usuario | null;
+  clientes: Cliente[];
+  cliente: Cliente | null;
 };
 
 const initialState: TInitialState = {
@@ -17,40 +17,40 @@ const initialState: TInitialState = {
   showForm: false,
   error: "",
   success: "",
-  usuarios: [],
-  usuario: null,
+  clientes: [],
+  cliente: null,
 };
 
-const sistemaSlice = createSlice({
-  name: "sistema",
+const clienteSlice = createSlice({
+  name: "cliente",
   initialState,
   reducers: {
-    requestUsuarios(state: TInitialState) {
+    requestClientes(state: TInitialState) {
       state.isLoadingList = true;
       state.error = "";
       state.success = "";
-      state.usuario = null;
+      state.cliente = null;
     },
-    requestUsuariosSuccess(
+    requestClientesSuccess(
       state: TInitialState,
-      { payload }: PayloadAction<Usuario[]>
+      { payload }: PayloadAction<Cliente[]>
     ) {
       state.isLoadingList = false;
-      state.usuarios = payload;
+      state.clientes = payload;
     },
-    requestUsuario(state: TInitialState, _: PayloadAction<{ id: string }>) {
-      state.usuario = null;
+    requestCliente(state: TInitialState, _: PayloadAction<{ id: string }>) {
+      state.cliente = null;
       state.showForm = false;
       state.error = "";
       state.success = "";
     },
-    requestSaveUsuario(
+    requestSaveCliente(
       state: TInitialState,
-      { payload }: PayloadAction<Usuario>
+      { payload }: PayloadAction<Cliente>
     ) {
       state.isLoading = true;
     },
-    requestSaveUsuarioSuccess(
+    requestSaveClienteSuccess(
       state: TInitialState,
       { payload }: PayloadAction<string>
     ) {
@@ -58,14 +58,14 @@ const sistemaSlice = createSlice({
       state.success = payload;
       state.isLoading = false;
     },
-    requestUsuarioSuccess(
+    requestClienteSuccess(
       state: TInitialState,
-      { payload }: PayloadAction<Usuario>
+      { payload }: PayloadAction<Cliente>
     ) {
-      state.usuario = payload;
+      state.cliente = payload;
       state.showForm = true;
     },
-    requestUsuariosError(
+    requestClientesError(
       state: TInitialState,
       { payload }: PayloadAction<string>
     ) {
@@ -77,6 +77,6 @@ const sistemaSlice = createSlice({
   },
 });
 
-export const sistemaActions = sistemaSlice.actions;
+export const clienteActions = clienteSlice.actions;
 
-export default sistemaSlice;
+export default clienteSlice;
