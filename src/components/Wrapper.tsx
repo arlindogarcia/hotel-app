@@ -17,6 +17,7 @@ import {
   FlexProps,
 } from '@chakra-ui/react';
 import {
+  FiGrid,
   FiHome,
   FiMenu,
   FiUser,
@@ -39,6 +40,7 @@ const LinkItems: Array<LinkItemProps> = [
   { name: 'Início', icon: FiHome, href: '/' },
   { name: 'Usuários', icon: FiUser, href: '/usuarios' },
   { name: 'Clientes', icon: FiUsers, href: '/clientes' },
+  { name: 'Hoteis', icon: FiGrid, href: '/hoteis' },
 ];
 
 export default function Wrapper({
