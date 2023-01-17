@@ -15,16 +15,10 @@ import {
   useDisclosure,
   BoxProps,
   FlexProps,
-  Menu,
-  MenuButton,
-  MenuDivider,
-  MenuItem,
-  MenuList,
 } from '@chakra-ui/react';
 import {
   FiHome,
   FiMenu,
-  FiChevronDown,
   FiUser,
 } from 'react-icons/fi';
 import { IconType } from 'react-icons/lib';
@@ -32,7 +26,8 @@ import { ReactText } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../modules/app/mainReducer';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { loginActions } from '../modules/login/reducer';
+import { BrowserView, MobileView } from 'react-device-detect';
+import WrapperUser from './WrapperUser';
 
 interface LinkItemProps {
   name: string;
@@ -103,6 +98,11 @@ const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
         </Text>
         <CloseButton display={{ base: 'flex', md: 'none' }} onClick={onClose} />
       </Flex>
+      <BrowserView>
+        <Flex alignItems="center" width="full" justifyContent="center">
+          <WrapperUser />
+        </Flex>
+      </BrowserView>
       {LinkItems.map((link) => (
         <NavItem key={link.name} icon={link.icon} href={link.href} onClick={() => navigate(link.href)}>
           {link.name}
@@ -126,8 +126,9 @@ const NavItem = ({ href, icon, children, ...rest }: NavItemProps) => {
         bg={location.pathname === href ? 'cyan.400' : ''}
         color={location.pathname === href ? 'white' : ''}
         align="center"
-        p="4"
+        p="3"
         mx="4"
+        mt="1"
         borderRadius="lg"
         role="group"
         cursor="pointer"
@@ -160,62 +161,39 @@ const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
   const dispatch = useDispatch();
 
   return (
-    <Flex
-      ml={{ base: 0, md: 60 }}
-      px={{ base: 4, md: 4 }}
-      height="20"
-      alignItems="center"
-      bg={useColorModeValue('white', 'gray.900')}
-      borderBottomWidth="1px"
-      borderBottomColor={useColorModeValue('gray.200', 'gray.700')}
-      justifyContent={{ base: 'space-between', md: 'flex-end' }}
-      {...rest}>
-      <IconButton
-        display={{ base: 'flex', md: 'none' }}
-        onClick={onOpen}
-        variant="outline"
-        aria-label="open menu"
-        icon={<FiMenu />}
-      />
+    <MobileView>
+      <Flex
+        ml={{ base: 0, md: 60 }}
+        px={{ base: 4, md: 4 }}
+        height="20"
+        alignItems="center"
+        bg={useColorModeValue('white', 'gray.900')}
+        borderBottomWidth="1px"
+        borderBottomColor={useColorModeValue('gray.200', 'gray.700')}
+        justifyContent={{ base: 'space-between', md: 'flex-end' }}
+        {...rest}>
+        <IconButton
+          display={{ base: 'flex', md: 'none' }}
+          onClick={onOpen}
+          variant="outline"
+          aria-label="open menu"
+          icon={<FiMenu />}
+        />
 
-      <Text
-        display={{ base: 'flex', md: 'none' }}
-        fontSize="2xl"
-        fontFamily="monospace"
-        fontWeight="bold">
-        Logo
-      </Text>
+        <Text
+          display={{ base: 'flex', md: 'none' }}
+          fontSize="2xl"
+          fontFamily="monospace"
+          fontWeight="bold">
+          Logo
+        </Text>
 
-      <HStack spacing={{ base: '0', md: '6' }}>
-        <Flex alignItems={'center'}>
-          <Menu>
-            <MenuButton
-              py={2}
-              transition="all 0.3s"
-              _focus={{ boxShadow: 'none' }}>
-              <HStack>
-                <VStack
-                  display={{ base: 'none', md: 'flex' }}
-                  alignItems="flex-start"
-                  spacing="1px"
-                  ml="2">
-                  <Text fontSize="sm">{usuario?.nome}</Text>
-                </VStack>
-                <Box display={{ base: 'none', md: 'flex' }}>
-                  <FiChevronDown />
-                </Box>
-              </HStack>
-            </MenuButton>
-            <MenuList
-              bg={useColorModeValue('white', 'gray.900')}
-              borderColor={useColorModeValue('gray.200', 'gray.700')}>
-              <MenuItem>Perfil</MenuItem>
-              <MenuDivider />
-              <MenuItem onClick={() => dispatch(loginActions.logout())}>Sair</MenuItem>
-            </MenuList>
-          </Menu>
-        </Flex>
-      </HStack>
-    </Flex>
+        <HStack spacing={{ base: '0', md: '6' }}>
+          <Flex alignItems={'center'}>
+            <WrapperUser />
+          </Flex>
+        </HStack>
+      </Flex>
+    </MobileView>
   );
 };
