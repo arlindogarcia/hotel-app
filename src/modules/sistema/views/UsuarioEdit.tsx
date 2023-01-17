@@ -16,6 +16,7 @@ import Wrapper from "../../../components/Wrapper"
 import { useIsAuth } from "../../../hooks/useIsAuth";
 import { validateForm } from "../../../utils/validationForm";
 import { RootState } from "../../app/mainReducer";
+import { clienteActions } from "../../cliente/reducer";
 import { sistemaActions } from "../reducer";
 
 const UsuarioEdit = () => {
@@ -23,6 +24,12 @@ const UsuarioEdit = () => {
 
   useIsAuth();
 
+  const hoteis = useSelector((state: RootState) => {
+    return state.cliente.hoteis.map(hotel => ({
+      label: hotel.nome,
+      value: hotel.id as string,
+    }))
+  })
   const usuario = useSelector((state: RootState) => state.sistema.usuario)
   const error = useSelector((state: RootState) => state.sistema.error)
   const success = useSelector((state: RootState) => state.sistema.success)
@@ -35,6 +42,7 @@ const UsuarioEdit = () => {
     if (!id) return;
 
     dispatch(sistemaActions.requestUsuario({ id }))
+    dispatch(clienteActions.requestHoteis())
   }, [dispatch])
 
   return (
@@ -83,12 +91,7 @@ const UsuarioEdit = () => {
                 <MultiSelectInputField
                   name="acessos_quais_hoteis"
                   label="Ver quais hotéis?"
-                  items={[
-                    {
-                      label: 'Todos',
-                      value: 'Todos',
-                    }
-                  ]}
+                  items={hoteis}
                 />
                 <MultiSelectInputField
                   name="acessos_sistema"

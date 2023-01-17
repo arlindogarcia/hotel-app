@@ -7,7 +7,7 @@ export const novoUsuario = (): Usuario => {
     email: "",
     password: "",
     celular: "",
-    acessos_quais_hoteis: "Todos",
+    acessos_quais_hoteis: "",
     acessos_sistema: "",
     ativo: true,
   }
