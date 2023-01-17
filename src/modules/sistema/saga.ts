@@ -74,10 +74,50 @@ function* requestSaveUsuarioWorker({ payload }: PayloadAction<IParamShow>) {
   }
 }
 
+function* requestPerfilWorker({ payload }: PayloadAction<IParamShow>) {
+  try {
+    const res: AxiosResponse = yield call(apiCall, {
+      url: `/profile`,
+      method: "get",
+    });
+    console.log("show", res.data);
+    yield put(sistemaActions.requestPerfilSuccess(res.data));
+  } catch (error: any) {
+    console.log("error", error);
+    yield put(
+      sistemaActions.requestUsuariosError(
+        formatError(error)
+      )
+    );
+  }
+}
+
+function* requestSavePerfilWorker({ payload }: PayloadAction<IParamShow>) {
+  try {
+    const res: AxiosResponse = yield call(apiCall, {
+      url: `/profile`,
+      method: "put",
+      data: payload,
+    });
+    console.log("save", res.data);
+    yield put(sistemaActions.requestSaveUsuarioSuccess("Perfil salvo com sucesso."));
+  } catch (error: any) {
+    console.log("error", error);
+    yield put(
+      sistemaActions.requestUsuariosError(
+        formatError(error)
+      )
+    );
+  }
+}
+
+
 export function* sistemaSaga() {
   yield all([
     takeLatest("sistema/requestUsuarios", requestUsuariosWorker),
     takeLatest("sistema/requestUsuario", requestUsuarioWorker),
     takeLatest("sistema/requestSaveUsuario", requestSaveUsuarioWorker),
+    takeLatest("sistema/requestPerfil", requestPerfilWorker),
+    takeLatest("sistema/requestSavePerfil", requestSavePerfilWorker),
   ]);
 }

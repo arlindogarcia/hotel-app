@@ -4,7 +4,7 @@ import { ClienteEdit, ClienteList, HotelList } from "../cliente/views";
 import HotelEdit from "../cliente/views/HotelEdit";
 import Home from "../home/Home";
 import { Login } from "../login/views";
-import { UsuarioEdit, UsuarioList } from "../sistema/views";
+import { PerfilEdit, UsuarioEdit, UsuarioList } from "../sistema/views";
 
 export const App: React.FC<{}> = () => {
   return (
@@ -18,6 +18,7 @@ export const App: React.FC<{}> = () => {
         <Route path="/clientes/:id" element={<ClienteEdit />} />
         <Route path="/hoteis" element={<HotelList />} />
         <Route path="/hoteis/:id" element={<HotelEdit />} />
+        <Route path="/perfil" element={<PerfilEdit />} />
       </Routes>
     </BrowserRouter>
   );

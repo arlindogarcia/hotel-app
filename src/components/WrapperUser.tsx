@@ -1,12 +1,14 @@
 import { Box, HStack, Menu, MenuButton, MenuDivider, MenuItem, MenuList, Text, useColorModeValue, VStack } from "@chakra-ui/react"
 import { FiChevronDown } from "react-icons/fi"
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { RootState } from "../modules/app/mainReducer";
 import { loginActions } from "../modules/login/reducer";
 
 const WrapperUser = () => {
   const usuario = useSelector((state: RootState) => state.login.usuario);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   return (
     <Menu>
@@ -29,7 +31,7 @@ const WrapperUser = () => {
       <MenuList
         bg={useColorModeValue('white', 'gray.900')}
         borderColor={useColorModeValue('gray.200', 'gray.700')}>
-        <MenuItem>Perfil</MenuItem>
+        <MenuItem onClick={() => navigate('/perfil')}>Perfil</MenuItem>
         <MenuDivider />
         <MenuItem onClick={() => dispatch(loginActions.logout())}>Sair</MenuItem>
       </MenuList>

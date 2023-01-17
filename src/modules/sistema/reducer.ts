@@ -9,6 +9,7 @@ type TInitialState = {
   success: string;
   usuarios: Usuario[];
   usuario: Usuario | null;
+  perfil: Usuario | null;
 };
 
 const initialState: TInitialState = {
@@ -19,6 +20,7 @@ const initialState: TInitialState = {
   success: "",
   usuarios: [],
   usuario: null,
+  perfil: null,
 };
 
 const sistemaSlice = createSlice({
@@ -73,6 +75,39 @@ const sistemaSlice = createSlice({
       state.isLoading = false;
       state.error = payload;
       state.success = "";
+    },
+    // PERFIL
+    requestPerfil(state: TInitialState) {
+      state.perfil = null;
+      state.showForm = false;
+      state.error = "";
+      state.success = "";
+    },
+    requestPerfilSuccess(
+      state: TInitialState,
+      { payload }: PayloadAction<Usuario>
+    ) {
+      state.perfil = {
+        ...payload,
+        old_password: "",
+        password: "",
+        password_confirmation: "",
+      };
+      state.showForm = true;
+    },
+    requestSavePerfil(
+      state: TInitialState,
+      { payload }: PayloadAction<Usuario>
+    ) {
+      state.isLoading = true;
+    },
+    requestSavePerfilSuccess(
+      state: TInitialState,
+      { payload }: PayloadAction<string>
+    ) {
+      state.error = "";
+      state.success = payload;
+      state.isLoading = false;
     },
   },
 });
