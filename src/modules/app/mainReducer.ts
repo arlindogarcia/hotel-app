@@ -1,9 +1,10 @@
 import { configureStore } from "@reduxjs/toolkit";
 import createSagaMiddleware from "redux-saga";
-import loginSlice from "../login/store/reducer";
+import loginSlice from "../login/reducer";
 import { mainSaga } from "./mainSaga";
 import { persistStore, persistReducer } from 'redux-persist';
 import storage from "redux-persist/lib/storage";
+import sistemaSlice from "../sistema/reducer";
 
 const sagaMiddleware = createSagaMiddleware();
 
@@ -15,6 +16,7 @@ const persistConfig = {
 export const store = configureStore({
   reducer: {
     login: persistReducer(persistConfig, loginSlice.reducer),
+    sistema: persistReducer(persistConfig, sistemaSlice.reducer),
   },
   middleware: [sagaMiddleware],
 });

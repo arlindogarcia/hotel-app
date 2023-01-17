@@ -25,13 +25,14 @@ import {
   FiHome,
   FiMenu,
   FiChevronDown,
+  FiUser,
 } from 'react-icons/fi';
 import { IconType } from 'react-icons/lib';
 import { ReactText } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../modules/app/mainReducer';
-import { useLocation } from 'react-router-dom';
-import { loginActions } from '../modules/login/store/reducer';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { loginActions } from '../modules/login/reducer';
 
 interface LinkItemProps {
   name: string;
@@ -40,6 +41,7 @@ interface LinkItemProps {
 }
 const LinkItems: Array<LinkItemProps> = [
   { name: 'Início', icon: FiHome, href: '/' },
+  { name: 'Usuários', icon: FiUser, href: '/usuarios' },
 ];
 
 export default function Wrapper({
@@ -83,6 +85,8 @@ interface SidebarProps extends BoxProps {
 }
 
 const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
+  const navigate = useNavigate();
+
   return (
     <Box
       transition="3s ease"
@@ -100,7 +104,7 @@ const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
         <CloseButton display={{ base: 'flex', md: 'none' }} onClick={onClose} />
       </Flex>
       {LinkItems.map((link) => (
-        <NavItem key={link.name} icon={link.icon} href={link.href}>
+        <NavItem key={link.name} icon={link.icon} href={link.href} onClick={() => navigate(link.href)}>
           {link.name}
         </NavItem>
       ))}
@@ -117,7 +121,7 @@ const NavItem = ({ href, icon, children, ...rest }: NavItemProps) => {
   const location = useLocation();
 
   return (
-    <Link href={href} style={{ textDecoration: 'none' }} _focus={{ boxShadow: 'none' }}>
+    <Link style={{ textDecoration: 'none' }} _focus={{ boxShadow: 'none' }}>
       <Flex
         bg={location.pathname === href ? 'cyan.400' : ''}
         color={location.pathname === href ? 'white' : ''}

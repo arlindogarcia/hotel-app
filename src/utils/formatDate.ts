@@ -22,3 +22,25 @@ export function formatDate(
     return "";
   }
 }
+
+export function formatDateTime(
+  date: Date | string,
+  formatStr = "dd/MM/yyyy HH:mm"
+): string {
+  if (!date) {
+    return "";
+  }
+  try {
+    if (typeof date === "string") {
+      return format(parseISO(date), formatStr, {
+        locale: ptBR,
+      });
+    }
+    return format(date, formatStr, {
+      locale: ptBR,
+    });
+  } catch (error) {
+    console.log("error on format date", date);
+    return "";
+  }
+}

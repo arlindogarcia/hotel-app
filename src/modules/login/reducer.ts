@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { Usuario } from "../types/usuario";
+import { Usuario } from "./types/usuario";
 
 type TInitialState = {
   isLogged: boolean;

@@ -13,7 +13,7 @@ import { InputField } from "../../../components/InputField";
 import { LoaderButton } from "../../../components/LoaderButton";
 import { RootState } from "../../app/mainReducer";
 import ApplicationLogo from "../components/ApplicationLogo";
-import { loginActions } from "../store/reducer";
+import { loginActions } from "../reducer";
 
 const Login: React.FC<{}> = () => {
   const navigate = useNavigate();
