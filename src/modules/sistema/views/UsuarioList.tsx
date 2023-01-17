@@ -48,7 +48,7 @@ const UsuarioList = () => {
       label: "Ações",
       wrapped: true,
       render: (reg) => (
-        <EditButton />
+        <EditButton href={`/usuarios/${reg.id}`} />
       )
     }
   ]
@@ -61,7 +61,6 @@ const UsuarioList = () => {
       {usuarios && (
         <ResponsiveTable headers={headers} data={usuarios} />
       )}
-
     </Wrapper>
   )
 }

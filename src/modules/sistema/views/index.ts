@@ -1,3 +1,4 @@
 import UsuarioList from "./UsuarioList";
+import UsuarioEdit from "./UsuarioEdit";
 
-export { UsuarioList };
+export { UsuarioList, UsuarioEdit };

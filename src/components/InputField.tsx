@@ -28,10 +28,17 @@ export const InputField: React.FC<InputFieldProps> = ({
 
   if (mask && mask.length > 1) {
     return (
-      <FormControl>
+      <FormControl isInvalid={touched && error ? true : false}>
         <FormLabel>{label}</FormLabel>
-        <ReactInputMask disabled={disabled} mask={mask} {...field} />
-        {touched && error && <FormErrorMessage>{error}</FormErrorMessage>}
+        <Input
+          as={ReactInputMask}
+          mask={mask}
+          disabled={disabled}
+          type={props.type}
+          {...field}
+          isInvalid={touched && error ? true : false}
+        />
+        {error && <FormErrorMessage>{error}</FormErrorMessage>}
       </FormControl>
     );
   }
