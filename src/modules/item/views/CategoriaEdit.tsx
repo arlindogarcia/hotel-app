@@ -1,4 +1,4 @@
-import { ButtonGroup, Flex, Spacer } from "@chakra-ui/react";
+import { Flex, Spacer } from "@chakra-ui/react";
 import { Form, Formik } from "formik";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -8,51 +8,54 @@ import Error from "../../../components/Error";
 import { InputField } from "../../../components/InputField";
 import ListHeader from "../../../components/ListHeader";
 import { LoaderButton } from "../../../components/LoaderButton";
-import MultiSelectInput from "../../../components/MultiSelectInput";
-import { MultiSelectInputField } from "../../../components/MultiSelectInputField";
-import SelectField from "../../../components/SelectField";
 import Success from "../../../components/Success";
 import Wrapper from "../../../components/Wrapper"
 import { useIsAuth } from "../../../hooks/useIsAuth";
 import { validateForm } from "../../../utils/validationForm";
 import { RootState } from "../../app/mainReducer";
-import { clienteActions } from "../reducer";
+import { SubcategoriaList } from "../components";
+import { itemActions } from "../reducer";
 
-const ClienteEdit = () => {
+const CategoriaEdit = () => {
   const { id } = useParams();
 
   useIsAuth();
 
-  const usuario = useSelector((state: RootState) => state.cliente.cliente)
-  const error = useSelector((state: RootState) => state.cliente.error)
-  const success = useSelector((state: RootState) => state.cliente.success)
-  const isLoading = useSelector((state: RootState) => state.cliente.isLoading)
-  const showForm = useSelector((state: RootState) => state.cliente.showForm)
+  const categoria = useSelector((state: RootState) => state.item.categoria)
+  const error = useSelector((state: RootState) => state.item.error)
+  const success = useSelector((state: RootState) => state.item.success)
+  const isLoading = useSelector((state: RootState) => state.item.isLoading)
+  const showForm = useSelector((state: RootState) => state.item.showForm)
+  const usuario = useSelector((state: RootState) => state.login.user);
 
   const dispatch = useDispatch()
 
   useEffect(() => {
     if (!id) return;
 
-    dispatch(clienteActions.requestCliente({ id }))
-  }, [dispatch])
+    dispatch(itemActions.requestCategoria({ id }))
+  }, [dispatch, id])
 
   return (
     <Wrapper>
-      <ListHeader label="Cliente" button_back={true} isLoading={isLoading} />
+      <ListHeader label="Categoria" button_back={true} isLoading={isLoading} />
       <Flex bgColor="white" px="1rem" py="1rem" mt="1rem" direction="column">
         <Error error={error} />
         <Success success={success} />
-        {showForm && usuario && <Formik
+        {showForm && categoria && <Formik
           enableReinitialize
-          initialValues={usuario}
+          initialValues={categoria}
           onSubmit={(val, { setErrors }) => {
             const validation = validateForm({ nome: 'required' }, val)
             if (validation) {
               setErrors(validation)
               return;
             }
-            dispatch(clienteActions.requestSaveCliente(val));
+
+            dispatch(itemActions.requestSaveCategoria({
+              ...val,
+              cliente_id: usuario?.cliente_id as string,
+            }));
           }}
         >
           {({ values }) => (
@@ -64,19 +67,11 @@ const ClienteEdit = () => {
               />
               <CheckField
                 name="ativo"
-                label="Usuário ativo?"
+                label="Categoria ativa?"
                 mb={2}
               />
-              <MultiSelectInputField
-                name="modulos_contratados"
-                label="Módulos contratados"
-                items={[
-                  {
-                    label: 'Pedido de alimentos',
-                    value: 'PedidoDeAlimentos',
-                  },
-                ]}
-              />
+
+              <SubcategoriaList subcategorias={values.subcategorias} />
 
               <Spacer />
 
@@ -96,4 +91,4 @@ const ClienteEdit = () => {
   )
 }
 
-export default ClienteEdit;
+export default CategoriaEdit;

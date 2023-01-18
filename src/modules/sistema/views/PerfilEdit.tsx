@@ -20,7 +20,6 @@ const PerfilEdit = () => {
   const error = useSelector((state: RootState) => state.sistema.error)
   const success = useSelector((state: RootState) => state.sistema.success)
   const isLoading = useSelector((state: RootState) => state.sistema.isLoading)
-  const showForm = useSelector((state: RootState) => state.sistema.showForm)
 
   const dispatch = useDispatch()
 
@@ -34,7 +33,8 @@ const PerfilEdit = () => {
       <Flex bgColor="white" px="1rem" py="1rem" mt="1rem" direction="column">
         <Error error={error} />
         <Success success={success} />
-        {showForm && perfil && <Formik
+        {perfil && <Formik
+          enableReinitialize
           initialValues={perfil}
           onSubmit={(val, { setErrors }) => {
             const validation = validateForm({ nome: 'required', email: 'required' }, val)
@@ -49,7 +49,7 @@ const PerfilEdit = () => {
                 return;
               }
 
-              if (val.password_confirmation != val.password) {
+              if (val.password_confirmation !== val.password) {
                 setErrors({ password_confirmation: 'A confirmação de nova senha e nova senha devem ser iguais.' })
                 return;
               }
@@ -68,6 +68,7 @@ const PerfilEdit = () => {
               <InputField
                 name="email"
                 label="Email"
+                type="email"
               />
               <InputField
                 name="celular"
@@ -78,14 +79,17 @@ const PerfilEdit = () => {
               <InputField
                 name="old_password"
                 label="Senha atual"
+                type="password"
               />
               <InputField
                 name="password"
                 label="Nova senha"
+                type="password"
               />
               <InputField
                 name="password_confirmation"
                 label="Confirmação nova senha"
+                type="password"
               />
 
               <Spacer />

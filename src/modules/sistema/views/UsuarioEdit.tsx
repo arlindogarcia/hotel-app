@@ -8,7 +8,6 @@ import Error from "../../../components/Error";
 import { InputField } from "../../../components/InputField";
 import ListHeader from "../../../components/ListHeader";
 import { LoaderButton } from "../../../components/LoaderButton";
-import MultiSelectInput from "../../../components/MultiSelectInput";
 import { MultiSelectInputField } from "../../../components/MultiSelectInputField";
 import SelectField from "../../../components/SelectField";
 import Success from "../../../components/Success";
@@ -37,7 +36,6 @@ const UsuarioEdit = () => {
   const error = useSelector((state: RootState) => state.sistema.error)
   const success = useSelector((state: RootState) => state.sistema.success)
   const isLoading = useSelector((state: RootState) => state.sistema.isLoading)
-  const showForm = useSelector((state: RootState) => state.sistema.showForm)
 
   const dispatch = useDispatch()
 
@@ -47,7 +45,7 @@ const UsuarioEdit = () => {
     dispatch(sistemaActions.requestUsuario({ id }))
     dispatch(clienteActions.requestHoteis())
     dispatch(clienteActions.requestClientes())
-  }, [dispatch])
+  }, [dispatch, id])
 
   return (
     <Wrapper>
@@ -55,7 +53,8 @@ const UsuarioEdit = () => {
       <Flex bgColor="white" px="1rem" py="1rem" mt="1rem" direction="column">
         <Error error={error} />
         <Success success={success} />
-        {showForm && usuario && <Formik
+        {usuario && <Formik
+          enableReinitialize
           initialValues={usuario}
           onSubmit={(val, { setErrors }) => {
             const validation = validateForm({ nome: 'required', email: 'required', password: 'requiredIfNotId' }, val)
@@ -81,6 +80,7 @@ const UsuarioEdit = () => {
               <InputField
                 name="email"
                 label="Email"
+                type="email"
               />
               <InputField
                 name="celular"

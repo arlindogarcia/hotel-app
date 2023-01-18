@@ -42,6 +42,7 @@ const ClientePlanoEdit = () => {
         <Error error={error} />
         <Success success={success} />
         {showForm && plano && <Formik
+          enableReinitialize
           initialValues={plano}
           onSubmit={(val, { setErrors }) => {
             const validation = validateForm({ nome: 'required' }, val)

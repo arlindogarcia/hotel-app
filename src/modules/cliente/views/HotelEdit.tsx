@@ -44,6 +44,7 @@ const HotelEdit = () => {
         <Error error={error} />
         <Success success={success} />
         {showForm && hotel && <Formik
+          enableReinitialize
           initialValues={hotel}
           onSubmit={(val, { setErrors }) => {
             const validation = validateForm({ nome: 'required', cliente_id: 'required' }, val)

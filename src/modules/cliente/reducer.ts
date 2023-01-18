@@ -1,5 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { Cliente } from "./types/cliente";
+import { ClientePlano } from "./types/cliente_plano";
 import { Hotel } from "./types/hotel";
 
 type TInitialState = {
@@ -61,10 +62,11 @@ const clienteSlice = createSlice({
     },
     requestSaveClienteSuccess(
       state: TInitialState,
-      { payload }: PayloadAction<string>
+      { payload }: PayloadAction<Cliente>
     ) {
       state.error = "";
-      state.success = payload;
+      state.cliente = payload;
+      state.success = "Cliente salvo com sucesso.";
       state.isLoading = false;
     },
     requestClienteSuccess(
@@ -102,10 +104,11 @@ const clienteSlice = createSlice({
     },
     requestSaveHotelSuccess(
       state: TInitialState,
-      { payload }: PayloadAction<string>
+      { payload }: PayloadAction<Hotel>
     ) {
       state.error = "";
-      state.success = payload;
+      state.success = "Hotel salvo com sucesso.";
+      state.hotel = payload;
       state.isLoading = false;
     },
     requestHotelSuccess(
@@ -159,10 +162,11 @@ const clienteSlice = createSlice({
     },
     requestSavePlanoSuccess(
       state: TInitialState,
-      { payload }: PayloadAction<string>
+      { payload }: PayloadAction<ClientePlano>
     ) {
       state.error = "";
-      state.success = payload;
+      state.plano = payload;
+      state.success = "Plano salvo com sucesso.";
       state.isLoading = false;
     },
   },

@@ -4,7 +4,6 @@ import { Usuario } from "../login/types/usuario";
 type TInitialState = {
   isLoadingList: boolean;
   isLoading: boolean;
-  showForm: boolean;
   error: string;
   success: string;
   usuarios: Usuario[];
@@ -15,7 +14,6 @@ type TInitialState = {
 const initialState: TInitialState = {
   isLoadingList: false,
   isLoading: false,
-  showForm: false,
   error: "",
   success: "",
   usuarios: [],
@@ -31,7 +29,6 @@ const sistemaSlice = createSlice({
       state.isLoadingList = true;
       state.error = "";
       state.success = "";
-      state.usuario = null;
     },
     requestUsuariosSuccess(
       state: TInitialState,
@@ -41,8 +38,6 @@ const sistemaSlice = createSlice({
       state.usuarios = payload;
     },
     requestUsuario(state: TInitialState, _: PayloadAction<{ id: string }>) {
-      state.usuario = null;
-      state.showForm = false;
       state.error = "";
       state.success = "";
     },
@@ -54,10 +49,20 @@ const sistemaSlice = createSlice({
     },
     requestSaveUsuarioSuccess(
       state: TInitialState,
-      { payload }: PayloadAction<string>
+      { payload }: PayloadAction<Usuario>
     ) {
       state.error = "";
-      state.success = payload;
+      state.success = "Usuário salvo com sucesso.";
+      state.usuario = payload;
+      state.isLoading = false;
+    },
+    requestSavePerfilSuccess(
+      state: TInitialState,
+      { payload }: PayloadAction<Usuario>
+    ) {
+      state.error = "";
+      state.success = "Perfil salvo com sucesso.";
+      state.perfil = payload;
       state.isLoading = false;
     },
     requestUsuarioSuccess(
@@ -65,7 +70,6 @@ const sistemaSlice = createSlice({
       { payload }: PayloadAction<Usuario>
     ) {
       state.usuario = payload;
-      state.showForm = true;
     },
     requestUsuariosError(
       state: TInitialState,
@@ -79,7 +83,6 @@ const sistemaSlice = createSlice({
     // PERFIL
     requestPerfil(state: TInitialState) {
       state.perfil = null;
-      state.showForm = false;
       state.error = "";
       state.success = "";
     },
@@ -93,21 +96,12 @@ const sistemaSlice = createSlice({
         password: "",
         password_confirmation: "",
       };
-      state.showForm = true;
     },
     requestSavePerfil(
       state: TInitialState,
       { payload }: PayloadAction<Usuario>
     ) {
       state.isLoading = true;
-    },
-    requestSavePerfilSuccess(
-      state: TInitialState,
-      { payload }: PayloadAction<string>
-    ) {
-      state.error = "";
-      state.success = payload;
-      state.isLoading = false;
     },
   },
 });

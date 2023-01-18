@@ -5,7 +5,6 @@ import {
   CloseButton,
   Flex,
   HStack,
-  VStack,
   Icon,
   useColorModeValue,
   Link,
@@ -90,6 +89,7 @@ const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
     { name: 'Clientes', icon: FiUsers, href: '/clientes', visible: getPermissionsSistema(usuario?.acessos_sistema) },
     { name: 'Hoteis', icon: FiGrid, href: '/hoteis', visible: getPermissionsSistema(usuario?.acessos_sistema) },
     { name: 'Planos', icon: FiLayers, href: '/planos', visible: getPermissionsSistema(usuario?.acessos_sistema, 'AdminRedeHotel') },
+    { name: 'Categorias', icon: FiLayers, href: '/categorias', visible: getPermissionsSistema(usuario?.acessos_sistema, 'AdminRedeHotel') },
   ];
 
   return (

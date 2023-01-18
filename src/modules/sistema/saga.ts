@@ -63,7 +63,7 @@ function* requestSaveUsuarioWorker({ payload }: PayloadAction<IParamShow>) {
       data: payload,
     });
     console.log("save", res.data);
-    yield put(sistemaActions.requestSaveUsuarioSuccess("Usuário salvo com sucesso."));
+    yield put(sistemaActions.requestSaveUsuarioSuccess(res.data));
   } catch (error: any) {
     console.log("error", error);
     yield put(
@@ -100,7 +100,7 @@ function* requestSavePerfilWorker({ payload }: PayloadAction<IParamShow>) {
       data: payload,
     });
     console.log("save", res.data);
-    yield put(sistemaActions.requestSaveUsuarioSuccess("Perfil salvo com sucesso."));
+    yield put(sistemaActions.requestSavePerfilSuccess(res.data));
   } catch (error: any) {
     console.log("error", error);
     yield put(

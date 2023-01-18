@@ -32,7 +32,7 @@ interface IParamShow {
 
 function* requestClienteWorker({ payload }: PayloadAction<IParamShow>) {
   try {
-    if (payload.id == 'novo') {
+    if (payload.id === 'novo') {
       yield put(clienteActions.requestClienteSuccess(novoCliente()));
       return;
     }
@@ -61,7 +61,7 @@ function* requestSaveClienteWorker({ payload }: PayloadAction<IParamShow>) {
       data: payload,
     });
     console.log("save", res.data);
-    yield put(clienteActions.requestSaveClienteSuccess("Usuário salvo com sucesso."));
+    yield put(clienteActions.requestSaveClienteSuccess(res.data));
   } catch (error: any) {
     console.log("error", error);
     yield put(
@@ -96,7 +96,7 @@ interface IParamShow {
 
 function* requestHotelWorker({ payload }: PayloadAction<IParamShow>) {
   try {
-    if (payload.id == 'novo') {
+    if (payload.id === 'novo') {
       yield put(clienteActions.requestHotelSuccess(novoHotel()));
       return;
     }
@@ -125,7 +125,7 @@ function* requestSaveHotelWorker({ payload }: PayloadAction<IParamShow>) {
       data: payload,
     });
     console.log("save", res.data);
-    yield put(clienteActions.requestSaveHotelSuccess("Hotel salvo com sucesso."));
+    yield put(clienteActions.requestSaveHotelSuccess(res.data));
   } catch (error: any) {
     console.log("error", error);
     yield put(
@@ -160,7 +160,7 @@ interface IParamShow {
 
 function* requestPlanoWorker({ payload }: PayloadAction<IParamShow>) {
   try {
-    if (payload.id == 'novo') {
+    if (payload.id === 'novo') {
       yield put(clienteActions.requestPlanoSuccess(novoClientePlano()));
       return;
     }
@@ -189,7 +189,7 @@ function* requestSavePlanoWorker({ payload }: PayloadAction<IParamShow>) {
       data: payload,
     });
     console.log("save", res.data);
-    yield put(clienteActions.requestSavePlanoSuccess("Plano salvo com sucesso."));
+    yield put(clienteActions.requestSavePlanoSuccess(res.data));
   } catch (error: any) {
     console.log("error", error);
     yield put(

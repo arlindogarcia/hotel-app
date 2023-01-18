@@ -6,6 +6,7 @@ import { persistStore, persistReducer } from 'redux-persist';
 import storage from "redux-persist/lib/storage";
 import sistemaSlice from "../sistema/reducer";
 import clienteSlice from "../cliente/reducer";
+import itemSlice from "../item/reducer";
 
 const sagaMiddleware = createSagaMiddleware();
 
@@ -23,6 +24,10 @@ export const store = configureStore({
       key: 'cliente',
       storage: storage,
     }, clienteSlice.reducer),
+    item: persistReducer({
+      key: 'item',
+      storage: storage,
+    }, itemSlice.reducer),
   },
   middleware: [sagaMiddleware],
 });
