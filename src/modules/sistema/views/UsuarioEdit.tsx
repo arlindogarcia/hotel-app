@@ -14,6 +14,7 @@ import SelectField from "../../../components/SelectField";
 import Success from "../../../components/Success";
 import Wrapper from "../../../components/Wrapper"
 import { useIsAuth } from "../../../hooks/useIsAuth";
+import { getPermissionsSistema } from "../../../utils/permissions";
 import { validateForm } from "../../../utils/validationForm";
 import { RootState } from "../../app/mainReducer";
 import { clienteActions } from "../../cliente/reducer";
@@ -31,6 +32,8 @@ const UsuarioEdit = () => {
     }))
   })
   const usuario = useSelector((state: RootState) => state.sistema.usuario)
+  const usuarioLogado = useSelector((state: RootState) => state.login.user)
+  const clientes = useSelector((state: RootState) => state.cliente.clientes)
   const error = useSelector((state: RootState) => state.sistema.error)
   const success = useSelector((state: RootState) => state.sistema.success)
   const isLoading = useSelector((state: RootState) => state.sistema.isLoading)
@@ -43,11 +46,12 @@ const UsuarioEdit = () => {
 
     dispatch(sistemaActions.requestUsuario({ id }))
     dispatch(clienteActions.requestHoteis())
+    dispatch(clienteActions.requestClientes())
   }, [dispatch])
 
   return (
     <Wrapper>
-      <ListHeader label="Usuário" button_back={true} />
+      <ListHeader label="Usuário" button_back={true} isLoading={isLoading} />
       <Flex bgColor="white" px="1rem" py="1rem" mt="1rem" direction="column">
         <Error error={error} />
         <Success success={success} />
@@ -59,6 +63,11 @@ const UsuarioEdit = () => {
               setErrors(validation)
               return;
             }
+
+            if (!val.cliente_id) {
+              val.cliente_id = usuarioLogado?.cliente_id as string;
+            }
+
             dispatch(sistemaActions.requestSaveUsuario(val));
           }}
         >
@@ -81,7 +90,19 @@ const UsuarioEdit = () => {
               <InputField
                 name="password"
                 label="Nova senha"
+                type="password"
               />
+              {
+                getPermissionsSistema(usuarioLogado?.acessos_sistema) && <SelectField
+                  name="cliente_id"
+                  label="Cliente"
+                >
+                  <option value="">Selecione...</option>
+                  {clientes.map(cliente => (
+                    <option key={cliente.id} value={cliente.id as string}>{cliente.nome}</option>
+                  ))}
+                </SelectField>
+              }
               <CheckField
                 name="ativo"
                 label="Usuário ativo?"
@@ -93,20 +114,22 @@ const UsuarioEdit = () => {
                   label="Ver quais hotéis?"
                   items={hoteis}
                 />
-                <MultiSelectInputField
-                  name="acessos_sistema"
-                  label="Acessos ao sistema"
-                  items={[
-                    {
-                      label: 'Administrador geral',
-                      value: 'AdminGeral'
-                    },
-                    {
-                      label: 'Administrador da rede de hoteis',
-                      value: 'AdminRedeHotel'
-                    },
-                  ]}
-                />
+                {
+                  getPermissionsSistema(usuarioLogado?.acessos_sistema) && <MultiSelectInputField
+                    name="acessos_sistema"
+                    label="Acessos ao sistema"
+                    items={[
+                      {
+                        label: 'Administrador geral',
+                        value: 'AdminGeral'
+                      },
+                      {
+                        label: 'Administrador da rede de hoteis',
+                        value: 'AdminRedeHotel'
+                      },
+                    ]}
+                  />
+                }
               </ButtonGroup>
 
               <Spacer />

@@ -8,7 +8,6 @@ import Error from "../../../components/Error";
 import { InputField } from "../../../components/InputField";
 import ListHeader from "../../../components/ListHeader";
 import { LoaderButton } from "../../../components/LoaderButton";
-import SelectField from "../../../components/SelectField";
 import Success from "../../../components/Success";
 import Wrapper from "../../../components/Wrapper"
 import { useIsAuth } from "../../../hooks/useIsAuth";
@@ -16,42 +15,44 @@ import { validateForm } from "../../../utils/validationForm";
 import { RootState } from "../../app/mainReducer";
 import { clienteActions } from "../reducer";
 
-const HotelEdit = () => {
+const ClientePlanoEdit = () => {
   const { id } = useParams();
 
   useIsAuth();
 
-  const hotel = useSelector((state: RootState) => state.cliente.hotel)
-  const clientes = useSelector((state: RootState) => state.cliente.clientes)
+  const plano = useSelector((state: RootState) => state.cliente.plano)
   const error = useSelector((state: RootState) => state.cliente.error)
   const success = useSelector((state: RootState) => state.cliente.success)
   const isLoading = useSelector((state: RootState) => state.cliente.isLoading)
   const showForm = useSelector((state: RootState) => state.cliente.showForm)
+  const usuario = useSelector((state: RootState) => state.login.user);
 
   const dispatch = useDispatch()
 
   useEffect(() => {
     if (!id) return;
 
-    dispatch(clienteActions.requestHotel({ id }))
-    dispatch(clienteActions.requestClientes())
+    dispatch(clienteActions.requestPlano({ id }))
   }, [dispatch])
 
   return (
     <Wrapper>
-      <ListHeader label="Hotel" button_back={true} isLoading={isLoading} />
+      <ListHeader label="Plano" button_back={true} isLoading={isLoading} />
       <Flex bgColor="white" px="1rem" py="1rem" mt="1rem" direction="column">
         <Error error={error} />
         <Success success={success} />
-        {showForm && hotel && <Formik
-          initialValues={hotel}
+        {showForm && plano && <Formik
+          initialValues={plano}
           onSubmit={(val, { setErrors }) => {
-            const validation = validateForm({ nome: 'required', cliente_id: 'required' }, val)
+            const validation = validateForm({ nome: 'required' }, val)
             if (validation) {
               setErrors(validation)
               return;
             }
-            dispatch(clienteActions.requestSaveHotel(val));
+
+            val.cliente_id = usuario?.cliente_id as string;
+
+            dispatch(clienteActions.requestSavePlano(val));
           }}
         >
           {({ values }) => (
@@ -61,18 +62,9 @@ const HotelEdit = () => {
                 name="nome"
                 label="Nome"
               />
-              <SelectField
-                name="cliente_id"
-                label="Cliente"
-              >
-                <option value="">Selecione...</option>
-                {clientes.map(cliente => (
-                  <option key={cliente.id} value={cliente.id as string}>{cliente.nome}</option>
-                ))}
-              </SelectField>
               <CheckField
                 name="ativo"
-                label="Hotel ativo?"
+                label="Plano ativo?"
                 mb={2}
               />
 
@@ -94,4 +86,4 @@ const HotelEdit = () => {
   )
 }
 
-export default HotelEdit;
+export default ClientePlanoEdit;

@@ -9,16 +9,20 @@ import clienteSlice from "../cliente/reducer";
 
 const sagaMiddleware = createSagaMiddleware();
 
-const persistConfig = {
-  key: 'root',
-  storage: storage,
-};
-
 export const store = configureStore({
   reducer: {
-    login: persistReducer(persistConfig, loginSlice.reducer),
-    sistema: persistReducer(persistConfig, sistemaSlice.reducer),
-    cliente: persistReducer(persistConfig, clienteSlice.reducer),
+    login: persistReducer({
+      key: 'login',
+      storage: storage,
+    }, loginSlice.reducer),
+    sistema: persistReducer({
+      key: 'sistema',
+      storage: storage,
+    }, sistemaSlice.reducer),
+    cliente: persistReducer({
+      key: 'cliente',
+      storage: storage,
+    }, clienteSlice.reducer),
   },
   middleware: [sagaMiddleware],
 });

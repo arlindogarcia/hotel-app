@@ -12,6 +12,8 @@ type TInitialState = {
   cliente: Cliente | null;
   hoteis: Hotel[];
   hotel: Hotel | null;
+  planos: Hotel[];
+  plano: Hotel | null;
 };
 
 const initialState: TInitialState = {
@@ -24,6 +26,8 @@ const initialState: TInitialState = {
   cliente: null,
   hoteis: [],
   hotel: null,
+  planos: [],
+  plano: null,
 };
 
 const clienteSlice = createSlice({
@@ -119,6 +123,47 @@ const clienteSlice = createSlice({
       state.isLoading = false;
       state.error = payload;
       state.success = "";
+    },
+    // Planos
+    requestPlanos(state: TInitialState) {
+      state.isLoadingList = true;
+      state.error = "";
+      state.success = "";
+      state.plano = null;
+    },
+    requestPlanosSuccess(
+      state: TInitialState,
+      { payload }: PayloadAction<Hotel[]>
+    ) {
+      state.isLoadingList = false;
+      state.planos = payload;
+    },
+    requestPlano(state: TInitialState, _: PayloadAction<{ id: string }>) {
+      state.plano = null;
+      state.showForm = false;
+      state.error = "";
+      state.success = "";
+    },
+    requestPlanoSuccess(
+      state: TInitialState,
+      { payload }: PayloadAction<Hotel>
+    ) {
+      state.plano = payload;
+      state.showForm = true;
+    },
+    requestSavePlano(
+      state: TInitialState,
+      { payload }: PayloadAction<Hotel>
+    ) {
+      state.isLoading = true;
+    },
+    requestSavePlanoSuccess(
+      state: TInitialState,
+      { payload }: PayloadAction<string>
+    ) {
+      state.error = "";
+      state.success = payload;
+      state.isLoading = false;
     },
   },
 });

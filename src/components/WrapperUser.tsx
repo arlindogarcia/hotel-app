@@ -6,7 +6,7 @@ import { RootState } from "../modules/app/mainReducer";
 import { loginActions } from "../modules/login/reducer";
 
 const WrapperUser = () => {
-  const usuario = useSelector((state: RootState) => state.login.usuario);
+  const usuario = useSelector((state: RootState) => state.login.user);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 

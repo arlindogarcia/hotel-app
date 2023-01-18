@@ -1,16 +1,11 @@
-import { ButtonGroup, Flex, Heading, Spacer } from "@chakra-ui/react";
+import { Flex, Heading, Spacer } from "@chakra-ui/react";
 import { Form, Formik } from "formik";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
-import CheckField from "../../../components/CheckField";
 import Error from "../../../components/Error";
 import { InputField } from "../../../components/InputField";
 import ListHeader from "../../../components/ListHeader";
 import { LoaderButton } from "../../../components/LoaderButton";
-import MultiSelectInput from "../../../components/MultiSelectInput";
-import { MultiSelectInputField } from "../../../components/MultiSelectInputField";
-import SelectField from "../../../components/SelectField";
 import Success from "../../../components/Success";
 import Wrapper from "../../../components/Wrapper"
 import { useIsAuth } from "../../../hooks/useIsAuth";
@@ -21,12 +16,6 @@ import { sistemaActions } from "../reducer";
 const PerfilEdit = () => {
   useIsAuth();
 
-  const hoteis = useSelector((state: RootState) => {
-    return state.cliente.hoteis.map(hotel => ({
-      label: hotel.nome,
-      value: hotel.id as string,
-    }))
-  })
   const perfil = useSelector((state: RootState) => state.sistema.perfil)
   const error = useSelector((state: RootState) => state.sistema.error)
   const success = useSelector((state: RootState) => state.sistema.success)

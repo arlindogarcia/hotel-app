@@ -10,4 +10,5 @@ export interface Usuario extends Model {
   ativo: boolean;
   old_password?: string;
   password_confirmation?: string;
+  cliente_id: string | null;
 }

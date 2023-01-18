@@ -10,5 +10,6 @@ export const novoUsuario = (): Usuario => {
     acessos_quais_hoteis: "",
     acessos_sistema: "",
     ativo: true,
+    cliente_id: null,
   }
 }

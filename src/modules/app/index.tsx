@@ -1,6 +1,8 @@
 import React from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { ClienteEdit, ClienteList, HotelList } from "../cliente/views";
+import ClientePlanoEdit from "../cliente/views/ClientePlanoEdit";
+import ClientePlanoList from "../cliente/views/ClientePlanoList";
 import HotelEdit from "../cliente/views/HotelEdit";
 import Home from "../home/Home";
 import { Login } from "../login/views";
@@ -19,6 +21,8 @@ export const App: React.FC<{}> = () => {
         <Route path="/hoteis" element={<HotelList />} />
         <Route path="/hoteis/:id" element={<HotelEdit />} />
         <Route path="/perfil" element={<PerfilEdit />} />
+        <Route path="/planos" element={<ClientePlanoList />} />
+        <Route path="/planos/:id" element={<ClientePlanoEdit />} />
       </Routes>
     </BrowserRouter>
   );

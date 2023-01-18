@@ -7,7 +7,7 @@ type TInitialState = {
   token: string;
   successMsg: string;
   error: string;
-  usuario: Usuario | null;
+  user: Usuario | null;
 };
 
 export type TLoginAction = {
@@ -20,7 +20,7 @@ const initialState: TInitialState = {
   isLoggingIn: false,
   token: "",
   successMsg: "",
-  usuario: null,
+  user: null,
   error: "",
 };
 
@@ -38,7 +38,7 @@ const loginSlice = createSlice({
       state.isLogged = true;
       state.isLoggingIn = false;
       state.token = payload.token;
-      state.usuario = payload.user;
+      state.user = payload.user;
       state.successMsg = "Login efetuado com sucesso!";
     },
     loginError(state: TInitialState, { payload }: PayloadAction<string>) {
@@ -47,7 +47,7 @@ const loginSlice = createSlice({
     },
     logout(state: TInitialState) {
       state.isLogged = false;
-      state.usuario = null;
+      state.user = null;
       state.token = "";
     },
   },

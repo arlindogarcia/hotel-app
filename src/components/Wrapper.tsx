@@ -19,6 +19,7 @@ import {
 import {
   FiGrid,
   FiHome,
+  FiLayers,
   FiMenu,
   FiUser,
   FiUsers,
@@ -30,18 +31,14 @@ import { RootState } from '../modules/app/mainReducer';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { BrowserView, MobileView } from 'react-device-detect';
 import WrapperUser from './WrapperUser';
+import { getPermissionsSistema } from '../utils/permissions';
 
 interface LinkItemProps {
   name: string;
   icon: IconType;
   href: string;
+  visible: boolean;
 }
-const LinkItems: Array<LinkItemProps> = [
-  { name: 'Início', icon: FiHome, href: '/' },
-  { name: 'Usuários', icon: FiUser, href: '/usuarios' },
-  { name: 'Clientes', icon: FiUsers, href: '/clientes' },
-  { name: 'Hoteis', icon: FiGrid, href: '/hoteis' },
-];
 
 export default function Wrapper({
   children,
@@ -85,6 +82,15 @@ interface SidebarProps extends BoxProps {
 
 const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
   const navigate = useNavigate();
+  const usuario = useSelector((state: RootState) => state.login.user);
+
+  const LinkItems: Array<LinkItemProps> = [
+    { name: 'Início', icon: FiHome, href: '/', visible: true },
+    { name: 'Usuários', icon: FiUser, href: '/usuarios', visible: getPermissionsSistema(usuario?.acessos_sistema, 'AdminRedeHotel') },
+    { name: 'Clientes', icon: FiUsers, href: '/clientes', visible: getPermissionsSistema(usuario?.acessos_sistema) },
+    { name: 'Hoteis', icon: FiGrid, href: '/hoteis', visible: getPermissionsSistema(usuario?.acessos_sistema) },
+    { name: 'Planos', icon: FiLayers, href: '/planos', visible: getPermissionsSistema(usuario?.acessos_sistema, 'AdminRedeHotel') },
+  ];
 
   return (
     <Box
@@ -107,11 +113,12 @@ const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
           <WrapperUser />
         </Flex>
       </BrowserView>
-      {LinkItems.map((link) => (
-        <NavItem key={link.name} icon={link.icon} href={link.href} onClick={() => navigate(link.href)}>
-          {link.name}
-        </NavItem>
-      ))}
+      {LinkItems.filter(i => i.visible)
+        .map((link) => (
+          <NavItem key={link.name} icon={link.icon} href={link.href} onClick={() => navigate(link.href)}>
+            {link.name}
+          </NavItem>
+        ))}
     </Box>
   );
 };
@@ -161,7 +168,6 @@ interface MobileProps extends FlexProps {
   onOpen: () => void;
 }
 const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
-  const usuario = useSelector((state: RootState) => state.login.usuario);
   const dispatch = useDispatch();
 
   return (
