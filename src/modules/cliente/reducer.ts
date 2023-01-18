@@ -6,7 +6,6 @@ import { Hotel } from "./types/hotel";
 type TInitialState = {
   isLoadingList: boolean;
   isLoading: boolean;
-  showForm: boolean;
   error: string;
   success: string;
   clientes: Cliente[];
@@ -20,7 +19,6 @@ type TInitialState = {
 const initialState: TInitialState = {
   isLoadingList: false,
   isLoading: false,
-  showForm: false,
   error: "",
   success: "",
   clientes: [],
@@ -39,7 +37,6 @@ const clienteSlice = createSlice({
       state.isLoadingList = true;
       state.error = "";
       state.success = "";
-      state.cliente = null;
     },
     requestClientesSuccess(
       state: TInitialState,
@@ -49,8 +46,6 @@ const clienteSlice = createSlice({
       state.clientes = payload;
     },
     requestCliente(state: TInitialState, _: PayloadAction<{ id: string }>) {
-      state.cliente = null;
-      state.showForm = false;
       state.error = "";
       state.success = "";
     },
@@ -74,14 +69,12 @@ const clienteSlice = createSlice({
       { payload }: PayloadAction<Cliente>
     ) {
       state.cliente = payload;
-      state.showForm = true;
     },
     // Hoteis
     requestHoteis(state: TInitialState) {
       state.isLoadingList = true;
       state.error = "";
       state.success = "";
-      state.hotel = null;
     },
     requestHoteisSuccess(
       state: TInitialState,
@@ -91,8 +84,6 @@ const clienteSlice = createSlice({
       state.hoteis = payload;
     },
     requestHotel(state: TInitialState, _: PayloadAction<{ id: string }>) {
-      state.hotel = null;
-      state.showForm = false;
       state.error = "";
       state.success = "";
     },
@@ -116,7 +107,6 @@ const clienteSlice = createSlice({
       { payload }: PayloadAction<Hotel>
     ) {
       state.hotel = payload;
-      state.showForm = true;
     },
     requestError(
       state: TInitialState,
@@ -132,7 +122,6 @@ const clienteSlice = createSlice({
       state.isLoadingList = true;
       state.error = "";
       state.success = "";
-      state.plano = null;
     },
     requestPlanosSuccess(
       state: TInitialState,
@@ -142,8 +131,6 @@ const clienteSlice = createSlice({
       state.planos = payload;
     },
     requestPlano(state: TInitialState, _: PayloadAction<{ id: string }>) {
-      state.plano = null;
-      state.showForm = false;
       state.error = "";
       state.success = "";
     },
@@ -152,7 +139,6 @@ const clienteSlice = createSlice({
       { payload }: PayloadAction<Hotel>
     ) {
       state.plano = payload;
-      state.showForm = true;
     },
     requestSavePlano(
       state: TInitialState,

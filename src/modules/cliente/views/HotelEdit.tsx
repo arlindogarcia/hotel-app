@@ -26,7 +26,6 @@ const HotelEdit = () => {
   const error = useSelector((state: RootState) => state.cliente.error)
   const success = useSelector((state: RootState) => state.cliente.success)
   const isLoading = useSelector((state: RootState) => state.cliente.isLoading)
-  const showForm = useSelector((state: RootState) => state.cliente.showForm)
 
   const dispatch = useDispatch()
 
@@ -35,7 +34,7 @@ const HotelEdit = () => {
 
     dispatch(clienteActions.requestHotel({ id }))
     dispatch(clienteActions.requestClientes())
-  }, [dispatch])
+  }, [dispatch, id])
 
   return (
     <Wrapper>
@@ -43,7 +42,7 @@ const HotelEdit = () => {
       <Flex bgColor="white" px="1rem" py="1rem" mt="1rem" direction="column">
         <Error error={error} />
         <Success success={success} />
-        {showForm && hotel && <Formik
+        {hotel && <Formik
           enableReinitialize
           initialValues={hotel}
           onSubmit={(val, { setErrors }) => {

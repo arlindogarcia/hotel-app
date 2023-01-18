@@ -1,4 +1,4 @@
-import { ButtonGroup, Flex, Spacer } from "@chakra-ui/react";
+import { Flex, Spacer } from "@chakra-ui/react";
 import { Form, Formik } from "formik";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -8,9 +8,7 @@ import Error from "../../../components/Error";
 import { InputField } from "../../../components/InputField";
 import ListHeader from "../../../components/ListHeader";
 import { LoaderButton } from "../../../components/LoaderButton";
-import MultiSelectInput from "../../../components/MultiSelectInput";
 import { MultiSelectInputField } from "../../../components/MultiSelectInputField";
-import SelectField from "../../../components/SelectField";
 import Success from "../../../components/Success";
 import Wrapper from "../../../components/Wrapper"
 import { useIsAuth } from "../../../hooks/useIsAuth";
@@ -27,7 +25,6 @@ const ClienteEdit = () => {
   const error = useSelector((state: RootState) => state.cliente.error)
   const success = useSelector((state: RootState) => state.cliente.success)
   const isLoading = useSelector((state: RootState) => state.cliente.isLoading)
-  const showForm = useSelector((state: RootState) => state.cliente.showForm)
 
   const dispatch = useDispatch()
 
@@ -35,7 +32,7 @@ const ClienteEdit = () => {
     if (!id) return;
 
     dispatch(clienteActions.requestCliente({ id }))
-  }, [dispatch])
+  }, [dispatch, id])
 
   return (
     <Wrapper>
@@ -43,7 +40,7 @@ const ClienteEdit = () => {
       <Flex bgColor="white" px="1rem" py="1rem" mt="1rem" direction="column">
         <Error error={error} />
         <Success success={success} />
-        {showForm && usuario && <Formik
+        {usuario && <Formik
           enableReinitialize
           initialValues={usuario}
           onSubmit={(val, { setErrors }) => {

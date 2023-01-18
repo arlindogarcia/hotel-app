@@ -4,7 +4,6 @@ import { Categoria } from "./types/categoria";
 type TInitialState = {
   isLoadingList: boolean;
   isLoading: boolean;
-  showForm: boolean;
   error: string;
   success: string;
   categorias: Categoria[];
@@ -14,7 +13,6 @@ type TInitialState = {
 const initialState: TInitialState = {
   isLoadingList: false,
   isLoading: false,
-  showForm: false,
   error: "",
   success: "",
   categorias: [],
@@ -39,7 +37,6 @@ const itemSlice = createSlice({
       state.isLoadingList = true;
       state.error = "";
       state.success = "";
-      state.categoria = null;
     },
     requestCategoriasSuccess(
       state: TInitialState,
@@ -49,8 +46,6 @@ const itemSlice = createSlice({
       state.categorias = payload;
     },
     requestCategoria(state: TInitialState, _: PayloadAction<{ id: string }>) {
-      state.categoria = null;
-      state.showForm = false;
       state.error = "";
       state.success = "";
     },
@@ -59,7 +54,6 @@ const itemSlice = createSlice({
       { payload }: PayloadAction<Categoria>
     ) {
       state.categoria = payload;
-      state.showForm = true;
     },
     requestSaveCategoria(
       state: TInitialState,

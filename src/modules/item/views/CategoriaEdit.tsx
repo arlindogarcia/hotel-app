@@ -25,7 +25,6 @@ const CategoriaEdit = () => {
   const error = useSelector((state: RootState) => state.item.error)
   const success = useSelector((state: RootState) => state.item.success)
   const isLoading = useSelector((state: RootState) => state.item.isLoading)
-  const showForm = useSelector((state: RootState) => state.item.showForm)
   const usuario = useSelector((state: RootState) => state.login.user);
 
   const dispatch = useDispatch()
@@ -42,7 +41,7 @@ const CategoriaEdit = () => {
       <Flex bgColor="white" px="1rem" py="1rem" mt="1rem" direction="column">
         <Error error={error} />
         <Success success={success} />
-        {showForm && categoria && <Formik
+        {categoria && <Formik
           enableReinitialize
           initialValues={categoria}
           onSubmit={(val, { setErrors }) => {

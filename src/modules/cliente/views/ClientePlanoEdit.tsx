@@ -24,7 +24,6 @@ const ClientePlanoEdit = () => {
   const error = useSelector((state: RootState) => state.cliente.error)
   const success = useSelector((state: RootState) => state.cliente.success)
   const isLoading = useSelector((state: RootState) => state.cliente.isLoading)
-  const showForm = useSelector((state: RootState) => state.cliente.showForm)
   const usuario = useSelector((state: RootState) => state.login.user);
 
   const dispatch = useDispatch()
@@ -33,7 +32,7 @@ const ClientePlanoEdit = () => {
     if (!id) return;
 
     dispatch(clienteActions.requestPlano({ id }))
-  }, [dispatch])
+  }, [dispatch, id])
 
   return (
     <Wrapper>
@@ -41,7 +40,7 @@ const ClientePlanoEdit = () => {
       <Flex bgColor="white" px="1rem" py="1rem" mt="1rem" direction="column">
         <Error error={error} />
         <Success success={success} />
-        {showForm && plano && <Formik
+        {plano && <Formik
           enableReinitialize
           initialValues={plano}
           onSubmit={(val, { setErrors }) => {
