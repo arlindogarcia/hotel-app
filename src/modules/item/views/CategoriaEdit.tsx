@@ -5,9 +5,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import CheckField from "../../../components/CheckField";
 import Error from "../../../components/Error";
+import FooterForm from "../../../components/FooterForm";
 import { InputField } from "../../../components/InputField";
 import ListHeader from "../../../components/ListHeader";
-import { LoaderButton } from "../../../components/LoaderButton";
 import Success from "../../../components/Success";
 import Wrapper from "../../../components/Wrapper"
 import { useIsAuth } from "../../../hooks/useIsAuth";
@@ -38,7 +38,7 @@ const CategoriaEdit = () => {
   return (
     <Wrapper>
       <ListHeader label="Categoria" button_back={true} isLoading={isLoading} />
-      <Flex bgColor="white" px="1rem" py="1rem" mt="1rem" direction="column">
+      <Flex  px="1rem" py="1rem" mt="1rem" direction="column">
         <Error error={error} />
         <Success success={success} />
         {categoria && <Formik
@@ -74,14 +74,7 @@ const CategoriaEdit = () => {
 
               <Spacer />
 
-              <LoaderButton
-                isLoading={isLoading}
-                colorScheme="teal"
-                type="submit"
-                mt="1rem"
-              >
-                Salvar
-              </LoaderButton>
+              <FooterForm isLoading={isLoading} />
             </Form>
           )}
         </Formik>}

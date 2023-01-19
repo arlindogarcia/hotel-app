@@ -19,13 +19,14 @@ import {
   FiGrid,
   FiHome,
   FiLayers,
+  FiList,
   FiMenu,
   FiUser,
   FiUsers,
 } from 'react-icons/fi';
 import { IconType } from 'react-icons/lib';
 import { ReactText } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { RootState } from '../modules/app/mainReducer';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { BrowserView, MobileView } from 'react-device-detect';
@@ -90,6 +91,7 @@ const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
     { name: 'Hoteis', icon: FiGrid, href: '/hoteis', visible: getPermissionsSistema(usuario?.acessos_sistema) },
     { name: 'Planos', icon: FiLayers, href: '/planos', visible: getPermissionsSistema(usuario?.acessos_sistema, 'AdminRedeHotel') },
     { name: 'Categorias', icon: FiLayers, href: '/categorias', visible: getPermissionsSistema(usuario?.acessos_sistema, 'AdminRedeHotel') },
+    { name: 'Itens', icon: FiList, href: '/itens', visible: getPermissionsSistema(usuario?.acessos_sistema, 'AdminRedeHotel') },
   ];
 
   return (
@@ -168,8 +170,6 @@ interface MobileProps extends FlexProps {
   onOpen: () => void;
 }
 const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
-  const dispatch = useDispatch();
-
   return (
     <MobileView>
       <Flex

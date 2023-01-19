@@ -1,3 +1,5 @@
 import SubcategoriaList from "./SubcategoriaList";
+import ItemImagemList from "./ItemImagemList";
+import ItemImagemForm from "./ItemImagemForm";
 
-export { SubcategoriaList };
+export { SubcategoriaList, ItemImagemList, ItemImagemForm };

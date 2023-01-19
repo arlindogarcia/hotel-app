@@ -6,6 +6,8 @@ import ClientePlanoList from "../cliente/views/ClientePlanoList";
 import HotelEdit from "../cliente/views/HotelEdit";
 import Home from "../home/Home";
 import { CategoriaEdit, CategoriaList } from "../item/views";
+import ItemEdit from "../item/views/ItemEdit";
+import ItemList from "../item/views/ItemList";
 import { Login } from "../login/views";
 import { PerfilEdit, UsuarioEdit, UsuarioList } from "../sistema/views";
 
@@ -26,6 +28,8 @@ export const App: React.FC<{}> = () => {
         <Route path="/planos/:id" element={<ClientePlanoEdit />} />
         <Route path="/categorias" element={<CategoriaList />} />
         <Route path="/categorias/:id" element={<CategoriaEdit />} />
+        <Route path="/itens" element={<ItemList />} />
+        <Route path="/itens/:id" element={<ItemEdit />} />
       </Routes>
     </BrowserRouter>
   );

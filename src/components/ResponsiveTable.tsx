@@ -35,7 +35,7 @@ const ResponsiveTable: React.FC<ResponsiveTableProps> = ({
   isSmall,
 }) => {
   return (
-    <Table variant="striped" colorScheme="blue" size={isSmall ? "sm" : "md"}>
+    <Table border="1px" borderColor="gray.300" variant="striped" colorScheme="blue" size={isSmall ? "sm" : "md"}>
       <Thead display={["none", "table-header-group"]}>
         <>
           <Tr>

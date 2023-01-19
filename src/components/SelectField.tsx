@@ -15,6 +15,7 @@ export type SelectFieldProps = InputHTMLAttributes<HTMLSelectElement> & {
 
 const SelectField: React.FC<SelectFieldProps> = ({
   label,
+  onChange,
   size: _,
   ...props
 }) => {
@@ -23,7 +24,8 @@ const SelectField: React.FC<SelectFieldProps> = ({
     <FormControl isInvalid={!!error} mt="0.5em">
       <FormLabel htmlFor={field.name}>{label}</FormLabel>
       <Select
-        onChange={(e) => setValue(e.target.value, false)}
+        bg="white"
+        onChange={(e) => { setValue(e.target.value, false); typeof onChange === 'function' && onChange(e) }}
         value={field.value}
         {...props}
         id={field.name}

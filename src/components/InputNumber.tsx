@@ -40,6 +40,7 @@ const InputNumber: React.FC<InputNumberProps> = ({
     <FormControl isInvalid={!!error} mt="0.5em">
       {!!label && <FormLabel htmlFor={field.name}>{label}</FormLabel>}
       <Input
+        bg="white"
         value={formatNumber(field.value, decPlaces)}
         onBlur={field.onBlur}
         onChange={handleNumberChange}

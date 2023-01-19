@@ -48,6 +48,7 @@ const clienteSlice = createSlice({
     requestCliente(state: TInitialState, _: PayloadAction<{ id: string }>) {
       state.error = "";
       state.success = "";
+      state.isLoading = true;
     },
     requestSaveCliente(
       state: TInitialState,
@@ -69,6 +70,7 @@ const clienteSlice = createSlice({
       { payload }: PayloadAction<Cliente>
     ) {
       state.cliente = payload;
+      state.isLoading = false;
     },
     // Hoteis
     requestHoteis(state: TInitialState) {
@@ -86,6 +88,7 @@ const clienteSlice = createSlice({
     requestHotel(state: TInitialState, _: PayloadAction<{ id: string }>) {
       state.error = "";
       state.success = "";
+      state.isLoading = true;
     },
     requestSaveHotel(
       state: TInitialState,
@@ -107,6 +110,7 @@ const clienteSlice = createSlice({
       { payload }: PayloadAction<Hotel>
     ) {
       state.hotel = payload;
+      state.isLoading = false;
     },
     requestError(
       state: TInitialState,
@@ -133,12 +137,14 @@ const clienteSlice = createSlice({
     requestPlano(state: TInitialState, _: PayloadAction<{ id: string }>) {
       state.error = "";
       state.success = "";
+      state.isLoading = true;
     },
     requestPlanoSuccess(
       state: TInitialState,
       { payload }: PayloadAction<Hotel>
     ) {
       state.plano = payload;
+      state.isLoading = false;
     },
     requestSavePlano(
       state: TInitialState,

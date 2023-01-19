@@ -29,7 +29,7 @@ const PerfilEdit = () => {
 
   return (
     <Wrapper>
-      <ListHeader label="Perfil" button_back={true} />
+      <ListHeader label="Perfil" button_back={true} isLoading={isLoading} />
       <Flex bgColor="white" px="1rem" py="1rem" mt="1rem" direction="column">
         <Error error={error} />
         <Success success={success} />

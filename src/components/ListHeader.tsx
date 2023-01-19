@@ -13,7 +13,7 @@ const ListHeader = ({ label, isLoading, label_novo, href_novo, button_back }: IP
   const navigate = useNavigate();
 
   return (
-    <Heading borderBottom="1px" borderColor="gray.400" size="lg">{label}
+    <Heading borderBottom="1px" borderColor="gray.400" size="lg" marginBottom={5}>{label}
       {label_novo && href_novo &&
         <span>
           &nbsp;

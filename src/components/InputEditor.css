@@ -1,0 +1,8 @@
+.ql-error {
+  box-shadow: 0 0 0 1px #E53E3E;
+  border: 1px solid #E53E3E;
+}
+
+.ql-white {
+  background-color: #FFFF;
+}

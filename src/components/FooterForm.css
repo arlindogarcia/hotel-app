@@ -1,0 +1,20 @@
+.footer-form {
+  -webkit-text-size-adjust: 100%;
+  line-height: inherit;
+  box-sizing: border-box;
+  border-width: 0;
+  border-style: solid;
+  position: fixed;
+  bottom: 0;
+  z-index: 10;
+  margin-left: -2rem;
+  margin-right: -.25rem;
+  padding: 1rem;
+  width: 100% !important;
+  background-color: white;
+  border-top: 1px solid gray;
+}
+
+.footer-form .button-footer-form {
+  margin-left: 1rem !important;
+}

@@ -37,7 +37,7 @@ const ClientePlanoEdit = () => {
   return (
     <Wrapper>
       <ListHeader label="Plano" button_back={true} isLoading={isLoading} />
-      <Flex bgColor="white" px="1rem" py="1rem" mt="1rem" direction="column">
+      <Flex px="1rem" py="1rem" mt="1rem" direction="column">
         <Error error={error} />
         <Success success={success} />
         {plano && <Formik

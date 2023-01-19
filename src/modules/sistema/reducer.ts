@@ -40,6 +40,7 @@ const sistemaSlice = createSlice({
     requestUsuario(state: TInitialState, _: PayloadAction<{ id: string }>) {
       state.error = "";
       state.success = "";
+      state.isLoading = true;
     },
     requestSaveUsuario(
       state: TInitialState,
@@ -69,6 +70,7 @@ const sistemaSlice = createSlice({
       state: TInitialState,
       { payload }: PayloadAction<Usuario>
     ) {
+      state.isLoading = false;
       state.usuario = payload;
     },
     requestUsuariosError(
@@ -85,11 +87,13 @@ const sistemaSlice = createSlice({
       state.perfil = null;
       state.error = "";
       state.success = "";
+      state.isLoading = true;
     },
     requestPerfilSuccess(
       state: TInitialState,
       { payload }: PayloadAction<Usuario>
     ) {
+      state.isLoading = false;
       state.perfil = {
         ...payload,
         old_password: "",
