@@ -9,6 +9,7 @@ import { CategoriaEdit, CategoriaList } from "../item/views";
 import ItemEdit from "../item/views/ItemEdit";
 import ItemList from "../item/views/ItemList";
 import { Login } from "../login/views";
+import Logout from "../login/views/Logout";
 import { PerfilEdit, UsuarioEdit, UsuarioList } from "../sistema/views";
 
 export const App: React.FC<{}> = () => {
@@ -17,6 +18,7 @@ export const App: React.FC<{}> = () => {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/logout" element={<Logout />} />
         <Route path="/usuarios" element={<UsuarioList />} />
         <Route path="/usuarios/:id" element={<UsuarioEdit />} />
         <Route path="/clientes" element={<ClienteList />} />

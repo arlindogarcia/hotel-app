@@ -84,8 +84,8 @@ const Login: React.FC<{}> = () => {
             }}
           >
             <Form>
-              <InputField label="E-mail" name="email" autoFocus type='email' />
-              <InputField label="Senha" name="password" type="password" />
+              <InputField bgNone={true} label="E-mail" name="email" autoFocus type='email' />
+              <InputField bgNone={true} label="Senha" name="password" type="password" />
               <LoaderButton
                 isLoading={isLoggingIn}
                 colorScheme="teal"

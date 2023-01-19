@@ -15,6 +15,7 @@ type InputFieldProps = InputHTMLAttributes<HTMLInputElement> & {
   name: string;
   textarea?: boolean;
   mask?: string;
+  bgNone?: boolean;
 };
 
 export const InputField: React.FC<InputFieldProps> = ({
@@ -22,6 +23,7 @@ export const InputField: React.FC<InputFieldProps> = ({
   disabled,
   mask,
   textarea,
+  bgNone = false,
   ...props
 }) => {
   const [field, { error, touched }] = useField(props);
@@ -31,7 +33,7 @@ export const InputField: React.FC<InputFieldProps> = ({
       <FormControl isInvalid={touched && error ? true : false}>
         <FormLabel>{label}</FormLabel>
         <Input
-          bg="white"
+          bg={!bgNone ? 'white' : 'none'}
           as={ReactInputMask}
           mask={mask}
           disabled={disabled}
@@ -48,7 +50,7 @@ export const InputField: React.FC<InputFieldProps> = ({
       <FormControl>
         <FormLabel>{label}</FormLabel>
         <Textarea
-          bg="white"
+          bg={!bgNone ? 'white' : 'none'}
           disabled={disabled}
           {...field}
           isInvalid={touched && error ? true : false}
@@ -62,7 +64,7 @@ export const InputField: React.FC<InputFieldProps> = ({
     <FormControl isInvalid={touched && error ? true : false}>
       <FormLabel>{label}</FormLabel>
       <Input
-        bg="white"
+        bg={!bgNone ? 'white' : 'none'}
         disabled={disabled}
         type={props.type}
         {...field}

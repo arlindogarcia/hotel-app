@@ -66,7 +66,7 @@ const ItemImagemList = ({ imagens, imagem_principal }: Iprops) => {
     {
       label: "Pré visualização",
       wrapped: true,
-      render: (reg) => reg.principal ? <Image src={valueImagemPrincipal} alt='Imagem principal' /> : <Image src={reg.imagem} alt='Imagem' />,
+      render: (reg) => reg.principal ? <Image height="150px" src={valueImagemPrincipal} alt='Imagem principal' /> : <Image height="150px" src={reg.imagem} alt='Imagem' />,
     },
     {
       label: "Ações",
