@@ -4,6 +4,7 @@ import { useState } from "react";
 import { FiTrash } from "react-icons/fi";
 import ConfirmButton from "../../../components/ConfirmButton";
 import ResponsiveTable, { TableHeaders } from "../../../components/ResponsiveTable";
+import { LOCAL_STORAGE_URL } from "../../app/config";
 import { novoItemImagem } from "../data/item_imagem";
 import { ItemImagem } from "../types/item_imagem";
 import ItemImagemForm from "./ItemImagemForm";
@@ -42,6 +43,16 @@ const ItemImagemList = ({ imagens, imagem_principal }: Iprops) => {
     onClose();
   }
 
+  const getLinkImagem = (imagem: string) => {
+    if (!imagem) return '';
+
+    if (imagem.slice(0, 4) === 'data') {
+      return imagem;
+    }
+
+    return LOCAL_STORAGE_URL + '/' + imagem;
+  }
+
   const onClickDeleteItem = (val: ItemImagem) => {
     const itemIndex = value.findIndex((i: ItemImagem) => i === val);
 
@@ -66,7 +77,7 @@ const ItemImagemList = ({ imagens, imagem_principal }: Iprops) => {
     {
       label: "Pré visualização",
       wrapped: true,
-      render: (reg) => reg.principal ? <Image height="150px" src={valueImagemPrincipal} alt='Imagem principal' /> : <Image height="150px" src={reg.imagem} alt='Imagem' />,
+      render: (reg) => reg.principal ? <Image height="150px" src={getLinkImagem(valueImagemPrincipal)} alt='Imagem principal' /> : <Image height="150px" src={getLinkImagem(reg.imagem)} alt='Imagem' />,
     },
     {
       label: "Ações",
