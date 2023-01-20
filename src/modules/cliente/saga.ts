@@ -8,6 +8,7 @@ import { novoCliente } from "./data/cliente";
 import { novoHotel } from "./data/hotel";
 import { novoClientePlano } from "./data/cliente_plano";
 import { novoHotelConfiguracao } from "./data/hotel_configuracao";
+import { novoHotelQuarto } from "./data/hotel_quarto";
 
 function* requestClientesWorker() {
   try {
@@ -265,6 +266,70 @@ function* requestSaveHotelConfiguracaoWorker({ payload }: PayloadAction<IParamSh
   }
 }
 
+function* requestHotelQuartosWorker() {
+  try {
+    const res: AxiosResponse = yield call(apiCall, {
+      url: "/clientes-hoteis-quartos",
+      method: "get",
+    });
+    console.log("list", res.data);
+    yield put(clienteActions.requestHotelQuartosSuccess(res.data));
+  } catch (error: any) {
+    console.log("error", error);
+    yield put(
+      clienteActions.requestError(
+        formatError(error)
+      )
+    );
+  }
+}
+
+interface IParamShow {
+  id: string
+}
+
+function* requestHotelQuartoWorker({ payload }: PayloadAction<IParamShow>) {
+  try {
+    if (payload.id === 'novo') {
+      yield put(clienteActions.requestHotelQuartoSuccess(novoHotelQuarto()));
+      return;
+    }
+
+    const res: AxiosResponse = yield call(apiCall, {
+      url: `/clientes-hoteis-quartos/${payload.id}`,
+      method: "get",
+    });
+    console.log("show", res.data);
+    yield put(clienteActions.requestHotelQuartoSuccess(res.data));
+  } catch (error: any) {
+    console.log("error", error);
+    yield put(
+      clienteActions.requestError(
+        formatError(error)
+      )
+    );
+  }
+}
+
+function* requestSaveHotelQuartoWorker({ payload }: PayloadAction<IParamShow>) {
+  try {
+    const res: AxiosResponse = yield call(apiCall, {
+      url: `/clientes-hoteis-quartos`,
+      method: "post",
+      data: payload,
+    });
+    console.log("save", res.data);
+    yield put(clienteActions.requestSaveHotelQuartoSuccess(res.data));
+  } catch (error: any) {
+    console.log("error", error);
+    yield put(
+      clienteActions.requestError(
+        formatError(error)
+      )
+    );
+  }
+}
+
 export function* clienteSaga() {
   yield all([
     takeLatest("cliente/requestClientes", requestClientesWorker),
@@ -279,5 +344,8 @@ export function* clienteSaga() {
     takeLatest("cliente/requestHotelConfiguracoes", requestHotelConfiguracoesWorker),
     takeLatest("cliente/requestHotelConfiguracao", requestHotelConfiguracaoWorker),
     takeLatest("cliente/requestSaveHotelConfiguracao", requestSaveHotelConfiguracaoWorker),
+    takeLatest("cliente/requestHotelQuartos", requestHotelQuartosWorker),
+    takeLatest("cliente/requestHotelQuarto", requestHotelQuartoWorker),
+    takeLatest("cliente/requestSaveHotelQuarto", requestSaveHotelQuartoWorker),
   ]);
 }

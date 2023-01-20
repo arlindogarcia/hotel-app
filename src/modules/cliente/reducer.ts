@@ -3,6 +3,7 @@ import { Cliente } from "./types/cliente";
 import { ClientePlano } from "./types/cliente_plano";
 import { Hotel } from "./types/hotel";
 import { HotelConfiguracao } from "./types/hotel_configuracao";
+import { HotelQuarto } from "./types/hotel_quarto";
 
 type TInitialState = {
   isLoadingList: boolean;
@@ -17,6 +18,8 @@ type TInitialState = {
   plano: Hotel | null;
   hotel_configuracoes: HotelConfiguracao[];
   hotel_configuracao: HotelConfiguracao | null;
+  hotel_quartos: HotelQuarto[];
+  hotel_quarto: HotelQuarto | null;
 };
 
 const initialState: TInitialState = {
@@ -32,6 +35,8 @@ const initialState: TInitialState = {
   plano: null,
   hotel_configuracoes: [],
   hotel_configuracao: null,
+  hotel_quartos: [],
+  hotel_quarto: null,
 };
 
 const clienteSlice = createSlice({
@@ -204,6 +209,46 @@ const clienteSlice = createSlice({
       state.error = "";
       state.hotel_configuracao = payload;
       state.success = "Configuração salva com sucesso.";
+      state.isLoading = false;
+    },
+    // QUARTOS
+    requestHotelQuartos(state: TInitialState) {
+      state.isLoadingList = true;
+      state.error = "";
+      state.success = "";
+    },
+    requestHotelQuartosSuccess(
+      state: TInitialState,
+      { payload }: PayloadAction<HotelQuarto[]>
+    ) {
+      state.isLoadingList = false;
+      state.hotel_quartos = payload;
+    },
+    requestHotelQuarto(state: TInitialState, _: PayloadAction<{ id: string }>) {
+      state.error = "";
+      state.success = "";
+      state.isLoading = true;
+    },
+    requestHotelQuartoSuccess(
+      state: TInitialState,
+      { payload }: PayloadAction<HotelQuarto>
+    ) {
+      state.hotel_quarto = payload;
+      state.isLoading = false;
+    },
+    requestSaveHotelQuarto(
+      state: TInitialState,
+      { payload }: PayloadAction<HotelQuarto>
+    ) {
+      state.isLoading = true;
+    },
+    requestSaveHotelQuartoSuccess(
+      state: TInitialState,
+      { payload }: PayloadAction<HotelQuarto>
+    ) {
+      state.error = "";
+      state.hotel_quarto = payload;
+      state.success = "Quarto salvo com sucesso.";
       state.isLoading = false;
     },
   },

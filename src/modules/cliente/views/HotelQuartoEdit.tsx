@@ -16,13 +16,13 @@ import { validateForm } from "../../../utils/validationForm";
 import { RootState } from "../../app/mainReducer";
 import { clienteActions } from "../reducer";
 
-const HotelEdit = () => {
+const HotelQuartoEdit = () => {
   const { id } = useParams();
 
   useIsAuth();
 
-  const hotel = useSelector((state: RootState) => state.cliente.hotel)
-  const clientes = useSelector((state: RootState) => state.cliente.clientes)
+  const hotel_quarto = useSelector((state: RootState) => state.cliente.hotel_quarto)
+  const hoteis = useSelector((state: RootState) => state.cliente.hoteis)
   const error = useSelector((state: RootState) => state.cliente.error)
   const success = useSelector((state: RootState) => state.cliente.success)
   const isLoading = useSelector((state: RootState) => state.cliente.isLoading)
@@ -32,26 +32,26 @@ const HotelEdit = () => {
   useEffect(() => {
     if (!id) return;
 
-    dispatch(clienteActions.requestHotel({ id }))
-    dispatch(clienteActions.requestClientes())
+    dispatch(clienteActions.requestHotelQuarto({ id }))
+    dispatch(clienteActions.requestHoteis())
   }, [dispatch, id])
 
   return (
     <Wrapper>
-      <ListHeader label="Hotel" button_back={true} isLoading={isLoading} />
+      <ListHeader label="Quarto do hotel" button_back={true} isLoading={isLoading} />
       <Flex px="1rem" py="1rem" mt="1rem" direction="column">
         <Error error={error} />
         <Success success={success} />
-        {hotel && <Formik
+        {hotel_quarto && <Formik
           enableReinitialize
-          initialValues={hotel}
+          initialValues={hotel_quarto}
           onSubmit={(val, { setErrors }) => {
-            const validation = validateForm({ nome: 'required', cliente_id: 'required' }, val)
+            const validation = validateForm({ nome: 'required', hotel_cliente_id: 'required' }, val)
             if (validation) {
               setErrors(validation)
               return;
             }
-            dispatch(clienteActions.requestSaveHotel(val));
+            dispatch(clienteActions.requestSaveHotelQuarto(val));
           }}
         >
           {({ values }) => (
@@ -59,20 +59,20 @@ const HotelEdit = () => {
               <InputField
                 autoFocus
                 name="nome"
-                label="Nome"
+                label="Nome do quarto"
               />
               <SelectField
-                name="cliente_id"
-                label="Cliente"
+                name="hotel_cliente_id"
+                label="Hotel"
               >
                 <option value="">Selecione...</option>
-                {clientes.filter(cliente => cliente.ativo).map(cliente => (
-                  <option key={cliente.id} value={cliente.id as string}>{cliente.nome}</option>
+                {hoteis.filter(hotel => hotel.ativo).map(hotel => (
+                  <option key={hotel.id} value={hotel.id as string}>{hotel.nome}</option>
                 ))}
               </SelectField>
               <CheckField
                 name="ativo"
-                label="Hotel ativo?"
+                label="Quarto ativo?"
                 mb={2}
               />
 
@@ -94,4 +94,4 @@ const HotelEdit = () => {
   )
 }
 
-export default HotelEdit;
+export default HotelQuartoEdit;
