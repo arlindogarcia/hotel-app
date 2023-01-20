@@ -92,6 +92,7 @@ const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
     { name: 'Planos', icon: FiLayers, href: '/planos', visible: getPermissionsSistema(usuario?.acessos_sistema, 'AdminRedeHotel') },
     { name: 'Categorias', icon: FiLayers, href: '/categorias', visible: getPermissionsSistema(usuario?.acessos_sistema, 'AdminRedeHotel') },
     { name: 'Itens', icon: FiList, href: '/itens', visible: getPermissionsSistema(usuario?.acessos_sistema, 'AdminRedeHotel') },
+    { name: 'Configurações Hotéis', icon: FiList, href: '/hoteis-configuracoes', visible: getPermissionsSistema(usuario?.acessos_sistema, 'AdminRedeHotel') },
   ];
 
   return (

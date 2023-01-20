@@ -2,6 +2,7 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { Cliente } from "./types/cliente";
 import { ClientePlano } from "./types/cliente_plano";
 import { Hotel } from "./types/hotel";
+import { HotelConfiguracao } from "./types/hotel_configuracao";
 
 type TInitialState = {
   isLoadingList: boolean;
@@ -14,6 +15,8 @@ type TInitialState = {
   hotel: Hotel | null;
   planos: Hotel[];
   plano: Hotel | null;
+  hotel_configuracoes: HotelConfiguracao[];
+  hotel_configuracao: HotelConfiguracao | null;
 };
 
 const initialState: TInitialState = {
@@ -27,6 +30,8 @@ const initialState: TInitialState = {
   hotel: null,
   planos: [],
   plano: null,
+  hotel_configuracoes: [],
+  hotel_configuracao: null,
 };
 
 const clienteSlice = createSlice({
@@ -159,6 +164,46 @@ const clienteSlice = createSlice({
       state.error = "";
       state.plano = payload;
       state.success = "Plano salvo com sucesso.";
+      state.isLoading = false;
+    },
+    // HOTEL CONFIGURACAO
+    requestHotelConfiguracoes(state: TInitialState) {
+      state.isLoadingList = true;
+      state.error = "";
+      state.success = "";
+    },
+    requestHotelConfiguracoesSuccess(
+      state: TInitialState,
+      { payload }: PayloadAction<HotelConfiguracao[]>
+    ) {
+      state.isLoadingList = false;
+      state.hotel_configuracoes = payload;
+    },
+    requestHotelConfiguracao(state: TInitialState, _: PayloadAction<{ id: string }>) {
+      state.error = "";
+      state.success = "";
+      state.isLoading = true;
+    },
+    requestHotelConfiguracaoSuccess(
+      state: TInitialState,
+      { payload }: PayloadAction<HotelConfiguracao>
+    ) {
+      state.hotel_configuracao = payload;
+      state.isLoading = false;
+    },
+    requestSaveHotelConfiguracao(
+      state: TInitialState,
+      { payload }: PayloadAction<HotelConfiguracao>
+    ) {
+      state.isLoading = true;
+    },
+    requestSaveHotelConfiguracaoSuccess(
+      state: TInitialState,
+      { payload }: PayloadAction<HotelConfiguracao>
+    ) {
+      state.error = "";
+      state.hotel_configuracao = payload;
+      state.success = "Configuração salva com sucesso.";
       state.isLoading = false;
     },
   },

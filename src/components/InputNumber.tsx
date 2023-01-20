@@ -20,6 +20,7 @@ type InputNumberProps = InputHTMLAttributes<HTMLInputElement> &
 const InputNumber: React.FC<InputNumberProps> = ({
   label,
   decimalPlaces,
+  onChange,
   size: _,
   ...props
 }) => {
@@ -43,7 +44,7 @@ const InputNumber: React.FC<InputNumberProps> = ({
         bg="white"
         value={formatNumber(field.value, decPlaces)}
         onBlur={field.onBlur}
-        onChange={handleNumberChange}
+        onChange={(e) => { handleNumberChange(e); typeof onChange === 'function' && onChange(e) }}
         id={field.name}
         {...props}
         placeholder={props.placeholder}

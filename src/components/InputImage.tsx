@@ -1,5 +1,6 @@
 import { Button, ButtonGroup, FormControl, FormErrorMessage, FormLabel, Image, Modal, ModalBody, ModalCloseButton, ModalContent, ModalHeader, ModalOverlay, Spacer, useDisclosure } from "@chakra-ui/react";
 import { useField } from "formik";
+import { LOCAL_STORAGE_URL } from "../modules/app/config";
 
 interface IProps {
   label: string;
@@ -75,6 +76,17 @@ const InputImage = ({ label, ...props }: IProps) => {
     reader.readAsDataURL(file);
   };
 
+
+  const getLinkImagem = (imagem: string) => {
+    if (!imagem) return '';
+
+    if (imagem.slice(0, 4) === 'data') {
+      return imagem;
+    }
+
+    return LOCAL_STORAGE_URL + '/' + imagem;
+  }
+
   const { isOpen, onOpen, onClose } = useDisclosure()
 
   return (
@@ -94,7 +106,7 @@ const InputImage = ({ label, ...props }: IProps) => {
           <ModalHeader>Pré visualização da imagem</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
-            <Image src={value} alt='imagem' />
+            <Image src={getLinkImagem(value)} alt='imagem' />
             <Spacer marginY={5} />
             <Button colorScheme="teal" onClick={onClose}>Fechar</Button>
           </ModalBody>

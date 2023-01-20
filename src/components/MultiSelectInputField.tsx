@@ -27,7 +27,7 @@ export const MultiSelectInputField: React.FC<InputFieldProps> = ({
 
   return (
     <FormControl isInvalid={touched && error ? true : false}>
-      <MultiSelectInput {...field} onChange={(val) => setValue(val, false)} label={label} options={items} />
+      <MultiSelectInput {...field} onChange={(val) => setValue(val, false)} label={label} options={items} error={!!error} />
       {error && <FormErrorMessage>{error}</FormErrorMessage>}
     </FormControl>
   );

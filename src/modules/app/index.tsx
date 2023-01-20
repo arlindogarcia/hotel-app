@@ -1,6 +1,6 @@
 import React from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import { ClienteEdit, ClienteList, HotelList } from "../cliente/views";
+import { ClienteEdit, ClienteList, HotelList, HotelConfiguracaoEdit, HotelConfiguracaoList } from "../cliente/views";
 import ClientePlanoEdit from "../cliente/views/ClientePlanoEdit";
 import ClientePlanoList from "../cliente/views/ClientePlanoList";
 import HotelEdit from "../cliente/views/HotelEdit";
@@ -32,6 +32,8 @@ export const App: React.FC<{}> = () => {
         <Route path="/categorias/:id" element={<CategoriaEdit />} />
         <Route path="/itens" element={<ItemList />} />
         <Route path="/itens/:id" element={<ItemEdit />} />
+        <Route path="/hoteis-configuracoes" element={<HotelConfiguracaoList />} />
+        <Route path="/hoteis-configuracoes/:id" element={<HotelConfiguracaoEdit />} />
       </Routes>
     </BrowserRouter>
   );

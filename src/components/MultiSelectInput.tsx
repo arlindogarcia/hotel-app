@@ -9,12 +9,18 @@ interface Item {
 interface MultiSelectMenuProps {
   label: string;
   options: Item[];
+  error: boolean;
   onChange?: (selectedValues: string) => void;
   buttonProps?: MenuButtonProps;
   value: string;
 };
 
 const MultiSelectInput = (props: MultiSelectMenuProps): JSX.Element => {
+  const style = {
+    boxShadow: '0 0 0 1px #E53E3E',
+    border: '1px solid #E53E3E',
+  }
+
   const setValue = () => {
     if (!props.value) return []
 
@@ -34,6 +40,7 @@ const MultiSelectInput = (props: MultiSelectMenuProps): JSX.Element => {
       {({ onClose }) => (
         <>
           <MenuButton
+            style={props.error ? style : {}}
             as={Button}
             colorScheme="teal"
             type="button"
