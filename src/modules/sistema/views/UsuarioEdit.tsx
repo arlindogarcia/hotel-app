@@ -115,7 +115,7 @@ const UsuarioEdit = () => {
                   items={hoteis}
                 />
                 {
-                  getPermissionsSistema(usuarioLogado?.acessos_sistema) && <MultiSelectInputField
+                  <MultiSelectInputField
                     name="acessos_sistema"
                     label="Acessos ao sistema"
                     items={[
@@ -127,7 +127,11 @@ const UsuarioEdit = () => {
                         label: 'Administrador da rede de hoteis',
                         value: 'AdminRedeHotel'
                       },
-                    ]}
+                      {
+                        label: 'Recepcionista',
+                        value: 'Recepcao'
+                      },
+                    ].filter(i => getPermissionsSistema(usuarioLogado?.acessos_sistema) ? true : i.value !== 'AdminGeral' && i.value !== 'AdminRedeHotel')}
                   />
                 }
               </ButtonGroup>

@@ -1,5 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { Usuario } from "../login/types/usuario";
+import { UsuarioTemporario } from "./types/usuario_temporario";
 
 type TInitialState = {
   isLoadingList: boolean;
@@ -9,6 +10,8 @@ type TInitialState = {
   usuarios: Usuario[];
   usuario: Usuario | null;
   perfil: Usuario | null;
+  usuarios_temporarios: UsuarioTemporario[];
+  usuario_temporario: UsuarioTemporario | null;
 };
 
 const initialState: TInitialState = {
@@ -19,6 +22,8 @@ const initialState: TInitialState = {
   usuarios: [],
   usuario: null,
   perfil: null,
+  usuarios_temporarios: [],
+  usuario_temporario: null,
 };
 
 const sistemaSlice = createSlice({
@@ -106,6 +111,46 @@ const sistemaSlice = createSlice({
       { payload }: PayloadAction<Usuario>
     ) {
       state.isLoading = true;
+    },
+    // USUARIO TEMPORARIO
+    requestUsuariosTemporarios(state: TInitialState) {
+      state.isLoadingList = true;
+      state.error = "";
+      state.success = "";
+    },
+    requestUsuariosTemporariosSuccess(
+      state: TInitialState,
+      { payload }: PayloadAction<UsuarioTemporario[]>
+    ) {
+      state.isLoadingList = false;
+      state.usuarios_temporarios = payload;
+    },
+    requestUsuarioTemporario(state: TInitialState, _: PayloadAction<{ id: string }>) {
+      state.error = "";
+      state.success = "";
+      state.isLoading = true;
+    },
+    requestSaveUsuarioTemporario(
+      state: TInitialState,
+      { payload }: PayloadAction<UsuarioTemporario>
+    ) {
+      state.isLoading = true;
+    },
+    requestSaveUsuarioTemporarioSuccess(
+      state: TInitialState,
+      { payload }: PayloadAction<UsuarioTemporario>
+    ) {
+      state.error = "";
+      state.success = "Usuário temporário salvo com sucesso.";
+      state.usuario_temporario = payload;
+      state.isLoading = false;
+    },
+    requestUsuarioTemporarioSuccess(
+      state: TInitialState,
+      { payload }: PayloadAction<UsuarioTemporario>
+    ) {
+      state.isLoading = false;
+      state.usuario_temporario = payload;
     },
   },
 });

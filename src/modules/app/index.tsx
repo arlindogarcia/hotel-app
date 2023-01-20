@@ -10,7 +10,7 @@ import ItemEdit from "../item/views/ItemEdit";
 import ItemList from "../item/views/ItemList";
 import { Login } from "../login/views";
 import Logout from "../login/views/Logout";
-import { PerfilEdit, UsuarioEdit, UsuarioList } from "../sistema/views";
+import { PerfilEdit, UsuarioEdit, UsuarioList, UsuarioTemporarioList, UsuarioTemporarioEdit } from "../sistema/views";
 
 export const App: React.FC<{}> = () => {
   return (
@@ -36,6 +36,8 @@ export const App: React.FC<{}> = () => {
         <Route path="/hoteis-configuracoes/:id" element={<HotelConfiguracaoEdit />} />
         <Route path="/hoteis-quartos" element={<HotelQuartoList />} />
         <Route path="/hoteis-quartos/:id" element={<HotelQuartoEdit />} />
+        <Route path="/usuarios-temporarios" element={<UsuarioTemporarioList />} />
+        <Route path="/usuarios-temporarios/:id" element={<UsuarioTemporarioEdit />} />
       </Routes>
     </BrowserRouter>
   );

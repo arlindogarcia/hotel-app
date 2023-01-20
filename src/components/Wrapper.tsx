@@ -21,9 +21,11 @@ import {
   FiLayers,
   FiList,
   FiMenu,
+  FiSettings,
   FiUser,
   FiUsers,
 } from 'react-icons/fi';
+import { FaBed, FaQrcode } from 'react-icons/fa';
 import { IconType } from 'react-icons/lib';
 import { ReactText } from 'react';
 import { useSelector } from 'react-redux';
@@ -89,11 +91,12 @@ const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
     { name: 'Usuários', icon: FiUser, href: '/usuarios', visible: getPermissionsSistema(usuario?.acessos_sistema, 'AdminRedeHotel') },
     { name: 'Clientes', icon: FiUsers, href: '/clientes', visible: getPermissionsSistema(usuario?.acessos_sistema) },
     { name: 'Hoteis', icon: FiGrid, href: '/hoteis', visible: getPermissionsSistema(usuario?.acessos_sistema) },
-    { name: 'Categorias', icon: FiLayers, href: '/categorias', visible: getPermissionsSistema(usuario?.acessos_sistema, 'AdminRedeHotel') },
+    { name: 'Categorias', icon: FiGrid, href: '/categorias', visible: getPermissionsSistema(usuario?.acessos_sistema, 'AdminRedeHotel') },
     { name: 'Itens', icon: FiList, href: '/itens', visible: getPermissionsSistema(usuario?.acessos_sistema, 'AdminRedeHotel') },
     { name: 'Planos', icon: FiLayers, href: '/planos', visible: getPermissionsSistema(usuario?.acessos_sistema, 'AdminRedeHotel') },
-    { name: 'Quartos Hotéis', icon: FiLayers, href: '/hoteis-quartos', visible: getPermissionsSistema(usuario?.acessos_sistema, 'AdminRedeHotel') },
-    { name: 'Configurações Hotéis', icon: FiList, href: '/hoteis-configuracoes', visible: getPermissionsSistema(usuario?.acessos_sistema, 'AdminRedeHotel') },
+    { name: 'Quartos Hotéis', icon: FaBed, href: '/hoteis-quartos', visible: getPermissionsSistema(usuario?.acessos_sistema, 'AdminRedeHotel') },
+    { name: 'Configurações Hotéis', icon: FiSettings, href: '/hoteis-configuracoes', visible: getPermissionsSistema(usuario?.acessos_sistema, 'AdminRedeHotel') },
+    { name: "QRcode's de acesso ao cliente", icon: FaQrcode, href: '/usuarios-temporarios', visible: getPermissionsSistema(usuario?.acessos_sistema, 'AdminRedeHotel') || getPermissionsSistema(usuario?.acessos_sistema, 'Recepcao') },
   ];
 
   return (
