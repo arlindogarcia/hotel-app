@@ -25,7 +25,7 @@ const UsuarioEdit = () => {
   useIsAuth();
 
   const hoteis = useSelector((state: RootState) => {
-    return state.cliente.hoteis.map(hotel => ({
+    return state.cliente.hoteis.filter(hotel => hotel.ativo).map(hotel => ({
       label: hotel.nome,
       value: hotel.id as string,
     }))
@@ -98,7 +98,7 @@ const UsuarioEdit = () => {
                   label="Cliente"
                 >
                   <option value="">Selecione...</option>
-                  {clientes.map(cliente => (
+                  {clientes && clientes.filter(cliente => cliente.ativo).map(cliente => (
                     <option key={cliente.id} value={cliente.id as string}>{cliente.nome}</option>
                   ))}
                 </SelectField>

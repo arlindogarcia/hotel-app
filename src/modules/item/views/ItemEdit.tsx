@@ -42,7 +42,9 @@ const ItemEdit = () => {
   const getSubcategorias = (categoria_id: string | undefined) => {
     if (!categoria_id) return [];
 
-    return categorias.find((i) => i.id === categoria_id)?.subcategorias || [];
+    const subcategorias = categorias.find((i) => i.id === categoria_id)?.subcategorias || [];
+
+    return subcategorias.filter(sub => sub.ativo);
   }
 
   return (
@@ -85,7 +87,7 @@ const ItemEdit = () => {
                 label="Categoria"
               >
                 <option value="">Selecione...</option>
-                {categorias && categorias.map(i => (
+                {categorias && categorias.filter(categoria => categoria.ativo).map(i => (
                   <option key={i.id} value={i.id as string}>{i.nome}</option>
                 ))}
               </SelectField>
