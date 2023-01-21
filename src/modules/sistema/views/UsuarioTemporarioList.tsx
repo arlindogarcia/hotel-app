@@ -1,5 +1,5 @@
-import { ButtonGroup } from "@chakra-ui/react";
-import { useEffect } from "react";
+import { Button, ButtonGroup, Heading } from "@chakra-ui/react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import EditButton from "../../../components/EditButton";
 import Error from "../../../components/Error";
@@ -20,11 +20,23 @@ const UsuarioTemporarioList = () => {
   const error = useSelector((state: RootState) => state.sistema.error)
   const isLoadingList = useSelector((state: RootState) => state.sistema.isLoadingList)
 
+  const [tipoEscopo, setTipoEscopo] = useState("somenteSessaoAtiva")
+
   const dispatch = useDispatch()
 
   useEffect(() => {
-    dispatch(sistemaActions.requestUsuariosTemporarios())
-  }, [dispatch])
+    dispatch(sistemaActions.requestUsuariosTemporarios({ escopo: tipoEscopo }))
+  }, [dispatch, tipoEscopo])
+
+  const mostrarApenasAtivas = () => {
+    setTipoEscopo('somenteSessaoAtiva')
+    dispatch(sistemaActions.requestUsuariosTemporarios({ escopo: tipoEscopo }))
+  }
+
+  const mostrarTodas = () => {
+    setTipoEscopo('')
+    dispatch(sistemaActions.requestUsuariosTemporarios({ escopo: tipoEscopo }))
+  }
 
   const headers: TableHeaders<any>[] = [
     {
@@ -73,6 +85,8 @@ const UsuarioTemporarioList = () => {
   return (
     <Wrapper>
       <ListHeader isLoading={isLoadingList} label="Usuários temporários" label_novo="Gerar QRCode de acesso" href_novo="/usuarios-temporarios/novo" />
+      {tipoEscopo === 'somenteSessaoAtiva' && <Heading mb="2" size="sm">Mostrando apenas sessões ativas <Button colorScheme="blue" onClick={mostrarTodas}>Mostrar todas</Button></Heading>}
+      {tipoEscopo === '' && <Heading mb="2" size="sm">Mostrando todas as sessões <Button colorScheme="blue" onClick={mostrarApenasAtivas}>Mostrar apenas ativas</Button></Heading>}
       <Error error={error} />
 
       {usuarios_temporarios && (

@@ -126,7 +126,7 @@ const sistemaSlice = createSlice({
       state.isLoading = true;
     },
     // USUARIO TEMPORARIO
-    requestUsuariosTemporarios(state: TInitialState) {
+    requestUsuariosTemporarios(state: TInitialState, _: PayloadAction<{ escopo: string }>) {
       state.isLoadingList = true;
       state.error = "";
       state.success = "";

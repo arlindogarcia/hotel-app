@@ -114,10 +114,10 @@ function* requestSavePerfilWorker({ payload }: PayloadAction<IParamShow>) {
   }
 }
 
-function* requestUsuariosTemporariosWorker() {
+function* requestUsuariosTemporariosWorker({ payload }: PayloadAction<{ escopo: string }>) {
   try {
     const res: AxiosResponse = yield call(apiCall, {
-      url: "/usuarios-temporarios",
+      url: `/usuarios-temporarios?escopo=${payload.escopo}`,
       method: "get",
     });
     console.log("list", res.data);
@@ -144,7 +144,7 @@ function* requestUsuarioTemporarioWorker({ payload }: PayloadAction<IParamShow>)
     }
 
     const res: AxiosResponse = yield call(apiCall, {
-      url: `/usuarios-temporarios/${payload.id}?escopo=somenteSessaoAtiva`,
+      url: `/usuarios-temporarios/${payload.id}`,
       method: "get",
     });
     console.log("show", res.data);
