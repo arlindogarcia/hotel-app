@@ -1,11 +1,13 @@
-import { AxiosResponse } from "axios";
+import axios, { AxiosResponse } from "axios";
 import { all, call, put, takeLatest } from "redux-saga/effects";
 import { sistemaActions } from "./reducer";
-import { apiCall } from "../app/config";
+import { apiCall, APIURL } from "../app/config";
 import { PayloadAction } from "@reduxjs/toolkit";
 import { novoUsuario } from "./data/usuario";
 import { formatError } from "../../utils/formatError";
 import { novoUsuarioTemporario } from "./data/usuario_temporario";
+import { UsuarioTemporario } from "./types/usuario_temporario";
+import { loginActions } from "../login/reducer";
 
 function* requestUsuariosWorker() {
   try {
@@ -175,6 +177,26 @@ function* requestSaveUsuarioTemporarioWorker({ payload }: PayloadAction<IParamSh
     );
   }
 }
+interface TLoginRes {
+  token: string;
+  user: UsuarioTemporario;
+};
+
+function loginCall(payload: { id: String }) {
+  return axios.post(`${APIURL}/sessions/usuario-temporario/${payload.id}`);
+}
+
+function* requestUsuarioTemporarioLoginWorker({ payload }: PayloadAction<IParamShow>) {
+  try {
+    const res: AxiosResponse<TLoginRes> = yield call(loginCall, payload);
+    console.log("resposta login", res);
+    yield put(sistemaActions.requestUsuarioTemporarioLoginSuccess(res.data));
+    yield put(loginActions.loginUsuarioTemporarioSuccess(res.data));
+  } catch (error: any) {
+    console.log("error returned", error);
+    yield put(sistemaActions.requestUsuariosError(formatError(error)));
+  }
+}
 
 export function* sistemaSaga() {
   yield all([
@@ -186,5 +208,6 @@ export function* sistemaSaga() {
     takeLatest("sistema/requestUsuariosTemporarios", requestUsuariosTemporariosWorker),
     takeLatest("sistema/requestUsuarioTemporario", requestUsuarioTemporarioWorker),
     takeLatest("sistema/requestSaveUsuarioTemporario", requestSaveUsuarioTemporarioWorker),
+    takeLatest("sistema/requestUsuarioTemporarioLogin", requestUsuarioTemporarioLoginWorker),
   ]);
 }

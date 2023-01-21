@@ -5,4 +5,4 @@ import UsuarioTemporarioList from "./UsuarioTemporarioList";
 import UsuarioTemporarioEdit from "./UsuarioTemporarioEdit";
 import UsuarioTemporarioLogin from "./UsuarioTemporarioLogin";
 
-export { UsuarioList, UsuarioEdit, PerfilEdit, UsuarioTemporarioList, UsuarioTemporarioEdit };
+export { UsuarioList, UsuarioEdit, PerfilEdit, UsuarioTemporarioList, UsuarioTemporarioEdit, UsuarioTemporarioLogin };

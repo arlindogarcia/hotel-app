@@ -1,4 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { UsuarioTemporario } from "../sistema/types/usuario_temporario";
 import { Usuario } from "./types/usuario";
 
 type TInitialState = {
@@ -8,6 +9,7 @@ type TInitialState = {
   successMsg: string;
   error: string;
   user: Usuario | null;
+  user_temp: UsuarioTemporario | null;
 };
 
 export type TLoginAction = {
@@ -21,6 +23,7 @@ const initialState: TInitialState = {
   token: "",
   successMsg: "",
   user: null,
+  user_temp: null,
   error: "",
 };
 
@@ -40,6 +43,7 @@ const loginSlice = createSlice({
       state.token = payload.token;
       state.user = payload.user;
       state.successMsg = "Login efetuado com sucesso!";
+      state.user_temp = null;
     },
     loginError(state: TInitialState, { payload }: PayloadAction<string>) {
       state.isLoggingIn = false;
@@ -50,6 +54,15 @@ const loginSlice = createSlice({
       state.user = null;
       state.token = "";
     },
+    loginUsuarioTemporarioSuccess(state: TInitialState, { payload }: PayloadAction<{ token: string; user: UsuarioTemporario }>) {
+      state.isLogged = true;
+      state.isLoggingIn = false;
+      state.successMsg = "";
+      state.error = "";
+      state.token = payload.token;
+      state.user_temp = payload.user;
+      state.user = null;
+    }
   },
 });
 

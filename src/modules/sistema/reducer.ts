@@ -2,6 +2,12 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { Usuario } from "../login/types/usuario";
 import { UsuarioTemporario } from "./types/usuario_temporario";
 
+
+interface TLoginRes {
+  token: string;
+  user: UsuarioTemporario;
+};
+
 type TInitialState = {
   isLoadingList: boolean;
   isLoading: boolean;
@@ -151,6 +157,14 @@ const sistemaSlice = createSlice({
     ) {
       state.isLoading = false;
       state.usuario_temporario = payload;
+    },
+    requestUsuarioTemporarioLogin(state: TInitialState, _: PayloadAction<{ id: string }>) {
+      state.error = "";
+      state.success = "";
+      state.isLoading = true;
+    },
+    requestUsuarioTemporarioLoginSuccess(state: TInitialState, { payload }: PayloadAction<TLoginRes>) {
+      state.isLoading = false;
     },
   },
 });

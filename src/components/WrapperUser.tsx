@@ -7,6 +7,7 @@ import { loginActions } from "../modules/login/reducer";
 
 const WrapperUser = () => {
   const usuario = useSelector((state: RootState) => state.login.user);
+  const usuario_temporario = useSelector((state: RootState) => state.login.user_temp);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -21,7 +22,7 @@ const WrapperUser = () => {
             alignItems="flex-start"
             spacing="1px"
             ml="2">
-            <Text fontSize="sm">Olá, {usuario?.nome}</Text>
+            <Text fontSize="sm">Olá, {usuario?.nome}{usuario_temporario?.nome}</Text>
           </VStack>
           <Box>
             <FiChevronDown />
@@ -31,8 +32,8 @@ const WrapperUser = () => {
       <MenuList
         bg={useColorModeValue('white', 'gray.900')}
         borderColor={useColorModeValue('gray.200', 'gray.700')}>
-        <MenuItem onClick={() => navigate('/perfil')}>Perfil</MenuItem>
-        <MenuDivider />
+        {usuario && <MenuItem onClick={() => navigate('/perfil')}>Perfil</MenuItem>}
+        {usuario && <MenuDivider />}
         <MenuItem onClick={() => dispatch(loginActions.logout())}>Sair</MenuItem>
       </MenuList>
     </Menu>
