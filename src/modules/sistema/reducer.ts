@@ -66,7 +66,10 @@ const sistemaSlice = createSlice({
     ) {
       state.error = "";
       state.success = "Usuário salvo com sucesso.";
-      state.usuario = payload;
+      state.usuario = {
+        ...payload,
+        password: '',
+      };
       state.isLoading = false;
     },
     requestSavePerfilSuccess(
@@ -83,7 +86,10 @@ const sistemaSlice = createSlice({
       { payload }: PayloadAction<Usuario>
     ) {
       state.isLoading = false;
-      state.usuario = payload;
+      state.usuario = {
+        ...payload,
+        password: '',
+      };
     },
     requestUsuariosError(
       state: TInitialState,

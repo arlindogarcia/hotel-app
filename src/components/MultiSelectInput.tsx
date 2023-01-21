@@ -1,5 +1,4 @@
 import { Button, Menu, MenuButton, MenuButtonProps, MenuDivider, MenuGroup, MenuItem, MenuItemOption, MenuList, MenuOptionGroup } from "@chakra-ui/react";
-import React, { useState } from "react";
 
 interface Item {
   label: string;
@@ -21,19 +20,19 @@ const MultiSelectInput = (props: MultiSelectMenuProps): JSX.Element => {
     border: '1px solid #E53E3E',
   }
 
-  const setValue = () => {
-    if (!props.value) return []
+  const { label, options, buttonProps } = props;
 
-    const retorno = props.value.split(',');
-
-    if (retorno.length == 1 && !retorno[0]) {
+  const getValuesArray = () => {
+    if (!props.value) {
       return [];
     }
 
-    return retorno;
+    if (props.value.split(',').length === 1 && !props.value.split(',')[0]) {
+      return [];
+    }
+
+    return props.value.split(',');
   }
-  const { label, options, buttonProps } = props;
-  const [selectedOptions, setSelectedOptions] = useState<string[]>(setValue());
 
   return (
     <Menu closeOnSelect={false}>
@@ -47,17 +46,14 @@ const MultiSelectInput = (props: MultiSelectMenuProps): JSX.Element => {
             {...buttonProps}
           >
 
-            {`${label} (${selectedOptions.length})`}
+            {`${label} (${getValuesArray().length})`}
 
           </MenuButton>
           <MenuList>
             <MenuGroup title={undefined}>
               <MenuItem
                 onClick={() => {
-                  setSelectedOptions([]);
-                  props.onChange?.("");
-                  // Have to close, otherwise the defaultValue won't be reset correctly
-                  // and so the UI won't immediately show the menu item options unselected.
+                  typeof props.onChange === 'function' && props.onChange('');
                   onClose();
                 }}
               >
@@ -67,7 +63,8 @@ const MultiSelectInput = (props: MultiSelectMenuProps): JSX.Element => {
             <MenuDivider />
             <MenuOptionGroup
               title={undefined}
-              defaultValue={selectedOptions}
+              // defaultValue={getValuesArray()}
+              value={getValuesArray()}
               type="checkbox"
               /* eslint-disable @typescript-eslint/ban-ts-comment */
               // @ts-ignore Arguments type is just wrong upstream.
@@ -80,8 +77,8 @@ const MultiSelectInput = (props: MultiSelectMenuProps): JSX.Element => {
                     retorno = i;
                   }
                 });
-                setSelectedOptions(values.filter((_) => _.length));
-                props.onChange?.(retorno);
+
+                typeof props.onChange === 'function' && props.onChange(retorno);
               }}
             >
               {options.map((option) => {
