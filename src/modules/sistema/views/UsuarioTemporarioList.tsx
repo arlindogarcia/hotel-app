@@ -8,6 +8,7 @@ import ResponsiveTable, { TableHeaders } from "../../../components/ResponsiveTab
 import Wrapper from "../../../components/Wrapper";
 import { useIsAuth } from "../../../hooks/useIsAuth";
 import { formatDateTime } from "../../../utils/formatDate";
+import { APPURL } from "../../app/config";
 import { RootState } from "../../app/mainReducer";
 import ButtonViewQrCode from "../components/ButtonViewQrCode";
 import { sistemaActions } from "../reducer";
@@ -63,7 +64,7 @@ const UsuarioTemporarioList = () => {
       render: (reg) => (
         <ButtonGroup>
           <EditButton href={`/usuarios-temporarios/${reg.id}`} />
-          <ButtonViewQrCode link={reg.id} />
+          <ButtonViewQrCode link={`${APPURL}/usuarios-temporarios/login/${reg.id}`} />
         </ButtonGroup>
       )
     }

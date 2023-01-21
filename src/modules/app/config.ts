@@ -4,6 +4,7 @@ import { store } from "./mainReducer";
 
 export const APIURL = getEnv("REACT_APP_API_HOST")
 export const LOCAL_STORAGE_URL = getEnv("REACT_APP_API_HOST") + '/files';
+export const APPURL = getEnv("REACT_APP_HOST")
 
 export const getToken = () => store.getState().login.token;
 

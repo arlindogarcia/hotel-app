@@ -12,6 +12,7 @@ import Success from "../../../components/Success";
 import Wrapper from "../../../components/Wrapper"
 import { useIsAuth } from "../../../hooks/useIsAuth";
 import { validateForm } from "../../../utils/validationForm";
+import { APPURL } from "../../app/config";
 import { RootState } from "../../app/mainReducer";
 import { clienteActions } from "../../cliente/reducer";
 import ButtonViewQrCode from "../components/ButtonViewQrCode";
@@ -106,7 +107,7 @@ const UsuarioTemporarioEdit = () => {
               />
 
               <Spacer my='2' />
-              {values.id && <ButtonViewQrCode link={values.id} />}
+              {values.id && <ButtonViewQrCode link={`${APPURL}/usuarios-temporarios/login/${values.id}`} />}
 
 
               <FooterForm isLoading={isLoading} />

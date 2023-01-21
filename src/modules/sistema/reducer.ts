@@ -1,4 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { formatDateTime } from "../../utils/formatDate";
 import { Usuario } from "../login/types/usuario";
 import { UsuarioTemporario } from "./types/usuario_temporario";
 
@@ -148,7 +149,11 @@ const sistemaSlice = createSlice({
     ) {
       state.error = "";
       state.success = "Usuário temporário salvo com sucesso.";
-      state.usuario_temporario = payload;
+      state.usuario_temporario = {
+        ...payload,
+        data_inicio_sessao: formatDateTime(payload.data_inicio_sessao, 'yyyy-MM-dd HH:mm').replace(' ', 'T'),
+        data_fim_sessao: formatDateTime(payload.data_fim_sessao, 'yyyy-MM-dd HH:mm').replace(' ', 'T'),
+      };
       state.isLoading = false;
     },
     requestUsuarioTemporarioSuccess(
@@ -156,7 +161,11 @@ const sistemaSlice = createSlice({
       { payload }: PayloadAction<UsuarioTemporario>
     ) {
       state.isLoading = false;
-      state.usuario_temporario = payload;
+      state.usuario_temporario = {
+        ...payload,
+        data_inicio_sessao: formatDateTime(payload.data_inicio_sessao, 'yyyy-MM-dd HH:mm').replace(' ', 'T'),
+        data_fim_sessao: formatDateTime(payload.data_fim_sessao, 'yyyy-MM-dd HH:mm').replace(' ', 'T'),
+      };
     },
     requestUsuarioTemporarioLogin(state: TInitialState, _: PayloadAction<{ id: string }>) {
       state.error = "";
