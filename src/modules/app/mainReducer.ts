@@ -7,6 +7,7 @@ import storage from "redux-persist/lib/storage";
 import sistemaSlice from "../sistema/reducer";
 import clienteSlice from "../cliente/reducer";
 import itemSlice from "../item/reducer";
+import usuarioTemporarioSlice from "../usuario_temporario/reducer";
 
 const sagaMiddleware = createSagaMiddleware();
 
@@ -28,6 +29,10 @@ export const store = configureStore({
       key: 'item',
       storage: storage,
     }, itemSlice.reducer),
+    usuario_temporario: persistReducer({
+      key: 'usuario_temporario',
+      storage: storage,
+    }, usuarioTemporarioSlice.reducer),
   },
   middleware: [sagaMiddleware],
 });

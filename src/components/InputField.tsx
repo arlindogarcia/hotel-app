@@ -16,6 +16,7 @@ type InputFieldProps = InputHTMLAttributes<HTMLInputElement> & {
   textarea?: boolean;
   mask?: string;
   bgNone?: boolean;
+  onChange?: () => void;
 };
 
 export const InputField: React.FC<InputFieldProps> = ({
@@ -31,7 +32,7 @@ export const InputField: React.FC<InputFieldProps> = ({
   if (mask && mask.length > 1) {
     return (
       <FormControl isInvalid={touched && error ? true : false}>
-        <FormLabel>{label}</FormLabel>
+        {label && <FormLabel>{label}</FormLabel>}
         <Input
           bg={!bgNone ? 'white' : 'none'}
           as={ReactInputMask}
@@ -48,7 +49,7 @@ export const InputField: React.FC<InputFieldProps> = ({
   if (textarea) {
     return (
       <FormControl>
-        <FormLabel>{label}</FormLabel>
+        {label && <FormLabel>{label}</FormLabel>}
         <Textarea
           bg={!bgNone ? 'white' : 'none'}
           disabled={disabled}
@@ -62,11 +63,12 @@ export const InputField: React.FC<InputFieldProps> = ({
 
   return (
     <FormControl isInvalid={touched && error ? true : false}>
-      <FormLabel>{label}</FormLabel>
+      {label && <FormLabel>{label}</FormLabel>}
       <Input
         bg={!bgNone ? 'white' : 'none'}
         disabled={disabled}
         type={props.type}
+        placeholder={props.placeholder}
         {...field}
         isInvalid={touched && error ? true : false}
       />

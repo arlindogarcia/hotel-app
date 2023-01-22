@@ -34,6 +34,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { BrowserView, MobileView } from 'react-device-detect';
 import WrapperUser from './WrapperUser';
 import { getPermissionsSistema } from '../utils/permissions';
+import HotelUsuarioTemporarioLogo from '../modules/usuario_temporario/components/HotelUsuarioTemporarioLogo';
 
 interface LinkItemProps {
   name: string;
@@ -44,8 +45,10 @@ interface LinkItemProps {
 
 export default function Wrapper({
   children,
+  padding = true,
 }: {
   children: ReactNode;
+  padding?: boolean;
 }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
@@ -71,7 +74,7 @@ export default function Wrapper({
       }
       {/* mobilenav */}
       <MobileNav onOpen={onOpen} />
-      <Box ml={{ base: 0, md: 60 }} p="4">
+      <Box ml={{ base: 0, md: 60 }} p={padding ? 4 : 0}>
         {children}
       </Box>
     </Box>
@@ -111,7 +114,8 @@ const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
       {...rest}>
       <Flex h="20" alignItems="center" mx="8" justifyContent="space-between">
         <Text fontSize="2xl" fontFamily="monospace" fontWeight="bold">
-          Logo
+          {usuario && 'Logo'}
+          {!usuario && <HotelUsuarioTemporarioLogo />}
         </Text>
         <CloseButton display={{ base: 'flex', md: 'none' }} onClick={onClose} />
       </Flex>
@@ -175,6 +179,8 @@ interface MobileProps extends FlexProps {
   onOpen: () => void;
 }
 const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
+  const usuario = useSelector((state: RootState) => state.login.user);
+
   return (
     <MobileView>
       <Flex
@@ -200,7 +206,8 @@ const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
           fontSize="2xl"
           fontFamily="monospace"
           fontWeight="bold">
-          Logo
+          {usuario && 'Logo'}
+          {!usuario && <HotelUsuarioTemporarioLogo />}
         </Text>
 
         <HStack spacing={{ base: '0', md: '6' }}>

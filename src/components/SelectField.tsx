@@ -22,7 +22,7 @@ const SelectField: React.FC<SelectFieldProps> = ({
   const [field, { error }, { setValue }] = useField(props);
   return (
     <FormControl isInvalid={!!error} mt="0.5em">
-      <FormLabel htmlFor={field.name}>{label}</FormLabel>
+      {label && <FormLabel htmlFor={field.name}>{label}</FormLabel>}
       <Select
         bg="white"
         onChange={(e) => { setValue(e.target.value, false); typeof onChange === 'function' && onChange(e) }}

@@ -8,6 +8,8 @@ import { formatError } from "../../utils/formatError";
 import { novoUsuarioTemporario } from "./data/usuario_temporario";
 import { UsuarioTemporario } from "./types/usuario_temporario";
 import { loginActions } from "../login/reducer";
+import { HotelConfiguracao } from "../cliente/types/hotel_configuracao";
+import { usuarioTemporarioActions } from "../usuario_temporario/reducer";
 
 function* requestUsuariosWorker() {
   try {
@@ -180,6 +182,7 @@ function* requestSaveUsuarioTemporarioWorker({ payload }: PayloadAction<IParamSh
 interface TLoginRes {
   token: string;
   user: UsuarioTemporario;
+  configuracao: HotelConfiguracao;
 };
 
 function loginCall(payload: { id: String }) {
@@ -192,6 +195,7 @@ function* requestUsuarioTemporarioLoginWorker({ payload }: PayloadAction<IParamS
     console.log("resposta login", res);
     yield put(sistemaActions.requestUsuarioTemporarioLoginSuccess(res.data));
     yield put(loginActions.loginUsuarioTemporarioSuccess(res.data));
+    yield put(usuarioTemporarioActions.requestConfiguracaoSuccess(res.data.configuracao))
   } catch (error: any) {
     console.log("error returned", error);
     yield put(sistemaActions.requestUsuariosError(formatError(error)));
