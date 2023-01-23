@@ -16,12 +16,14 @@ import {
   FlexProps,
 } from '@chakra-ui/react';
 import {
+  FiBookOpen,
   FiGrid,
   FiHome,
   FiLayers,
   FiList,
   FiMenu,
   FiSettings,
+  FiShoppingCart,
   FiUser,
   FiUsers,
 } from 'react-icons/fi';
@@ -88,9 +90,12 @@ interface SidebarProps extends BoxProps {
 const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
   const navigate = useNavigate();
   const usuario = useSelector((state: RootState) => state.login.user);
+  const usuario_temporario = useSelector((state: RootState) => state.login.user_temp);
 
   const LinkItems: Array<LinkItemProps> = [
     { name: 'Início', icon: FiHome, href: '/', visible: true },
+    { name: 'Cardápio', icon: FiBookOpen, href: '/produtos', visible: !!usuario_temporario },
+    { name: 'Carrinho', icon: FiShoppingCart, href: '/carrinho', visible: !!usuario_temporario },
     { name: 'Usuários', icon: FiUser, href: '/usuarios', visible: getPermissionsSistema(usuario?.acessos_sistema, 'AdminRedeHotel') },
     { name: 'Clientes', icon: FiUsers, href: '/clientes', visible: getPermissionsSistema(usuario?.acessos_sistema) },
     { name: 'Hoteis', icon: FiGrid, href: '/hoteis', visible: getPermissionsSistema(usuario?.acessos_sistema) },

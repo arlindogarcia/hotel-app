@@ -2,12 +2,17 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { HotelConfiguracao } from "../cliente/types/hotel_configuracao";
 import { HotelConfiguracaoItem } from "../cliente/types/hotel_configuracao_item";
 
+type ICarrinho = {
+  itens: (HotelConfiguracaoItem & { quantidade: number })[];
+}
+
 type TInitialState = {
   isLoading: boolean;
   error: string;
   success: string;
   configuracao: HotelConfiguracao | null;
   configuracao_itens: HotelConfiguracaoItem[];
+  carrinho: ICarrinho;
 };
 
 export interface IParamsShop {
@@ -23,6 +28,9 @@ const initialState: TInitialState = {
   success: "",
   configuracao_itens: [],
   configuracao: null,
+  carrinho: {
+    itens: [],
+  },
 };
 
 const usuarioTemporarioSlice = createSlice({
@@ -57,6 +65,46 @@ const usuarioTemporarioSlice = createSlice({
     ) {
       state.configuracao_itens = payload;
       state.isLoading = false;
+    },
+    // CARRINHO
+    requestAddItemToCart(state: TInitialState, { payload }: PayloadAction<HotelConfiguracaoItem>) {
+      const itemExistenteIndex = state.carrinho.itens.findIndex((i) => i?.item?.id === payload?.item?.id);
+
+      if (itemExistenteIndex > -1) {
+        state.carrinho.itens[itemExistenteIndex].quantidade += 1;
+        return;
+      }
+
+      state.carrinho.itens.push({
+        ...payload,
+        quantidade: 1,
+      });
+    },
+    requestRemoveItemToCart(state: TInitialState, { payload }: PayloadAction<HotelConfiguracaoItem>) {
+      const itemExistenteIndex = state.carrinho.itens.findIndex((i) => i?.item?.id === payload?.item?.id);
+
+      if (itemExistenteIndex > -1) {
+        state.carrinho.itens.splice(itemExistenteIndex, 1);
+      }
+    },
+    requestRemoveQuantityItemToCart(state: TInitialState, { payload }: PayloadAction<HotelConfiguracaoItem>) {
+      const itemExistenteIndex = state.carrinho.itens.findIndex((i) => i?.item?.id === payload?.item?.id);
+
+      if (itemExistenteIndex > -1) {
+        if (state.carrinho.itens[itemExistenteIndex].quantidade === 1) {
+          state.carrinho.itens.splice(itemExistenteIndex, 1);
+          return;
+        }
+
+        state.carrinho.itens[itemExistenteIndex].quantidade -= 1;
+      }
+    },
+    requestAddQuantityItemToCart(state: TInitialState, { payload }: PayloadAction<HotelConfiguracaoItem>) {
+      const itemExistenteIndex = state.carrinho.itens.findIndex((i) => i?.item?.id === payload?.item?.id);
+
+      if (itemExistenteIndex > -1) {
+        state.carrinho.itens[itemExistenteIndex].quantidade += 1;
+      }
     },
   },
 });

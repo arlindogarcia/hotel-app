@@ -1,15 +1,17 @@
 import { Box, Button, Drawer, DrawerBody, DrawerCloseButton, DrawerContent, DrawerHeader, DrawerOverlay, Flex, Image, Stack, Text, useDisclosure, useMediaQuery } from "@chakra-ui/react";
 import { useEffect } from "react";
 import { FiCheckCircle } from "react-icons/fi";
+import { useNavigate } from "react-router-dom";
 import { LOCAL_STORAGE_URL } from "../../app/config";
 import { Item } from "../../item/types/item";
 
 interface IProps {
   item: Item | undefined;
   onCloseModal: () => void;
+  onContinuarComprando: () => void;
 }
 
-const ShopCartAddItemDrawer = ({ item, onCloseModal }: IProps) => {
+const ShopCartAddItemDrawer = ({ item, onCloseModal, onContinuarComprando }: IProps) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   useEffect(() => {
@@ -21,6 +23,8 @@ const ShopCartAddItemDrawer = ({ item, onCloseModal }: IProps) => {
   }, [item, onOpen, onClose]);
 
   const bp = useMediaQuery("(max-width: 768px)")[0];
+
+  const navigate = useNavigate();
 
   return (
     <>
@@ -53,8 +57,8 @@ const ShopCartAddItemDrawer = ({ item, onCloseModal }: IProps) => {
               </Flex>}
             </Stack>
             <Stack spacing={4} mb="20" mt="5">
-              <Button colorScheme="green" padding={6}>Ir para o carrinho</Button>
-              <Button colorScheme="gray" padding={6}>Continuar comprando</Button>
+              <Button colorScheme="green" padding={6} onClick={() => navigate('/carrinho')}>Ir para o carrinho</Button>
+              <Button colorScheme="gray" padding={6} onClick={onContinuarComprando}>Continuar comprando</Button>
             </Stack>
           </DrawerBody>
         </DrawerContent>

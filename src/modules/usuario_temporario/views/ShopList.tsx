@@ -21,19 +21,41 @@ import { TopFilter } from "../components/ShopList";
 import { itemActions } from "../../item/reducer";
 import { RootState } from "../../app/mainReducer";
 import { formatMoney } from "../../../utils/formatMoney";
-import { FiEye, FiPlus } from "react-icons/fi";
+import { FiEye, FiPlus, FiShoppingCart } from "react-icons/fi";
 import { LOCAL_STORAGE_URL } from "../../app/config";
 import { HotelConfiguracaoItem } from "../../cliente/types/hotel_configuracao_item";
 import ShopCartAddItemDrawer from "../components/ShopCartAddItemDrawer";
 import { Item } from "../../item/types/item";
 import { useIsAuth } from "../../../hooks/useIsAuth";
 import { Skeleton } from '@chakra-ui/react'
+import Error from "../../../components/Error";
+import { usuarioTemporarioActions } from "../reducer";
+import { useNavigate } from "react-router-dom";
+
+
+const IconDisplay = ({ quantidadeItens }: { quantidadeItens: number }) => {
+  const navigate = useNavigate();
+
+  return (
+    <Button onClick={() => navigate('/carrinho')}>
+      <Flex padding={2} borderRadius="10px" color={quantidadeItens > 0 ? 'white' : 'black'} bg={quantidadeItens > 0 ? 'green.500' : 'white'}>
+        <FiShoppingCart fontSize="25px" />
+        <Text fontSize="15px" marginLeft={3}>
+          {quantidadeItens}
+        </Text>
+      </Flex>
+    </Button >
+  )
+}
+
 
 const ShopList = () => {
   useIsAuth();
 
   const configuracao_itens = useSelector((state: RootState) => state.usuario_temporario.configuracao_itens);
   const isLoading = useSelector((state: RootState) => state.usuario_temporario.isLoading);
+  const error = useSelector((state: RootState) => state.usuario_temporario.error);
+  const itensCart = useSelector((state: RootState) => state.usuario_temporario.carrinho.itens);
 
   const dispatch = useDispatch();
   useEffect(() => {
@@ -45,6 +67,7 @@ const ShopList = () => {
   const [itemAdicionadoAoCarrinho, setItemAdicionadoAoCarrinho] = useState<Item | undefined>(undefined);
 
   const onClickAdicionarAoCarrinho = (configuracao_item: HotelConfiguracaoItem) => {
+    dispatch(usuarioTemporarioActions.requestAddItemToCart(configuracao_item));
 
     setItemAdicionadoAoCarrinho(configuracao_item.item);
   }
@@ -52,8 +75,14 @@ const ShopList = () => {
   return (
     <Wrapper padding={false}>
       <Box>
-        <Heading size="2xl" paddingBottom={2} marginBottom={2} px="4" pt="4">Produtos</Heading>
+        <Heading size="2xl" paddingBottom={2} marginBottom={2} px="4" pt="4">
+          <Flex justifyContent="space-between" alignItems="center">
+            Produtos <IconDisplay quantidadeItens={itensCart.length} />
+          </Flex>
+        </Heading>
+
         <TopFilter />
+        <Error error={error ? 'Ocorreu um erro ao buscar os produtos.' : ''} />
         <SimpleGrid ml={bp ? 0 : 4} mr={bp ? 0 : 4} columns={bp ? 1 : [1, 2, 3]} spacing={bp ? 0 : 4}>
 
           {isLoading && [1, 2, 3, 4, 5, 6].map((i) => (
@@ -134,7 +163,7 @@ const ShopList = () => {
         {configuracao_itens && configuracao_itens.length === 0 && <Heading size="sm" ml={4}>Nenhum resultado encontrado.</Heading>}
       </Box >
 
-      <ShopCartAddItemDrawer item={itemAdicionadoAoCarrinho} onCloseModal={() => setItemAdicionadoAoCarrinho(undefined)} />
+      <ShopCartAddItemDrawer item={itemAdicionadoAoCarrinho} onCloseModal={() => setItemAdicionadoAoCarrinho(undefined)} onContinuarComprando={() => setItemAdicionadoAoCarrinho(undefined)} />
     </Wrapper >
   );
 }
