@@ -1,4 +1,4 @@
-import { Box, Button, Flex, FlexProps, Heading, HStack, Link, Popover, PopoverCloseButton, PopoverContent, PopoverTrigger, Stack, Text } from "@chakra-ui/react";
+import { Box, Button, Flex, FlexProps, Heading, HStack, Link, Popover, PopoverCloseButton, PopoverContent, PopoverTrigger, Stack, Text, useDisclosure } from "@chakra-ui/react";
 import { Form, Formik } from "formik";
 import { useDispatch, useSelector } from "react-redux";
 import { InputField } from "../../../../components/InputField";
@@ -76,6 +76,10 @@ const TopFilter = () => {
     return subcategorias.filter(sub => sub.ativo);
   }
 
+  const { onOpen: onOpenOrdenar, onClose: onCloseOrdenar, isOpen: isOpenOrdenar } = useDisclosure()
+  const { onOpen: onOpenFiltrar, onClose: onCloseFiltrar, isOpen: isOpenFiltrar } = useDisclosure()
+
+
   return (
     <Stack spacing={4} mb="4" px="4">
       <Formik
@@ -84,13 +88,16 @@ const TopFilter = () => {
         onSubmit={(val) => {
 
           dispatch(usuarioTemporarioActions.requestConfiguracaoItens(val))
+
+          onCloseOrdenar();
+          onCloseFiltrar();
         }}
       >
         {({ values, setValues }) => (
           <Form>
             <Flex>
               <Flex align="center" width="50%">
-                <Popover placement="bottom">
+                <Popover placement="bottom" isOpen={isOpenOrdenar} onClose={onCloseOrdenar} onOpen={onOpenOrdenar}>
                   <PopoverTrigger>
                     <Box width="100%" p={4} shadow="md" borderWidth="1px" cursor="pointer" bg="white" borderRadius="10px 0 0 10px">
                       <HStack>
@@ -125,7 +132,7 @@ const TopFilter = () => {
                 </Popover>
               </Flex>
               <Flex align="center" width="50%">
-                <Popover placement="bottom">
+                <Popover placement="bottom" isOpen={isOpenFiltrar} onClose={onCloseFiltrar} onOpen={onOpenFiltrar}>
                   <PopoverTrigger>
                     <Box width="100%" p={4} shadow="md" borderWidth="1px" cursor="pointer" bg="white" borderRadius="0 10px 10px 0">
                       <HStack>

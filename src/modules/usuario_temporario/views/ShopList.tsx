@@ -13,7 +13,6 @@ import {
   Text,
   Flex,
   Image,
-  Stack,
 } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -28,11 +27,13 @@ import { HotelConfiguracaoItem } from "../../cliente/types/hotel_configuracao_it
 import ShopCartAddItemDrawer from "../components/ShopCartAddItemDrawer";
 import { Item } from "../../item/types/item";
 import { useIsAuth } from "../../../hooks/useIsAuth";
+import { Skeleton } from '@chakra-ui/react'
 
 const ShopList = () => {
   useIsAuth();
 
   const configuracao_itens = useSelector((state: RootState) => state.usuario_temporario.configuracao_itens);
+  const isLoading = useSelector((state: RootState) => state.usuario_temporario.isLoading);
 
   const dispatch = useDispatch();
   useEffect(() => {
@@ -54,7 +55,11 @@ const ShopList = () => {
         <Heading size="2xl" paddingBottom={2} marginBottom={2} px="4" pt="4">Produtos</Heading>
         <TopFilter />
         <SimpleGrid ml={bp ? 0 : 4} mr={bp ? 0 : 4} columns={bp ? 1 : [1, 2, 3]} spacing={bp ? 0 : 4}>
-          {configuracao_itens && configuracao_itens.map((configuracao_item: HotelConfiguracaoItem) => (
+
+          {isLoading && [1, 2, 3, 4, 5, 6].map((i) => (
+            <Skeleton height='120px' />
+          ))}
+          {!isLoading && configuracao_itens && configuracao_itens.map((configuracao_item: HotelConfiguracaoItem) => (
             <Box key={configuracao_item.id as string} shadow="md" bg="white" borderRadius={bp ? '' : '10px'}>
               <Flex>
                 <Flex width="150px">
@@ -104,7 +109,7 @@ const ShopList = () => {
                         </Button>
 
                         <Flex my="2" borderBottom="1px solid gray" justifyContent="center">
-                          <Heading color="gray.500" size="sm">DESCRIÇÃO</Heading>
+                          <Heading color="gray.500" size="sm" paddingBottom={1}>DESCRIÇÃO</Heading>
                         </Flex>
                         <Flex
                           dangerouslySetInnerHTML={{
@@ -112,7 +117,7 @@ const ShopList = () => {
                           }}>
                         </Flex>
                         {configuracao_item.item?.imagens?.length && <Flex my="2" borderBottom="1px solid gray" justifyContent="center">
-                          <Heading color="gray.500" size="sm">IMAGENS</Heading>
+                          <Heading color="gray.500" size="sm" paddingBottom={1}>IMAGENS</Heading>
                         </Flex>}
 
                         {configuracao_item.item?.imagens?.map((i) => (
