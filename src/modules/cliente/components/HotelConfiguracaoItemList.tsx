@@ -53,6 +53,7 @@ const HotelConfiguracaoItemList = ({ itens }: Iprops) => {
     }
   ]
 
+  const planos = useSelector((state: RootState) => state.cliente.planos);
   const [currentItem, setCurrentItem] = useState<HotelConfiguracaoItem | null>(null);
   const [, { value }, { setValue }] = useField('itens');
 
@@ -60,7 +61,14 @@ const HotelConfiguracaoItemList = ({ itens }: Iprops) => {
 
   const onClickOpenModal = (item: HotelConfiguracaoItem | null) => {
     if (!item) {
-      setCurrentItem(novoHotelConfiguracaoItem())
+      const planosIds: string[] = [];
+      planos && planos.forEach((i) => {
+        planosIds.push(i.id as string);
+      })
+
+      const novoItem = novoHotelConfiguracaoItem();
+      novoItem.cliente_plano_ids = planosIds.join(',');
+      setCurrentItem(novoItem)
       onOpen();
       return;
     }
@@ -123,7 +131,7 @@ const HotelConfiguracaoItemList = ({ itens }: Iprops) => {
           <ModalHeader>Item da configuração</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
-            <HotelConfiguracaoItemForm onSave={(val) => onSaveModal(val)} onClose={onClose} value={currentItem} />
+            <HotelConfiguracaoItemForm onSave={(val) => onSaveModal(val)} onClose={onClose} value={currentItem} items={itens} />
           </ModalBody>
         </ModalContent>
       </Modal>

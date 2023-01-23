@@ -8,6 +8,7 @@ import { MultiSelectInputField } from "../../../components/MultiSelectInputField
 import SelectField from "../../../components/SelectField";
 import { validateForm } from "../../../utils/validationForm";
 import { RootState } from "../../app/mainReducer";
+import { Item } from "../../item/types/item";
 import { HotelConfiguracaoItem } from "../types/hotel_configuracao_item";
 
 
@@ -15,9 +16,10 @@ interface IProps {
   value: HotelConfiguracaoItem | null;
   onClose: () => void;
   onSave: (values: HotelConfiguracaoItem) => void;
+  items: HotelConfiguracaoItem[];
 }
 
-const HotelConfiguracaoItemForm = ({ onClose, onSave, value }: IProps) => {
+const HotelConfiguracaoItemForm = ({ onClose, onSave, value, items }: IProps) => {
   const planos = useSelector((state: RootState) => {
     return state.cliente.planos.map(hotel => ({
       label: hotel.nome,
@@ -25,7 +27,19 @@ const HotelConfiguracaoItemForm = ({ onClose, onSave, value }: IProps) => {
     }))
   })
 
-  const itens = useSelector((state: RootState) => state.item.itens)
+  const itens = useSelector((state: RootState) => state.item.itens);
+
+  const itensFormatados = () => {
+    const retorno: Item[] = [];
+
+    if (!itens) return [];
+
+    itens.forEach((i) => {
+      if (!items.find((j) => j.item_id === i.id)) retorno.push(i);
+    })
+
+    return retorno;
+  }
 
   return (
     <>
@@ -68,7 +82,7 @@ const HotelConfiguracaoItemForm = ({ onClose, onSave, value }: IProps) => {
                 label="Item"
               >
                 <option value="">Selecione...</option>
-                {itens && itens.map(i => (
+                {itensFormatados().map(i => (
                   <option key={i.id} value={i.id as string}>{i.nome}</option>
                 ))}
               </SelectField>
