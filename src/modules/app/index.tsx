@@ -11,8 +11,7 @@ import ItemList from "../item/views/ItemList";
 import { Login } from "../login/views";
 import Logout from "../login/views/Logout";
 import { PerfilEdit, UsuarioEdit, UsuarioList, UsuarioTemporarioList, UsuarioTemporarioEdit, UsuarioTemporarioLogin } from "../sistema/views";
-import { ShopList } from "../usuario_temporario/views";
-import ShopCart from "../usuario_temporario/views/ShopCart";
+import { ShopList, ShopCart, PedidoSucesso } from "../usuario_temporario/views";
 
 export const App: React.FC<{}> = () => {
   return (
@@ -43,6 +42,7 @@ export const App: React.FC<{}> = () => {
         <Route path="/usuarios-temporarios/login/:id" element={<UsuarioTemporarioLogin />} />
         <Route path="/produtos" element={<ShopList />} />
         <Route path="/carrinho" element={<ShopCart />} />
+        <Route path="/pedido-sucesso/:id" element={<PedidoSucesso />} />
       </Routes>
     </BrowserRouter>
   );

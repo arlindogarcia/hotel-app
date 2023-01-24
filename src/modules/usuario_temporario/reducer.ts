@@ -1,8 +1,9 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { HotelConfiguracao } from "../cliente/types/hotel_configuracao";
 import { HotelConfiguracaoItem } from "../cliente/types/hotel_configuracao_item";
+import { Pedido } from "./types/Pedido";
 
-type ICarrinho = {
+export interface ICarrinho {
   itens: (HotelConfiguracaoItem & { quantidade: number })[];
 }
 
@@ -13,7 +14,15 @@ type TInitialState = {
   configuracao: HotelConfiguracao | null;
   configuracao_itens: HotelConfiguracaoItem[];
   carrinho: ICarrinho;
+  redireciona_para_pagina_sucesso: boolean;
+  pedido_id_salvo: string;
 };
+
+const novoCarrinho = (): ICarrinho => {
+  return {
+    itens: []
+  }
+}
 
 export interface IParamsShop {
   categoria_id: string;
@@ -28,9 +37,9 @@ const initialState: TInitialState = {
   success: "",
   configuracao_itens: [],
   configuracao: null,
-  carrinho: {
-    itens: [],
-  },
+  carrinho: novoCarrinho(),
+  redireciona_para_pagina_sucesso: false,
+  pedido_id_salvo: '',
 };
 
 const usuarioTemporarioSlice = createSlice({
@@ -106,6 +115,19 @@ const usuarioTemporarioSlice = createSlice({
         state.carrinho.itens[itemExistenteIndex].quantidade += 1;
       }
     },
+    requestEnviarPedido(state: TInitialState, { payload }: PayloadAction<ICarrinho>) {
+      state.isLoading = true;
+      state.error = "";
+      state.success = "";
+    },
+    requestEnviarPedidoSuccess(state: TInitialState, { payload }: PayloadAction<Pedido>) {
+      state.isLoading = false;
+      state.error = "";
+      state.success = "";
+      state.carrinho = novoCarrinho();
+      state.pedido_id_salvo = payload.id as string;
+      state.redireciona_para_pagina_sucesso = true;
+    }
   },
 });
 

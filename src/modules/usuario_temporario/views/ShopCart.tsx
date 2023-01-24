@@ -1,17 +1,18 @@
 import {
   Flex,
   Heading,
-  Stack,
   useMediaQuery,
 } from "@chakra-ui/react";
 import { useSelector } from "react-redux";
 import Wrapper from "../../../components/Wrapper";
+import { useIsAuth } from "../../../hooks/useIsAuth";
 import { RootState } from "../../app/mainReducer";
 import { Item, SubTotalCard } from "../components/ShopCart";
 
 const ShopCart = () => {
   const carrinho = useSelector((state: RootState) => state.usuario_temporario.carrinho);
   const bp = useMediaQuery("(max-width: 768px)")[0];
+  useIsAuth();
 
   return (
     <Wrapper>
@@ -36,7 +37,6 @@ const ShopCart = () => {
           </div>
           <div style={{ width: '30%', paddingLeft: '10px' }}>
             <SubTotalCard />
-
           </div>
         </Flex>}
     </Wrapper>
