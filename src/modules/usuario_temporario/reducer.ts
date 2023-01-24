@@ -16,6 +16,8 @@ type TInitialState = {
   carrinho: ICarrinho;
   redireciona_para_pagina_sucesso: boolean;
   pedido_id_salvo: string;
+  pedidos?: Pedido[];
+  pedido?: Pedido;
 };
 
 const novoCarrinho = (): ICarrinho => {
@@ -127,7 +129,29 @@ const usuarioTemporarioSlice = createSlice({
       state.carrinho = novoCarrinho();
       state.pedido_id_salvo = payload.id as string;
       state.redireciona_para_pagina_sucesso = true;
-    }
+    },
+    requestNaoRedirecionaPraPaginadeSucesso(state: TInitialState) {
+      state.redireciona_para_pagina_sucesso = false;
+    },
+    // PEDIDOS
+    requestPedidos(state: TInitialState) {
+      state.isLoading = true;
+      state.error = "";
+      state.success = "";
+    },
+    requestPedidosSuccess(state: TInitialState, { payload }: PayloadAction<Pedido[]>) {
+      state.isLoading = false;
+      state.pedidos = payload;
+    },
+    requestPedido(state: TInitialState, _: PayloadAction<{ id: string }>) {
+      state.isLoading = true;
+      state.error = "";
+      state.success = "";
+    },
+    requestPedidoSuccess(state: TInitialState, { payload }: PayloadAction<Pedido>) {
+      state.isLoading = false;
+      state.pedido = payload;
+    },
   },
 });
 

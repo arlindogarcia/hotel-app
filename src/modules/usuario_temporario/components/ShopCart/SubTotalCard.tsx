@@ -1,7 +1,6 @@
 import { Box, Button, Heading, Stack, useMediaQuery } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
 import { formatMoney } from "../../../../utils/formatMoney";
 import { RootState } from "../../../app/mainReducer";
 import { usuarioTemporarioActions } from "../../reducer";
@@ -9,9 +8,6 @@ import { usuarioTemporarioActions } from "../../reducer";
 const SubTotalCard = () => {
   const carrinho = useSelector((state: RootState) => state.usuario_temporario.carrinho);
   const isLoading = useSelector((state: RootState) => state.usuario_temporario.isLoading);
-  const pedido_id_salvo = useSelector((state: RootState) => state.usuario_temporario.pedido_id_salvo);
-  const redireciona_para_pagina_sucesso = useSelector((state: RootState) => state.usuario_temporario.redireciona_para_pagina_sucesso);
-  const navigate = useNavigate();
 
   const getTotal = () => {
     return carrinho.itens.reduce((e, i) => i.gratuito ? e += 0 : e += i.quantidade * i.preco, 0)
@@ -39,12 +35,6 @@ const SubTotalCard = () => {
       window.removeEventListener('scroll', handleScroll);
     };
   }, []);
-
-  useEffect(() => {
-    if (redireciona_para_pagina_sucesso && pedido_id_salvo) {
-      navigate(`/pedido-sucesso/${pedido_id_salvo}`)
-    }
-  }, [redireciona_para_pagina_sucesso, pedido_id_salvo, navigate]);
 
   const dispatch = useDispatch();
   const onSubmitPedido = () => {

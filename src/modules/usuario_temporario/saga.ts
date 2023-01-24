@@ -44,11 +44,49 @@ function* requestEnviarPedidoWorker({ payload }: PayloadAction<ICarrinho>) {
   }
 }
 
+function* requestPedidosWorker() {
+  try {
+    const res: AxiosResponse = yield call(apiCall, {
+      url: '/pedidos',
+      method: "get",
+    });
+    console.log("pedidos", res.data);
+    yield put(usuarioTemporarioActions.requestPedidosSuccess(res.data));
+  } catch (error: any) {
+    console.log("error", error);
+    yield put(
+      usuarioTemporarioActions.requestError(
+        formatError(error)
+      )
+    );
+  }
+}
+
+function* requestPedidoWorker({ payload }: PayloadAction<{ id: string }>) {
+  try {
+    const res: AxiosResponse = yield call(apiCall, {
+      url: `/pedidos/${payload.id}`,
+      method: "get",
+    });
+    console.log("pedido", res.data);
+    yield put(usuarioTemporarioActions.requestPedidoSuccess(res.data));
+  } catch (error: any) {
+    console.log("error", error);
+    yield put(
+      usuarioTemporarioActions.requestError(
+        formatError(error)
+      )
+    );
+  }
+}
+
 
 
 export function* usuarioTemporarioSaga() {
   yield all([
     takeLatest("usuario_temporario/requestConfiguracaoItens", requestConfiguracaoItensWorker),
     takeLatest("usuario_temporario/requestEnviarPedido", requestEnviarPedidoWorker),
+    takeLatest("usuario_temporario/requestPedidos", requestPedidosWorker),
+    takeLatest("usuario_temporario/requestPedido", requestPedidoWorker),
   ]);
 }
