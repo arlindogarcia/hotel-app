@@ -1,3 +1,4 @@
+import { Button, ButtonGroup } from "@chakra-ui/react";
 import { useEffect, useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import CheckField from "../../../components/CheckField";
@@ -67,7 +68,10 @@ const PedidoList = () => {
       label: "Ações",
       wrapped: true,
       render: (reg) => (
-        <EditButton href={`/pedidos/${reg.id}`} />
+        <ButtonGroup>
+          <EditButton href={`/pedidos/${reg.id}`} />
+          <Button colorScheme="green">Entregue?</Button>
+        </ButtonGroup>
       )
     }
   ]

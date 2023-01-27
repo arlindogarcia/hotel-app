@@ -152,6 +152,17 @@ const pedidoSlice = createSlice({
       state.isLoading = false;
       state.pedido = payload;
     },
+    requestSavePedido(state: TInitialState, _: PayloadAction<Pedido>) {
+      state.isLoading = true;
+      state.error = "";
+      state.success = "";
+    },
+    requestSavePedidoSuccess(state: TInitialState, { payload }: PayloadAction<Pedido>) {
+      state.isLoading = false;
+      state.pedido = payload;
+      state.error = "";
+      state.success = "Pedido atualizado com sucesso!";
+    },
   },
 });
 

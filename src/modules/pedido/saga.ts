@@ -4,6 +4,7 @@ import { apiCall } from "../app/config";
 import { PayloadAction } from "@reduxjs/toolkit";
 import { formatError } from "../../utils/formatError";
 import { ICarrinho, IParamsShop, pedidoActions } from "./reducer";
+import { Pedido } from "./types/Pedido";
 
 function* requestConfiguracaoItensWorker({ payload }: PayloadAction<IParamsShop>) {
   try {
@@ -80,6 +81,26 @@ function* requestPedidoWorker({ payload }: PayloadAction<{ id: string }>) {
   }
 }
 
+function* requestSavePedidoWorker({ payload }: PayloadAction<Pedido>) {
+  try {
+    const res: AxiosResponse = yield call(apiCall, {
+      url: `/pedidos/status/${payload.id}`,
+      method: "put",
+      data: {
+        status: payload.status,
+      },
+    });
+    console.log("pedido", res.data);
+    yield put(pedidoActions.requestSavePedidoSuccess(res.data));
+  } catch (error: any) {
+    console.log("error", error);
+    yield put(
+      pedidoActions.requestError(
+        formatError(error)
+      )
+    );
+  }
+}
 
 
 export function* pedidoSaga() {
@@ -88,5 +109,6 @@ export function* pedidoSaga() {
     takeLatest("pedido/requestEnviarPedido", requestEnviarPedidoWorker),
     takeLatest("pedido/requestPedidos", requestPedidosWorker),
     takeLatest("pedido/requestPedido", requestPedidoWorker),
+    takeLatest("pedido/requestSavePedido", requestSavePedidoWorker),
   ]);
 }
