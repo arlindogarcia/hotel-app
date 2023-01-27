@@ -1,7 +1,8 @@
-import { Button, ButtonGroup } from "@chakra-ui/react";
+import { ButtonGroup } from "@chakra-ui/react";
 import { useEffect, useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import CheckField from "../../../components/CheckField";
+import ConfirmButton from "../../../components/ConfirmButton";
 import EditButton from "../../../components/EditButton";
 import Error from "../../../components/Error";
 import { Filtros } from "../../../components/Filtros";
@@ -15,6 +16,7 @@ import { formatMoney } from "../../../utils/formatMoney";
 import { RootState } from "../../app/mainReducer";
 import { getStatusPedido } from "../arrays/status_pedido";
 import { pedidoActions } from "../reducer";
+import { Pedido } from "../types/Pedido";
 
 const PedidoList = () => {
   useIsAuth();
@@ -37,6 +39,17 @@ const PedidoList = () => {
   useEffect(() => {
     dispatch(pedidoActions.requestPedidos(variables.initialFilter))
   }, [dispatch, variables.initialFilter])
+
+  const setPedidoEntregue = (pedido: Pedido) => {
+    dispatch(pedidoActions.requestSavePedido({
+      ...pedido,
+      status: 3,
+    }));
+
+    setTimeout(() => {
+      dispatch(pedidoActions.requestPedidos(variables.initialFilter))
+    }, 200);
+  }
 
   const headers: TableHeaders<any>[] = [
     {
@@ -70,7 +83,7 @@ const PedidoList = () => {
       render: (reg) => (
         <ButtonGroup>
           <EditButton href={`/pedidos/${reg.id}`} />
-          <Button colorScheme="green">Entregue?</Button>
+          <ConfirmButton onClick={() => setPedidoEntregue(reg)}>Entregue?</ConfirmButton>
         </ButtonGroup>
       )
     }
