@@ -11,7 +11,7 @@ import ItemList from "../item/views/ItemList";
 import { Login } from "../login/views";
 import Logout from "../login/views/Logout";
 import { PerfilEdit, UsuarioEdit, UsuarioList, UsuarioTemporarioList, UsuarioTemporarioEdit, UsuarioTemporarioLogin } from "../sistema/views";
-import { ShopList, ShopCart, PedidoSucesso } from "../pedido/views";
+import { ShopList, ShopCart, PedidoSucesso, PedidoList } from "../pedido/views";
 import * as io from 'socket.io-client';
 import getEnv from "../../utils/getEnv";
 import { useSelector } from "react-redux";
@@ -53,7 +53,7 @@ export const App: React.FC<{}> = () => {
         <Route path="/produtos" element={<ShopList />} />
         <Route path="/carrinho" element={<ShopCart />} />
         <Route path="/pedido-sucesso/:id" element={<PedidoSucesso />} />
-        <Route path="/pedidos" element={<ShopCart />} />
+        <Route path="/pedidos" element={<PedidoList />} />
         {/* <Route path="/pedidos/:id" element={<ShopCart />} /> */}
       </Routes>
     </BrowserRouter>

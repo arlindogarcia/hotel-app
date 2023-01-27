@@ -134,7 +134,7 @@ const pedidoSlice = createSlice({
       state.redireciona_para_pagina_sucesso = false;
     },
     // PEDIDOS
-    requestPedidos(state: TInitialState) {
+    requestPedidos(state: TInitialState, _: PayloadAction<Record<string, string | number | boolean>>) {
       state.isLoading = true;
       state.error = "";
       state.success = "";

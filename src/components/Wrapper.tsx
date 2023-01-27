@@ -17,6 +17,7 @@ import {
 } from '@chakra-ui/react';
 import {
   FiBookOpen,
+  FiEdit,
   FiGrid,
   FiHome,
   FiLayers,
@@ -105,6 +106,7 @@ const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
     { name: 'Quartos Hotéis', icon: FaBed, href: '/hoteis-quartos', visible: getPermissionsSistema(usuario?.acessos_sistema, 'AdminRedeHotel') },
     { name: 'Configurações Hotéis', icon: FiSettings, href: '/hoteis-configuracoes', visible: getPermissionsSistema(usuario?.acessos_sistema, 'AdminRedeHotel') },
     { name: "QRcode's de acesso ao cliente", icon: FaQrcode, href: '/usuarios-temporarios', visible: getPermissionsSistema(usuario?.acessos_sistema, 'AdminRedeHotel') || getPermissionsSistema(usuario?.acessos_sistema, 'Recepcao') },
+    { name: "Pedidos", icon: FiEdit, href: '/pedidos', visible: getPermissionsSistema(usuario?.acessos_sistema, 'AdminRedeHotel') || getPermissionsSistema(usuario?.acessos_sistema, 'Cozinha') },
   ];
 
   return (

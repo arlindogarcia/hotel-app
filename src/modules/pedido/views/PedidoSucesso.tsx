@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import Wrapper from "../../../components/Wrapper"
 import { useIsAuth } from "../../../hooks/useIsAuth";
+import { requestPermissionToNotificate } from "../../../utils/requestPermissionToNotificate";
 import { RootState } from "../../app/mainReducer";
 import ResumoItensPedido from "../components/ResumoItensPedido";
 import StatusEstagioPedido from "../components/StatusEstagioPedido";
@@ -23,7 +24,7 @@ const PedidoSucesso = () => {
     dispatch(pedidoActions.requestPedido({ id }))
   }, [id, dispatch]);
 
-
+  requestPermissionToNotificate()
   return (
     <Wrapper>
       <Heading size="2xl" paddingBottom={2} marginBottom={2}>

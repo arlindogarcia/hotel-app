@@ -131,6 +131,10 @@ const UsuarioEdit = () => {
                         label: 'Recepcionista',
                         value: 'Recepcao'
                       },
+                      {
+                        label: 'Cozinha',
+                        value: 'Cozinha'
+                      },
                     ].filter(i => getPermissionsSistema(usuarioLogado?.acessos_sistema) ? true : i.value !== 'AdminGeral' && i.value !== 'AdminRedeHotel')}
                   />
                 }
