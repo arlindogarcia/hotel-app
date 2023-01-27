@@ -2,7 +2,7 @@ import { Button, ButtonGroup, Flex, Text } from "@chakra-ui/react";
 import { FiMinus, FiPlus, FiTrash } from "react-icons/fi";
 import { useDispatch } from "react-redux";
 import { HotelConfiguracaoItem } from "../../../cliente/types/hotel_configuracao_item";
-import { usuarioTemporarioActions } from "../../reducer";
+import { pedidoActions } from "../../reducer";
 
 const ItemAjustQuantity = ({ configuracao_item }: { configuracao_item: HotelConfiguracaoItem & { quantidade: number } }) => {
   const dispatch = useDispatch();
@@ -16,7 +16,7 @@ const ItemAjustQuantity = ({ configuracao_item }: { configuracao_item: HotelConf
             colorScheme="teal"
             size="sm"
             mr={2}
-            onClick={() => dispatch(usuarioTemporarioActions.requestRemoveQuantityItemToCart(configuracao_item))}
+            onClick={() => dispatch(pedidoActions.requestRemoveQuantityItemToCart(configuracao_item))}
           >
             {configuracao_item.quantidade === 1 && <FiTrash />}
             {configuracao_item.quantidade > 1 && <FiMinus />}
@@ -27,7 +27,7 @@ const ItemAjustQuantity = ({ configuracao_item }: { configuracao_item: HotelConf
             colorScheme="teal"
             ml={2}
             size="sm"
-            onClick={() => dispatch(usuarioTemporarioActions.requestAddQuantityItemToCart(configuracao_item))}
+            onClick={() => dispatch(pedidoActions.requestAddQuantityItemToCart(configuracao_item))}
           >
             <FiPlus />
           </Button>

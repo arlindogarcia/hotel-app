@@ -7,20 +7,20 @@ import { useIsAuth } from "../../../hooks/useIsAuth";
 import { RootState } from "../../app/mainReducer";
 import ResumoItensPedido from "../components/ResumoItensPedido";
 import StatusEstagioPedido from "../components/StatusEstagioPedido";
-import { usuarioTemporarioActions } from "../reducer";
+import { pedidoActions } from "../reducer";
 
 const PedidoSucesso = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
-  const pedido = useSelector((state: RootState) => state.usuario_temporario.pedido);
+  const pedido = useSelector((state: RootState) => state.pedido.pedido);
   useIsAuth();
 
   useEffect(() => {
     if (!id) return;
 
-    dispatch(usuarioTemporarioActions.requestNaoRedirecionaPraPaginadeSucesso());
+    dispatch(pedidoActions.requestNaoRedirecionaPraPaginadeSucesso());
 
-    dispatch(usuarioTemporarioActions.requestPedido({ id }))
+    dispatch(pedidoActions.requestPedido({ id }))
   }, [id, dispatch]);
 
 

@@ -29,7 +29,7 @@ import { Item } from "../../item/types/item";
 import { useIsAuth } from "../../../hooks/useIsAuth";
 import { Skeleton } from '@chakra-ui/react'
 import Error from "../../../components/Error";
-import { usuarioTemporarioActions } from "../reducer";
+import { pedidoActions } from "../reducer";
 import { useNavigate } from "react-router-dom";
 
 
@@ -52,10 +52,10 @@ const IconDisplay = ({ quantidadeItens }: { quantidadeItens: number }) => {
 const ShopList = () => {
   useIsAuth();
 
-  const configuracao_itens = useSelector((state: RootState) => state.usuario_temporario.configuracao_itens);
-  const isLoading = useSelector((state: RootState) => state.usuario_temporario.isLoading);
-  const error = useSelector((state: RootState) => state.usuario_temporario.error);
-  const itensCart = useSelector((state: RootState) => state.usuario_temporario.carrinho.itens);
+  const configuracao_itens = useSelector((state: RootState) => state.pedido.configuracao_itens);
+  const isLoading = useSelector((state: RootState) => state.pedido.isLoading);
+  const error = useSelector((state: RootState) => state.pedido.error);
+  const itensCart = useSelector((state: RootState) => state.pedido.carrinho.itens);
 
   const dispatch = useDispatch();
   useEffect(() => {
@@ -67,7 +67,7 @@ const ShopList = () => {
   const [itemAdicionadoAoCarrinho, setItemAdicionadoAoCarrinho] = useState<Item | undefined>(undefined);
 
   const onClickAdicionarAoCarrinho = (configuracao_item: HotelConfiguracaoItem) => {
-    dispatch(usuarioTemporarioActions.requestAddItemToCart(configuracao_item));
+    dispatch(pedidoActions.requestAddItemToCart(configuracao_item));
 
     setItemAdicionadoAoCarrinho(configuracao_item.item);
   }

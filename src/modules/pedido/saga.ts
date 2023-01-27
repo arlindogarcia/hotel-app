@@ -3,7 +3,7 @@ import { all, call, put, takeLatest } from "redux-saga/effects";
 import { apiCall } from "../app/config";
 import { PayloadAction } from "@reduxjs/toolkit";
 import { formatError } from "../../utils/formatError";
-import { ICarrinho, IParamsShop, usuarioTemporarioActions } from "./reducer";
+import { ICarrinho, IParamsShop, pedidoActions } from "./reducer";
 
 function* requestConfiguracaoItensWorker({ payload }: PayloadAction<IParamsShop>) {
   try {
@@ -14,11 +14,11 @@ function* requestConfiguracaoItensWorker({ payload }: PayloadAction<IParamsShop>
       method: "get",
     });
     console.log("shop", res.data);
-    yield put(usuarioTemporarioActions.requestConfiguracaoItensSuccess(res.data));
+    yield put(pedidoActions.requestConfiguracaoItensSuccess(res.data));
   } catch (error: any) {
     console.log("error", error);
     yield put(
-      usuarioTemporarioActions.requestError(
+      pedidoActions.requestError(
         formatError(error)
       )
     );
@@ -33,11 +33,11 @@ function* requestEnviarPedidoWorker({ payload }: PayloadAction<ICarrinho>) {
       data: payload,
     });
     console.log("save", res.data);
-    yield put(usuarioTemporarioActions.requestEnviarPedidoSuccess(res.data));
+    yield put(pedidoActions.requestEnviarPedidoSuccess(res.data));
   } catch (error: any) {
     console.log("error", error);
     yield put(
-      usuarioTemporarioActions.requestError(
+      pedidoActions.requestError(
         formatError(error)
       )
     );
@@ -51,11 +51,11 @@ function* requestPedidosWorker() {
       method: "get",
     });
     console.log("pedidos", res.data);
-    yield put(usuarioTemporarioActions.requestPedidosSuccess(res.data));
+    yield put(pedidoActions.requestPedidosSuccess(res.data));
   } catch (error: any) {
     console.log("error", error);
     yield put(
-      usuarioTemporarioActions.requestError(
+      pedidoActions.requestError(
         formatError(error)
       )
     );
@@ -69,11 +69,11 @@ function* requestPedidoWorker({ payload }: PayloadAction<{ id: string }>) {
       method: "get",
     });
     console.log("pedido", res.data);
-    yield put(usuarioTemporarioActions.requestPedidoSuccess(res.data));
+    yield put(pedidoActions.requestPedidoSuccess(res.data));
   } catch (error: any) {
     console.log("error", error);
     yield put(
-      usuarioTemporarioActions.requestError(
+      pedidoActions.requestError(
         formatError(error)
       )
     );
@@ -82,11 +82,11 @@ function* requestPedidoWorker({ payload }: PayloadAction<{ id: string }>) {
 
 
 
-export function* usuarioTemporarioSaga() {
+export function* pedidoSaga() {
   yield all([
-    takeLatest("usuario_temporario/requestConfiguracaoItens", requestConfiguracaoItensWorker),
-    takeLatest("usuario_temporario/requestEnviarPedido", requestEnviarPedidoWorker),
-    takeLatest("usuario_temporario/requestPedidos", requestPedidosWorker),
-    takeLatest("usuario_temporario/requestPedido", requestPedidoWorker),
+    takeLatest("pedido/requestConfiguracaoItens", requestConfiguracaoItensWorker),
+    takeLatest("pedido/requestEnviarPedido", requestEnviarPedidoWorker),
+    takeLatest("pedido/requestPedidos", requestPedidosWorker),
+    takeLatest("pedido/requestPedido", requestPedidoWorker),
   ]);
 }

@@ -3,14 +3,14 @@ import { useState } from "react";
 import { FiTrash } from "react-icons/fi";
 import { useDispatch } from "react-redux";
 import { HotelConfiguracaoItem } from "../../../cliente/types/hotel_configuracao_item";
-import { usuarioTemporarioActions } from "../../reducer";
+import { pedidoActions } from "../../reducer";
 
 const ItemDeleteButton = ({ configuracao_item }: { configuracao_item: HotelConfiguracaoItem }) => {
   const [isConfirming, setIsConfirming] = useState(false);
 
   const dispatch = useDispatch();
   const confirmDeleteItem = () => {
-    dispatch(usuarioTemporarioActions.requestRemoveItemToCart(configuracao_item));
+    dispatch(pedidoActions.requestRemoveItemToCart(configuracao_item));
   }
 
   if (isConfirming) {

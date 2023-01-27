@@ -3,11 +3,11 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { formatMoney } from "../../../../utils/formatMoney";
 import { RootState } from "../../../app/mainReducer";
-import { usuarioTemporarioActions } from "../../reducer";
+import { pedidoActions } from "../../reducer";
 
 const SubTotalCard = () => {
-  const carrinho = useSelector((state: RootState) => state.usuario_temporario.carrinho);
-  const isLoading = useSelector((state: RootState) => state.usuario_temporario.isLoading);
+  const carrinho = useSelector((state: RootState) => state.pedido.carrinho);
+  const isLoading = useSelector((state: RootState) => state.pedido.isLoading);
 
   const getTotal = () => {
     return carrinho.itens.reduce((e, i) => i.gratuito ? e += 0 : e += i.quantidade * i.preco, 0)
@@ -38,7 +38,7 @@ const SubTotalCard = () => {
 
   const dispatch = useDispatch();
   const onSubmitPedido = () => {
-    dispatch(usuarioTemporarioActions.requestEnviarPedido(carrinho));
+    dispatch(pedidoActions.requestEnviarPedido(carrinho));
   }
 
   return (

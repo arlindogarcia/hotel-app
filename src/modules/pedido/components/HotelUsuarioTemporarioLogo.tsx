@@ -4,7 +4,7 @@ import { LOCAL_STORAGE_URL } from "../../app/config";
 import { RootState } from "../../app/mainReducer";
 
 const HotelUsuarioTemporarioLogo = () => {
-  const configuracao = useSelector((state: RootState) => state.usuario_temporario.configuracao);
+  const configuracao = useSelector((state: RootState) => state.pedido.configuracao);
 
   const getLinkImage = (id: string) => {
     return LOCAL_STORAGE_URL + '/' + id;

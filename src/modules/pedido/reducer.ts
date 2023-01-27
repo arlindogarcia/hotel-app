@@ -44,8 +44,8 @@ const initialState: TInitialState = {
   pedido_id_salvo: '',
 };
 
-const usuarioTemporarioSlice = createSlice({
-  name: "usuario_temporario",
+const pedidoSlice = createSlice({
+  name: "pedido",
   initialState,
   reducers: {
     requestError(
@@ -155,6 +155,6 @@ const usuarioTemporarioSlice = createSlice({
   },
 });
 
-export const usuarioTemporarioActions = usuarioTemporarioSlice.actions;
+export const pedidoActions = pedidoSlice.actions;
 
-export default usuarioTemporarioSlice;
+export default pedidoSlice;

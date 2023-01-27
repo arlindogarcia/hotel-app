@@ -11,9 +11,19 @@ import ItemList from "../item/views/ItemList";
 import { Login } from "../login/views";
 import Logout from "../login/views/Logout";
 import { PerfilEdit, UsuarioEdit, UsuarioList, UsuarioTemporarioList, UsuarioTemporarioEdit, UsuarioTemporarioLogin } from "../sistema/views";
-import { ShopList, ShopCart, PedidoSucesso } from "../usuario_temporario/views";
+import { ShopList, ShopCart, PedidoSucesso } from "../pedido/views";
+import * as io from 'socket.io-client';
+import getEnv from "../../utils/getEnv";
+import { useSelector } from "react-redux";
+import { RootState } from "./mainReducer";
+import initializateSocket from "../sockets";
 
 export const App: React.FC<{}> = () => {
+  const usuario = useSelector((state: RootState) => state.login.user || state.login.user_temp);
+  const socket = io.connect(`${getEnv('REACT_APP_API_HOST')}/notificacoes`);
+
+  initializateSocket(socket, usuario?.id as string);
+
   return (
     <BrowserRouter>
       <Routes>
@@ -43,6 +53,8 @@ export const App: React.FC<{}> = () => {
         <Route path="/produtos" element={<ShopList />} />
         <Route path="/carrinho" element={<ShopCart />} />
         <Route path="/pedido-sucesso/:id" element={<PedidoSucesso />} />
+        <Route path="/pedidos" element={<ShopCart />} />
+        {/* <Route path="/pedidos/:id" element={<ShopCart />} /> */}
       </Routes>
     </BrowserRouter>
   );

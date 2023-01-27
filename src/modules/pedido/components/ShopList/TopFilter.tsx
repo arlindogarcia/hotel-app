@@ -6,7 +6,7 @@ import SelectField from "../../../../components/SelectField";
 import { RootState } from "../../../app/mainReducer";
 import { FiArrowDown, FiArrowUp, FiFilter } from "react-icons/fi";
 import { useEffect } from "react";
-import { usuarioTemporarioActions } from "../../reducer";
+import { pedidoActions } from "../../reducer";
 
 interface NavItemProps extends FlexProps {
   active: boolean;
@@ -50,7 +50,7 @@ const TopFilter = () => {
 
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(usuarioTemporarioActions.requestConfiguracaoItens(newForm()))
+    dispatch(pedidoActions.requestConfiguracaoItens(newForm()))
   }, [dispatch])
 
   const ordenacoes = [
@@ -87,7 +87,7 @@ const TopFilter = () => {
         initialValues={newForm()}
         onSubmit={(val) => {
 
-          dispatch(usuarioTemporarioActions.requestConfiguracaoItens(val))
+          dispatch(pedidoActions.requestConfiguracaoItens(val))
 
           onCloseOrdenar();
           onCloseFiltrar();

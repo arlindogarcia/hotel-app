@@ -36,7 +36,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { BrowserView, MobileView } from 'react-device-detect';
 import WrapperUser from './WrapperUser';
 import { getPermissionsSistema } from '../utils/permissions';
-import HotelUsuarioTemporarioLogo from '../modules/usuario_temporario/components/HotelUsuarioTemporarioLogo';
+import HotelUsuarioTemporarioLogo from '../modules/pedido/components/HotelUsuarioTemporarioLogo';
 
 interface LinkItemProps {
   name: string;

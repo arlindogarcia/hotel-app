@@ -15,12 +15,12 @@ import { RootState } from "../../app/mainReducer";
 import { Item, SubTotalCard } from "../components/ShopCart";
 
 const ShopCart = () => {
-  const carrinho = useSelector((state: RootState) => state.usuario_temporario.carrinho);
-  const error = useSelector((state: RootState) => state.usuario_temporario.error);
+  const carrinho = useSelector((state: RootState) => state.pedido.carrinho);
+  const error = useSelector((state: RootState) => state.pedido.error);
   const bp = useMediaQuery("(max-width: 768px)")[0];
   const navigate = useNavigate();
-  const pedido_id_salvo = useSelector((state: RootState) => state.usuario_temporario.pedido_id_salvo);
-  const redireciona_para_pagina_sucesso = useSelector((state: RootState) => state.usuario_temporario.redireciona_para_pagina_sucesso);
+  const pedido_id_salvo = useSelector((state: RootState) => state.pedido.pedido_id_salvo);
+  const redireciona_para_pagina_sucesso = useSelector((state: RootState) => state.pedido.redireciona_para_pagina_sucesso);
 
   useIsAuth();
 
