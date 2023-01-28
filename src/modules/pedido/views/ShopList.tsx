@@ -37,7 +37,7 @@ const IconDisplay = ({ quantidadeItens }: { quantidadeItens: number }) => {
   const navigate = useNavigate();
 
   return (
-    <Button onClick={() => navigate('/carrinho')}>
+    <Button right={0} onClick={() => navigate('/carrinho')}>
       <Flex padding={2} borderRadius="10px" color={quantidadeItens > 0 ? 'white' : 'black'} bg={quantidadeItens > 0 ? 'green.500' : 'white'}>
         <FiShoppingCart fontSize="25px" />
         <Text fontSize="15px" marginLeft={3}>
@@ -72,12 +72,24 @@ const ShopList = () => {
     setItemAdicionadoAoCarrinho(configuracao_item.item);
   }
 
+  const navigate = useNavigate();
+
   return (
     <Wrapper padding={false}>
       <Box>
         <Heading size="2xl" paddingBottom={2} marginBottom={2} px="4" pt="4">
           <Flex justifyContent="space-between" alignItems="center">
-            Produtos <IconDisplay quantidadeItens={itensCart.length} />
+            <Flex alignItems="center">
+              Produtos
+              <Button
+                ml={1}
+                colorScheme="teal"
+                onClick={() => navigate(-1)}
+              >
+                Voltar
+              </Button>
+            </Flex>
+            <IconDisplay quantidadeItens={itensCart.length} />
           </Flex>
         </Heading>
 
@@ -86,7 +98,7 @@ const ShopList = () => {
         <SimpleGrid ml={bp ? 0 : 4} mr={bp ? 0 : 4} columns={bp ? 1 : [1, 2, 3]} spacing={bp ? 0 : 4}>
 
           {isLoading && [1, 2, 3, 4, 5, 6].map((i) => (
-            <Skeleton height='120px' />
+            <Skeleton height='120px' mb={1} />
           ))}
           {!isLoading && configuracao_itens && configuracao_itens.map((configuracao_item: HotelConfiguracaoItem) => (
             <Box key={configuracao_item.id as string} shadow="md" bg="white" borderRadius={bp ? '' : '10px'}>

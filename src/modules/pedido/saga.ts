@@ -48,7 +48,7 @@ function* requestEnviarPedidoWorker({ payload }: PayloadAction<ICarrinho>) {
 function* requestPedidosWorker({ payload }: PayloadAction<Record<string, string>>) {
   try {
     const res: AxiosResponse = yield call(apiCall, {
-      url: `/pedidos?apenas_nao_entregues=${payload.apenas_nao_entregues}&status=${payload.status}`,
+      url: `/pedidos?apenas_nao_entregues=${payload?.apenas_nao_entregues || ''}&status=${payload?.status || ''}`,
       method: "get",
     });
     console.log("pedidos", res.data);

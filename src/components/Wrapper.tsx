@@ -97,6 +97,7 @@ const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
     { name: 'Início', icon: FiHome, href: '/', visible: true },
     { name: 'Cardápio', icon: FiBookOpen, href: '/produtos', visible: !!usuario_temporario },
     { name: 'Carrinho', icon: FiShoppingCart, href: '/carrinho', visible: !!usuario_temporario },
+    { name: 'Meus Pedidos', icon: FiEdit, href: '/meus-pedidos', visible: !!usuario_temporario },
     { name: 'Usuários', icon: FiUser, href: '/usuarios', visible: getPermissionsSistema(usuario?.acessos_sistema, 'AdminRedeHotel') },
     { name: 'Clientes', icon: FiUsers, href: '/clientes', visible: getPermissionsSistema(usuario?.acessos_sistema) },
     { name: 'Hoteis', icon: FiGrid, href: '/hoteis', visible: getPermissionsSistema(usuario?.acessos_sistema) },

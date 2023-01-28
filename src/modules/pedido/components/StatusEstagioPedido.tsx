@@ -18,18 +18,18 @@ const StatusEstagioPedido = ({ status, mostraBarraInfo = true }: IProps) => {
 
   const getIcon = (nome: string, color: string) => {
     if (nome === 'check') {
-      return <FiCheck size="1.5rem" color={color} />
+      return <FiCheck size="1.4rem" color={color} />
     }
 
     if (nome === 'loader') {
-      return <FiLoader size="1.5rem" color={color} />
+      return <FiLoader size="1.4rem" color={color} />
     }
 
     if (nome === 'send') {
-      return <FiSend size="1.5rem" color={color} />
+      return <FiSend size="1.4rem" color={color} />
     }
 
-    return <FiHome size="1.5rem" color={color} />
+    return <FiHome size="1.4rem" color={color} />
   }
 
   const getStatusDescricao = () => {
