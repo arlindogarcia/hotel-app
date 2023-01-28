@@ -3,12 +3,9 @@ import { Form, Formik } from "formik";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import Error from "../../../components/Error";
-import ListHeader from "../../../components/ListHeader";
-import RadioField from "../../../components/RadioField";
-import ResponsiveTable, { TableHeaders } from "../../../components/ResponsiveTable";
-import Success from "../../../components/Success";
-import Wrapper from "../../../components/Wrapper"
+import { RadioField } from "../../../components/Inputs";
+import { Error, ListHeader, Success, Wrapper } from "../../../components/Layout";
+import { ResponsiveTable, TableHeaders } from "../../../components/Utils";
 import { useIsAuth } from "../../../hooks/useIsAuth";
 import { formatDate } from "../../../utils/formatDate";
 import { formatMoney } from "../../../utils/formatMoney";

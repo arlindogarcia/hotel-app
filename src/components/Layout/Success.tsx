@@ -1,7 +1,7 @@
 import { Alert, AlertIcon, AlertTitle } from "@chakra-ui/react";
 
 interface IProps {
-  success: string;
+  success: string | undefined;
 }
 
 const Success = ({ success }: IProps) => {

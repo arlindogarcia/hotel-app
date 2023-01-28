@@ -19,7 +19,7 @@ type InputFieldProps = InputHTMLAttributes<HTMLInputElement> & {
   onChange?: () => void;
 };
 
-export const InputField: React.FC<InputFieldProps> = ({
+const InputField: React.FC<InputFieldProps> = ({
   label,
   disabled,
   mask,
@@ -76,3 +76,5 @@ export const InputField: React.FC<InputFieldProps> = ({
     </FormControl>
   );
 };
+
+export default InputField;

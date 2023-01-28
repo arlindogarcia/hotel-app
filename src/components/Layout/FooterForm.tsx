@@ -1,7 +1,7 @@
 import { Button, ButtonGroup } from '@chakra-ui/react';
 import { useNavigate } from 'react-router-dom';
 import './FooterForm.css'
-import { LoaderButton } from './LoaderButton';
+import { LoaderButton } from '../Buttons';
 
 interface IProps {
   isLoading: boolean;

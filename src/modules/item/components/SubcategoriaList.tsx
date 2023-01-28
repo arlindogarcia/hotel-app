@@ -2,8 +2,8 @@ import { Button, ButtonGroup, Heading, Modal, ModalBody, ModalCloseButton, Modal
 import { useField } from "formik";
 import { useState } from "react";
 import { FiEdit2, FiTrash } from "react-icons/fi";
-import ConfirmButton from "../../../components/ConfirmButton";
-import ResponsiveTable, { TableHeaders } from "../../../components/ResponsiveTable";
+import { ConfirmButton } from "../../../components/Buttons";
+import { ResponsiveTable, TableHeaders } from "../../../components/Utils";
 import { formatDateTime } from "../../../utils/formatDate";
 import { novaSubcategoria } from "../data/subcategoria";
 import { Subcategoria } from "../types/subcategoria";

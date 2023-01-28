@@ -16,7 +16,7 @@ type InputEditorProps = InputHTMLAttributes<HTMLInputElement> & {
   height?: number;
 };
 
-export const InputEditor: React.FC<InputEditorProps> = ({
+const InputEditor: React.FC<InputEditorProps> = ({
   label,
   disabled,
   ...props
@@ -31,3 +31,5 @@ export const InputEditor: React.FC<InputEditorProps> = ({
     </FormControl>
   );
 };
+
+export default InputEditor;

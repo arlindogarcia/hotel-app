@@ -17,7 +17,7 @@ type InputFieldProps = InputHTMLAttributes<HTMLInputElement> & {
   items: Item[];
 };
 
-export const MultiSelectInputField: React.FC<InputFieldProps> = ({
+const MultiSelectInputField: React.FC<InputFieldProps> = ({
   label,
   disabled,
   items,
@@ -32,3 +32,5 @@ export const MultiSelectInputField: React.FC<InputFieldProps> = ({
     </FormControl>
   );
 };
+
+export default MultiSelectInputField;

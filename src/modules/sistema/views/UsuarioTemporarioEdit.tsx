@@ -3,13 +3,8 @@ import { Form, Formik } from "formik";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import Error from "../../../components/Error";
-import FooterForm from "../../../components/FooterForm";
-import { InputField } from "../../../components/InputField";
-import ListHeader from "../../../components/ListHeader";
-import SelectField from "../../../components/SelectField";
-import Success from "../../../components/Success";
-import Wrapper from "../../../components/Wrapper"
+import { InputField, SelectField } from "../../../components/Inputs";
+import { Error, FooterForm, ListHeader, Success, Wrapper } from "../../../components/Layout";
 import { useIsAuth } from "../../../hooks/useIsAuth";
 import { validateForm } from "../../../utils/validationForm";
 import { APPURL } from "../../app/config";

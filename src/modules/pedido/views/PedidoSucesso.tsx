@@ -2,7 +2,7 @@ import { Heading } from "@chakra-ui/react";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import Wrapper from "../../../components/Wrapper"
+import { Wrapper } from "../../../components/Layout";
 import { useIsAuth } from "../../../hooks/useIsAuth";
 import { requestPermissionToNotificate } from "../../../utils/requestPermissionToNotificate";
 import { RootState } from "../../app/mainReducer";

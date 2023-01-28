@@ -1,6 +1,7 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { HotelConfiguracao } from "../cliente/types/hotel_configuracao";
 import { HotelConfiguracaoItem } from "../cliente/types/hotel_configuracao_item";
+import { ResponsePagination } from "../types/ResponsePagination";
 import { Pedido } from "./types/Pedido";
 
 export interface ICarrinho {
@@ -8,14 +9,14 @@ export interface ICarrinho {
 }
 
 type TInitialState = {
-  isLoading: boolean;
-  error: string;
-  success: string;
-  configuracao: HotelConfiguracao | null;
-  configuracao_itens: HotelConfiguracaoItem[];
+  isLoading?: boolean;
+  error?: string;
+  success?: string;
+  configuracao?: HotelConfiguracao | null;
+  configuracao_itens?: ResponsePagination<HotelConfiguracaoItem[]>;
   carrinho: ICarrinho;
-  redireciona_para_pagina_sucesso: boolean;
-  pedido_id_salvo: string;
+  redireciona_para_pagina_sucesso?: boolean;
+  pedido_id_salvo?: string;
   pedidos?: Pedido[];
   pedido?: Pedido;
 };
@@ -34,14 +35,7 @@ export interface IParamsShop {
 }
 
 const initialState: TInitialState = {
-  isLoading: false,
-  error: "",
-  success: "",
-  configuracao_itens: [],
-  configuracao: null,
   carrinho: novoCarrinho(),
-  redireciona_para_pagina_sucesso: false,
-  pedido_id_salvo: '',
 };
 
 const pedidoSlice = createSlice({
@@ -72,7 +66,7 @@ const pedidoSlice = createSlice({
     },
     requestConfiguracaoItensSuccess(
       state: TInitialState,
-      { payload }: PayloadAction<HotelConfiguracaoItem[]>
+      { payload }: PayloadAction<ResponsePagination<HotelConfiguracaoItem[]>>
     ) {
       state.configuracao_itens = payload;
       state.isLoading = false;

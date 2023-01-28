@@ -2,8 +2,8 @@ import { Button, ButtonGroup, Heading, Image, Modal, ModalBody, ModalCloseButton
 import { useField } from "formik";
 import { useState } from "react";
 import { FiTrash } from "react-icons/fi";
-import ConfirmButton from "../../../components/ConfirmButton";
-import ResponsiveTable, { TableHeaders } from "../../../components/ResponsiveTable";
+import { ConfirmButton } from "../../../components/Buttons";
+import { ResponsiveTable, TableHeaders } from "../../../components/Utils";
 import { LOCAL_STORAGE_URL } from "../../app/config";
 import { novoItemImagem } from "../data/item_imagem";
 import { ItemImagem } from "../types/item_imagem";

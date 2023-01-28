@@ -7,9 +7,7 @@ import {
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import Error from "../../../components/Error";
-import Info from "../../../components/Info";
-import Wrapper from "../../../components/Wrapper";
+import { Error, Info, Wrapper } from "../../../components/Layout";
 import { useIsAuth } from "../../../hooks/useIsAuth";
 import { RootState } from "../../app/mainReducer";
 import { Item, SubTotalCard } from "../components/ShopCart";

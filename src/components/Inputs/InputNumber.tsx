@@ -8,7 +8,7 @@ import {
 } from "@chakra-ui/react";
 import { useField } from "formik";
 import { InputHTMLAttributes } from "react";
-import { formatNumber } from "../utils/formatNumber";
+import { formatNumber } from "../../utils/formatNumber";
 
 type InputNumberProps = InputHTMLAttributes<HTMLInputElement> &
   ChakraProps & {

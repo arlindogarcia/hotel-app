@@ -2,7 +2,7 @@ import { Box, CircularProgress, Flex, Heading, useColorModeValue } from "@chakra
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
-import Error from "../../../components/Error";
+import { Error } from "../../../components/Layout";
 import { RootState } from "../../app/mainReducer";
 import { sistemaActions } from "../reducer";
 

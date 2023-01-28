@@ -16,7 +16,7 @@ import {
 } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import Wrapper from "../../../components/Wrapper";
+import Wrapper from "../../../components/Layout/Wrapper";
 import { TopFilter } from "../components/ShopList";
 import { itemActions } from "../../item/reducer";
 import { RootState } from "../../app/mainReducer";
@@ -28,10 +28,10 @@ import ShopCartAddItemDrawer from "../components/ShopCartAddItemDrawer";
 import { Item } from "../../item/types/item";
 import { useIsAuth } from "../../../hooks/useIsAuth";
 import { Skeleton } from '@chakra-ui/react'
-import Error from "../../../components/Error";
 import { pedidoActions } from "../reducer";
 import { useNavigate } from "react-router-dom";
-
+import { Error } from "../../../components/Layout";
+import { Pagination } from "../../../components/Utils";
 
 const IconDisplay = ({ quantidadeItens }: { quantidadeItens: number }) => {
   const navigate = useNavigate();
@@ -78,16 +78,17 @@ const ShopList = () => {
     <Wrapper padding={false}>
       <Box>
         <Heading size="2xl" paddingBottom={2} marginBottom={2} px="4" pt="4">
-          <Flex justifyContent="space-between" alignItems="center">
-            <Flex alignItems="center">
-              Produtos
-              <Button
-                ml={1}
-                colorScheme="teal"
-                onClick={() => navigate(-1)}
-              >
-                Voltar
-              </Button>
+          <Flex justifyContent="space-between" alignItems="end">
+            <Flex>
+              Produtos <span>
+                <Button
+                  ml={3}
+                  colorScheme="teal"
+                  onClick={() => navigate(-1)}
+                >
+                  Voltar
+                </Button>
+              </span>
             </Flex>
             <IconDisplay quantidadeItens={itensCart.length} />
           </Flex>
@@ -100,7 +101,7 @@ const ShopList = () => {
           {isLoading && [1, 2, 3, 4, 5, 6].map((i) => (
             <Skeleton key={i} height='120px' mb={1} />
           ))}
-          {!isLoading && configuracao_itens && configuracao_itens.map((configuracao_item: HotelConfiguracaoItem) =>
+          {!isLoading && configuracao_itens && configuracao_itens.data.map((configuracao_item: HotelConfiguracaoItem) =>
             <Box key={configuracao_item.id as string} shadow="md" bg="white" borderRadius={bp ? '' : '10px'}>
               <Flex>
                 <Flex width="150px">
@@ -172,7 +173,9 @@ const ShopList = () => {
             </Box>
           )}
         </SimpleGrid>
-        {configuracao_itens && configuracao_itens.length === 0 && <Heading size="sm" ml={4}>Nenhum resultado encontrado.</Heading>}
+        {configuracao_itens && configuracao_itens.data.length === 0 && <Heading size="sm" ml={4}>Nenhum resultado encontrado.</Heading>}
+
+        <Pagination itemsPerPage={configuracao_itens?.per_page || 0} totalItems={configuracao_itens?.total || 0} />
       </Box >
 
       <ShopCartAddItemDrawer item={itemAdicionadoAoCarrinho} onCloseModal={() => setItemAdicionadoAoCarrinho(undefined)} onContinuarComprando={() => setItemAdicionadoAoCarrinho(undefined)} />

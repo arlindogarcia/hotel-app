@@ -1,12 +1,11 @@
-import { Box, Button, Flex, FlexProps, Heading, HStack, Link, Popover, PopoverBody, PopoverCloseButton, PopoverContent, PopoverTrigger, Stack, Text, useDisclosure } from "@chakra-ui/react";
+import { Box, Button, Flex, FlexProps, Heading, HStack, Link, Popover, PopoverCloseButton, PopoverContent, PopoverTrigger, Stack, Text, useDisclosure } from "@chakra-ui/react";
 import { Form, Formik } from "formik";
 import { useDispatch, useSelector } from "react-redux";
-import { InputField } from "../../../../components/InputField";
-import SelectField from "../../../../components/SelectField";
 import { RootState } from "../../../app/mainReducer";
 import { FiArrowDown, FiArrowUp, FiFilter } from "react-icons/fi";
 import { useEffect } from "react";
 import { pedidoActions } from "../../reducer";
+import { InputField, SelectField } from "../../../../components/Inputs";
 
 interface NavItemProps extends FlexProps {
   active: boolean;

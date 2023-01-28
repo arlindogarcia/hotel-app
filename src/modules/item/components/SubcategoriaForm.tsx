@@ -1,7 +1,6 @@
 import { Button, Flex, Spacer } from "@chakra-ui/react";
 import { Form, Formik } from "formik";
-import CheckField from "../../../components/CheckField";
-import { InputField } from "../../../components/InputField";
+import { CheckField, InputField } from "../../../components/Inputs";
 import { validateForm } from "../../../utils/validationForm";
 import { Subcategoria } from "../types/subcategoria";
 

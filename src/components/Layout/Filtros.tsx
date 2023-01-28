@@ -10,7 +10,7 @@ interface IProps {
   isLoading?: boolean;
 }
 
-export const Filtros = ({ label = "FILTROS", children, initialValues, onSubmit, isLoading = false }: IProps) => {
+const Filtros = ({ label = "FILTROS", children, initialValues, onSubmit, isLoading = false }: IProps) => {
   return (
     <Accordion my={2}>
       <AccordionItem bg="teal">
@@ -37,3 +37,5 @@ export const Filtros = ({ label = "FILTROS", children, initialValues, onSubmit, 
     </Accordion>
   )
 }
+
+export default Filtros;

@@ -32,12 +32,12 @@ import { FaBed, FaQrcode } from 'react-icons/fa';
 import { IconType } from 'react-icons/lib';
 import { ReactText } from 'react';
 import { useSelector } from 'react-redux';
-import { RootState } from '../modules/app/mainReducer';
+import { RootState } from '../../modules/app/mainReducer';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { BrowserView, MobileView } from 'react-device-detect';
+import { getPermissionsSistema } from '../../utils/permissions';
+import HotelUsuarioTemporarioLogo from '../../modules/pedido/components/HotelUsuarioTemporarioLogo';
 import WrapperUser from './WrapperUser';
-import { getPermissionsSistema } from '../utils/permissions';
-import HotelUsuarioTemporarioLogo from '../modules/pedido/components/HotelUsuarioTemporarioLogo';
 
 interface LinkItemProps {
   name: string;

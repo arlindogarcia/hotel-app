@@ -1,7 +1,6 @@
 import { Button, Flex, Spacer } from "@chakra-ui/react";
 import { Form, Formik } from "formik";
-import CheckField from "../../../components/CheckField";
-import InputImage from "../../../components/InputImage";
+import { CheckField, InputImage } from "../../../components/Inputs";
 import { validateForm } from "../../../utils/validationForm";
 import { ItemImagem } from "../types/item_imagem";
 

@@ -2,7 +2,7 @@ import { Box, Button, Drawer, DrawerBody, DrawerCloseButton, DrawerContent, Draw
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import Wrapper from "../../../components/Wrapper";
+import { Wrapper } from "../../../components/Layout";
 import { formatDateTime } from "../../../utils/formatDate";
 import { formatMoney } from "../../../utils/formatMoney";
 import { LOCAL_STORAGE_URL } from "../../app/config";

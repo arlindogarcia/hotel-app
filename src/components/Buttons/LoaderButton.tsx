@@ -1,6 +1,6 @@
 import { Button, ButtonProps, CircularProgress } from "@chakra-ui/react";
 
-export const LoaderButton: React.FC<{ isLoading?: boolean } & ButtonProps> = ({
+const LoaderButton: React.FC<{ isLoading?: boolean } & ButtonProps> = ({
   isLoading,
   disabled,
   children,
@@ -13,3 +13,5 @@ export const LoaderButton: React.FC<{ isLoading?: boolean } & ButtonProps> = ({
     </Button>
   );
 };
+
+export default LoaderButton;

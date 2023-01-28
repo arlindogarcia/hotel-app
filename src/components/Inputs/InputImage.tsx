@@ -1,6 +1,6 @@
 import { Button, ButtonGroup, FormControl, FormErrorMessage, FormLabel, Image, Modal, ModalBody, ModalCloseButton, ModalContent, ModalHeader, ModalOverlay, Spacer, useDisclosure } from "@chakra-ui/react";
 import { useField } from "formik";
-import { LOCAL_STORAGE_URL } from "../modules/app/config";
+import { LOCAL_STORAGE_URL } from "../../modules/app/config";
 
 interface IProps {
   label: string;

@@ -2,8 +2,8 @@ import { Box, HStack, Menu, MenuButton, MenuDivider, MenuItem, MenuList, Text, u
 import { FiChevronDown } from "react-icons/fi"
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { RootState } from "../modules/app/mainReducer";
-import { loginActions } from "../modules/login/reducer";
+import { RootState } from "../../modules/app/mainReducer";
+import { loginActions } from "../../modules/login/reducer";
 
 const WrapperUser = () => {
   const usuario = useSelector((state: RootState) => state.login.user);

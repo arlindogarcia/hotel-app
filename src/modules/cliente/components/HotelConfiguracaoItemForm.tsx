@@ -1,11 +1,7 @@
 import { Button, Flex, Spacer } from "@chakra-ui/react";
 import { Form, Formik } from "formik";
 import { useSelector } from "react-redux";
-import CheckField from "../../../components/CheckField";
-import { InputField } from "../../../components/InputField";
-import InputNumber from "../../../components/InputNumber";
-import { MultiSelectInputField } from "../../../components/MultiSelectInputField";
-import SelectField from "../../../components/SelectField";
+import { CheckField, InputField, InputNumber, MultiSelectInputField, SelectField } from "../../../components/Inputs";
 import { validateForm } from "../../../utils/validationForm";
 import { RootState } from "../../app/mainReducer";
 import { Item } from "../../item/types/item";

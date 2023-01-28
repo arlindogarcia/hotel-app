@@ -1,10 +1,8 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import EditButton from "../../../components/EditButton";
-import Error from "../../../components/Error";
-import ListHeader from "../../../components/ListHeader";
-import ResponsiveTable, { TableHeaders } from "../../../components/ResponsiveTable";
-import Wrapper from "../../../components/Wrapper";
+import { EditButton } from "../../../components/Buttons";
+import { Error, ListHeader, Wrapper } from "../../../components/Layout";
+import { ResponsiveTable, TableHeaders } from "../../../components/Utils";
 import { useIsAuth } from "../../../hooks/useIsAuth";
 import { formatDateTime } from "../../../utils/formatDate";
 import { RootState } from "../../app/mainReducer";

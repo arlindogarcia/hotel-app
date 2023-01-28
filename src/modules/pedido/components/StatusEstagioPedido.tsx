@@ -1,6 +1,6 @@
 import { Flex, Text } from "@chakra-ui/react";
 import { FiCheck, FiHome, FiLoader, FiSend } from "react-icons/fi";
-import Info from "../../../components/Info";
+import { Info } from "../../../components/Layout";
 
 interface IProps {
   status: number;

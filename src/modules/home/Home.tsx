@@ -1,4 +1,4 @@
-import Wrapper from "../../components/Wrapper"
+import { Wrapper } from "../../components/Layout"
 import { useIsAuth } from "../../hooks/useIsAuth";
 
 const Home = () => {
