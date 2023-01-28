@@ -27,7 +27,7 @@ const ItensButton = ({ pedido }: { pedido: Pedido }) => {
             <Heading>Produtos do Pedido</Heading>
           </DrawerHeader>
           <DrawerBody>
-            {pedido.itens.map(pedido_item => (<Stack spacing={4}>
+            {pedido.itens.map(pedido_item => (<Stack key={pedido_item.id} spacing={4}>
               <Flex>
                 <Image
                   borderRadius='10px'
@@ -83,10 +83,10 @@ const MeusPedidos = () => {
       </Heading>
 
       {isLoading && [1, 2, 3, 4, 5, 6].map((i) => (
-        <Skeleton height='160px' mb={1} />
+        <Skeleton key={i} height='160px' mb={1} />
       ))}
       {!isLoading && <SimpleGrid columns={isMobile ? 1 : 2} spacing={4}>
-        {pedidos && pedidos.map(pedido => (<Box key={pedido.id} borderRadius={10} bg="white" shadow="md">
+        {pedidos && pedidos.map(pedido => <Box key={pedido.id} borderRadius={10} bg="white" shadow="md">
           <Stack pt={2} px={2}>
             <StatusEstagioPedido status={pedido.status} mostraBarraInfo={false} />
           </Stack>
@@ -96,7 +96,7 @@ const MeusPedidos = () => {
             <Spacer />
             <ItensButton pedido={pedido} />
           </Stack>
-        </Box>))}
+        </Box>)}
       </SimpleGrid>}
     </Wrapper>
   )

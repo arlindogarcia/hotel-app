@@ -1,4 +1,4 @@
-import { Box, Button, Flex, FlexProps, Heading, HStack, Link, Popover, PopoverCloseButton, PopoverContent, PopoverTrigger, Stack, Text, useDisclosure } from "@chakra-ui/react";
+import { Box, Button, Flex, FlexProps, Heading, HStack, Link, Popover, PopoverBody, PopoverCloseButton, PopoverContent, PopoverTrigger, Stack, Text, useDisclosure } from "@chakra-ui/react";
 import { Form, Formik } from "formik";
 import { useDispatch, useSelector } from "react-redux";
 import { InputField } from "../../../../components/InputField";
@@ -132,7 +132,7 @@ const TopFilter = () => {
                 </Popover>
               </Flex>
               <Flex align="center" width="50%">
-                <Popover placement="bottom" isOpen={isOpenFiltrar} onOpen={onOpenFiltrar}>
+                <Popover closeOnBlur={false} placement="bottom" isOpen={isOpenFiltrar} onClose={onCloseFiltrar} onOpen={onOpenFiltrar}>
                   <PopoverTrigger>
                     <Box width="100%" p={4} shadow="md" borderWidth="1px" cursor="pointer" bg="white" borderRadius="0 10px 10px 0">
                       <HStack>
@@ -140,8 +140,8 @@ const TopFilter = () => {
                       </HStack>
                     </Box>
                   </PopoverTrigger>
-                  <PopoverContent zIndex={4} p="4">
-                    <Box width="100%">
+                  <PopoverContent p="4">
+                    <Box width="100%" onClick={console.log}>
                       <Heading>Filtrar</Heading>
                       <PopoverCloseButton size="lg" marginTop="4" onClick={onCloseFiltrar} />
 
@@ -155,18 +155,16 @@ const TopFilter = () => {
                           <option key={i.id} value={i.id as string}>{i.nome}</option>
                         ))}
                       </SelectField>
-                      &nbsp;&nbsp;
-                      <SelectField
+                      {values.categoria_id && <SelectField
                         name="subcategoria_id"
                         label="Sub-categoria"
-
                       >
                         {values.categoria_id && <option value="">Selecione...</option>}
                         {!values.categoria_id && <option value="">Seleciona a categoria...</option>}
                         {getSubcategorias(values.categoria_id).map(i => (
                           <option key={i.id} value={i.id as string}>{i.nome}</option>
                         ))}
-                      </SelectField>
+                      </SelectField>}
 
                       <InputField
                         name="search"

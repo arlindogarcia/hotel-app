@@ -98,9 +98,9 @@ const ShopList = () => {
         <SimpleGrid ml={bp ? 0 : 4} mr={bp ? 0 : 4} columns={bp ? 1 : [1, 2, 3]} spacing={bp ? 0 : 4}>
 
           {isLoading && [1, 2, 3, 4, 5, 6].map((i) => (
-            <Skeleton height='120px' mb={1} />
+            <Skeleton key={i} height='120px' mb={1} />
           ))}
-          {!isLoading && configuracao_itens && configuracao_itens.map((configuracao_item: HotelConfiguracaoItem) => (
+          {!isLoading && configuracao_itens && configuracao_itens.map((configuracao_item: HotelConfiguracaoItem) =>
             <Box key={configuracao_item.id as string} shadow="md" bg="white" borderRadius={bp ? '' : '10px'}>
               <Flex>
                 <Flex width="150px">
@@ -162,7 +162,7 @@ const ShopList = () => {
                         </Flex>}
 
                         {configuracao_item.item?.imagens?.map((i) => (
-                          <Image src={LOCAL_STORAGE_URL + '/' + i.imagem} alt="Imagem" />
+                          <Image key={i.id} src={LOCAL_STORAGE_URL + '/' + i.imagem} alt="Imagem" />
                         ))}
                       </PopoverBody>
                     </PopoverContent>
@@ -170,7 +170,7 @@ const ShopList = () => {
                 </Box>
               </Flex >
             </Box>
-          ))}
+          )}
         </SimpleGrid>
         {configuracao_itens && configuracao_itens.length === 0 && <Heading size="sm" ml={4}>Nenhum resultado encontrado.</Heading>}
       </Box >
