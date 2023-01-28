@@ -63,7 +63,7 @@ const TopFilter = () => {
       value: 'maior_preco',
     },
     {
-      label: 'Menor tempo de entrega',
+      label: 'Entrega mais rápida',
       value: 'menor_tempo_entrega',
     },
   ]
@@ -132,7 +132,7 @@ const TopFilter = () => {
                 </Popover>
               </Flex>
               <Flex align="center" width="50%">
-                <Popover placement="bottom" isOpen={isOpenFiltrar} onClose={onCloseFiltrar} onOpen={onOpenFiltrar}>
+                <Popover placement="bottom" isOpen={isOpenFiltrar} onOpen={onOpenFiltrar}>
                   <PopoverTrigger>
                     <Box width="100%" p={4} shadow="md" borderWidth="1px" cursor="pointer" bg="white" borderRadius="0 10px 10px 0">
                       <HStack>
@@ -143,7 +143,7 @@ const TopFilter = () => {
                   <PopoverContent zIndex={4} p="4">
                     <Box width="100%">
                       <Heading>Filtrar</Heading>
-                      <PopoverCloseButton size="lg" marginTop="4" />
+                      <PopoverCloseButton size="lg" marginTop="4" onClick={onCloseFiltrar} />
 
                       <SelectField
                         name="categoria_id"

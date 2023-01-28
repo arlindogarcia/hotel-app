@@ -33,7 +33,15 @@ const ShopCart = () => {
   return (
     <Wrapper>
       <Heading size="2xl" paddingBottom={2} marginBottom={2}>
-        Carrinho
+        Carrinho <span>
+          <Button
+            colorScheme="teal"
+            my="0.5rem"
+            onClick={() => navigate(-1)}
+          >
+            Voltar
+          </Button>
+        </span>
       </Heading>
 
       <Error error={error} />
@@ -59,10 +67,10 @@ const ShopCart = () => {
         </Flex>}
 
       {carrinho && carrinho.itens.length === 0 &&
-        <>
+        <Flex wrap="wrap" maxW="768px">
           <Info info="Carrinho vazio!" />
           <Button width="full" colorScheme="green" padding={6} onClick={() => navigate('/produtos')} mt={2}>Ver produtos</Button>
-        </>
+        </Flex>
       }
     </Wrapper>
   );

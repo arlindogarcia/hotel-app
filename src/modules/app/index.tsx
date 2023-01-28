@@ -16,13 +16,13 @@ import * as io from 'socket.io-client';
 import getEnv from "../../utils/getEnv";
 import { useSelector } from "react-redux";
 import { RootState } from "./mainReducer";
-import initializateSocket from "../sockets";
+import InitializateSocket from "../sockets";
 
 export const App: React.FC<{}> = () => {
-  const usuario = useSelector((state: RootState) => state.login.user || state.login.user_temp);
+  const usuario = useSelector((state: RootState) => state.login.user ? state.login.user : state.login.user_temp);
   const socket = io.connect(`${getEnv('REACT_APP_API_HOST')}/notificacoes`);
 
-  initializateSocket(socket, usuario?.id as string);
+  InitializateSocket(socket, usuario?.id as string);
 
   return (
     <BrowserRouter>
