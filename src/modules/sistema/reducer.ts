@@ -21,6 +21,11 @@ type TInitialState = {
   usuario_temporario: UsuarioTemporario | null;
 };
 
+export type IRequestUsuariosParams = {
+  ativo: boolean;
+  search: string;
+}
+
 const initialState: TInitialState = {
   isLoadingList: false,
   isLoading: false,
@@ -37,7 +42,7 @@ const sistemaSlice = createSlice({
   name: "sistema",
   initialState,
   reducers: {
-    requestUsuarios(state: TInitialState) {
+    requestUsuarios(state: TInitialState, _: PayloadAction<IRequestUsuariosParams>) {
       state.isLoadingList = true;
       state.error = "";
       state.success = "";

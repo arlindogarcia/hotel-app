@@ -1,12 +1,13 @@
-import { useEffect } from "react";
+import { useEffect, useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { EditButton } from "../../../components/Buttons";
-import { Error, ListHeader, Wrapper } from "../../../components/Layout";
+import { CheckField, InputField } from "../../../components/Inputs";
+import { Error, Filtros, ListHeader, Wrapper } from "../../../components/Layout";
 import { ResponsiveTable, TableHeaders } from "../../../components/Utils";
 import { useIsAuth } from "../../../hooks/useIsAuth";
 import { formatDateTime } from "../../../utils/formatDate";
 import { RootState } from "../../app/mainReducer";
-import { sistemaActions } from "../reducer";
+import { IRequestUsuariosParams, sistemaActions } from "../reducer";
 
 const UsuarioList = () => {
   useIsAuth();
@@ -14,12 +15,7 @@ const UsuarioList = () => {
   const usuarios = useSelector((state: RootState) => state.sistema.usuarios)
   const error = useSelector((state: RootState) => state.sistema.error)
   const isLoadingList = useSelector((state: RootState) => state.sistema.isLoadingList)
-
   const dispatch = useDispatch()
-
-  useEffect(() => {
-    dispatch(sistemaActions.requestUsuarios())
-  }, [dispatch])
 
   const headers: TableHeaders<any>[] = [
     {
@@ -51,10 +47,39 @@ const UsuarioList = () => {
     }
   ]
 
+  const variables = useMemo(() => {
+    return {
+      initialFilter: {
+        ativo: true,
+        search: '',
+      } as IRequestUsuariosParams,
+    }
+  }, []);
+
+  useEffect(() => {
+    dispatch(sistemaActions.requestUsuarios(variables.initialFilter));
+  }, [dispatch, variables.initialFilter])
+
+  const filtrar = (values: IRequestUsuariosParams) => {
+    dispatch(sistemaActions.requestUsuarios(values))
+  }
+
   return (
     <Wrapper>
       <ListHeader isLoading={isLoadingList} label="Usuários" label_novo="Novo usuário" href_novo="/usuarios/novo" />
       <Error error={error} />
+
+      <Filtros isLoading={isLoadingList} initialValues={variables.initialFilter} onSubmit={filtrar}>
+        <InputField
+          name="search"
+          label="Filtrar por Nome, E-mail"
+        />
+
+        <CheckField
+          name="ativo"
+          label="Apenas ativos?"
+        />
+      </Filtros>
 
       {usuarios && (
         <ResponsiveTable headers={headers} data={usuarios} />

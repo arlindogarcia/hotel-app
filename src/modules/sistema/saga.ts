@@ -1,6 +1,6 @@
 import axios, { AxiosResponse } from "axios";
 import { all, call, put, takeLatest } from "redux-saga/effects";
-import { sistemaActions } from "./reducer";
+import { IRequestUsuariosParams, sistemaActions } from "./reducer";
 import { apiCall, APIURL } from "../app/config";
 import { PayloadAction } from "@reduxjs/toolkit";
 import { novoUsuario } from "./data/usuario";
@@ -11,10 +11,10 @@ import { loginActions } from "../login/reducer";
 import { HotelConfiguracao } from "../cliente/types/hotel_configuracao";
 import { pedidoActions } from "../pedido/reducer";
 
-function* requestUsuariosWorker() {
+function* requestUsuariosWorker({ payload }: PayloadAction<IRequestUsuariosParams>) {
   try {
     const res: AxiosResponse = yield call(apiCall, {
-      url: "/usuarios",
+      url: `/usuarios?ativo=${payload.ativo}&search=${payload.search}`,
       method: "get",
     });
     console.log("list", res.data);

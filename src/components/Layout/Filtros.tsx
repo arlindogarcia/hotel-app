@@ -6,7 +6,7 @@ interface IProps {
   children: React.ReactNode;
   label?: string;
   initialValues: Record<string, string | number | boolean>;
-  onSubmit: (values: Record<string, string | number | boolean>) => void;
+  onSubmit: (values: any) => void;
   isLoading?: boolean;
 }
 
