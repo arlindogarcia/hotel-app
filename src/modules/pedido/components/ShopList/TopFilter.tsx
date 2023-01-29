@@ -44,13 +44,13 @@ const newForm = () => {
   }
 }
 
-const TopFilter = () => {
+const TopFilter = ({ current_page }: { current_page: number }) => {
   const categorias = useSelector((state: RootState) => state.item.categorias);
 
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(pedidoActions.requestConfiguracaoItens(newForm()))
-  }, [dispatch])
+    dispatch(pedidoActions.requestConfiguracaoItens({ ...newForm(), page: current_page }))
+  }, [dispatch, current_page])
 
   const ordenacoes = [
     {
@@ -86,7 +86,7 @@ const TopFilter = () => {
         initialValues={newForm()}
         onSubmit={(val) => {
 
-          dispatch(pedidoActions.requestConfiguracaoItens(val))
+          dispatch(pedidoActions.requestConfiguracaoItens({ ...val, page: current_page }))
 
           onCloseOrdenar();
           onCloseFiltrar();

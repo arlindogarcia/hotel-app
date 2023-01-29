@@ -1,27 +1,42 @@
-import { Button, Flex } from "@chakra-ui/react";
+import { Button, Flex, Text } from "@chakra-ui/react";
 import { useState } from "react";
 
-const Pagination = ({ itemsPerPage, totalItems }: { itemsPerPage: number; totalItems: number }) => {
+type IPagination = {
+  itemsPerPage: number;
+  totalItems: number;
+  onChange?: (val: number) => void;
+}
+
+const Pagination = ({ itemsPerPage, totalItems, onChange }: IPagination) => {
   const [currentPage, setCurrentPage] = useState(1);
   const totalPages = Math.ceil(totalItems / itemsPerPage);
 
   const handlePageChange = (page: number) => {
     setCurrentPage(page);
+
+    typeof onChange === 'function' && onChange(page);
   };
 
   return (
-    <Flex mt={4} justifyContent="center" alignItems="center" my={2}>
-      <Button colorScheme="gray" mr={2} onClick={() => handlePageChange(currentPage - 1)} isDisabled={currentPage === 1}>
-        Anterior
-      </Button>
-      {Array.from({ length: totalPages }, (_, i) => (
-        <Button key={i + 1} colorScheme={currentPage === i + 1 ? 'teal' : 'gray'} mr={2} onClick={() => handlePageChange(i + 1)}>
-          {i + 1}
+    <Flex justifyContent="center" alignItems="center" py={6} wrap="wrap">
+      {currentPage > 1 &&
+        <Button color="teal" size="md" mr={1} colorScheme="gray" onClick={() => handlePageChange(currentPage - 1)}>
+          {'< Anterior'}
         </Button>
-      ))}
-      <Button colorScheme="gray" onClick={() => handlePageChange(currentPage + 1)} isDisabled={currentPage === totalPages}>
-        Próxima
+      }
+      <Button size="md" colorScheme='teal' mr={1}>
+        {currentPage}
       </Button>
+      <Text pl={2}>de</Text>
+      <Button size="md" mr={1} colorScheme='gray'>
+        {totalPages}
+      </Button>
+
+      {currentPage !== totalPages &&
+        <Button color="teal" size="md" colorScheme="gray" onClick={() => handlePageChange(currentPage + 1)}>
+          {'Seguinte >'}
+        </Button>
+      }
     </Flex>
   );
 }

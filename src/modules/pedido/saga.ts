@@ -8,7 +8,7 @@ import { Pedido } from "./types/Pedido";
 
 function* requestConfiguracaoItensWorker({ payload }: PayloadAction<IParamsShop>) {
   try {
-    const payloadQuery = `?categoria_id=${payload.categoria_id}&subcategoria_id=${payload.subcategoria_id}&search=${payload.search}&orderby=${payload.orderby}`;
+    const payloadQuery = `?categoria_id=${payload.categoria_id}&subcategoria_id=${payload.subcategoria_id}&search=${payload.search}&orderby=${payload.orderby}&page=${payload.page || 1}`;
 
     const res: AxiosResponse = yield call(apiCall, {
       url: `/clientes-hoteis-configuracoes/item/shop${payloadQuery}`,

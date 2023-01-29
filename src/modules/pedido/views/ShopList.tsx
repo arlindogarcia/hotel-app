@@ -72,6 +72,8 @@ const ShopList = () => {
     setItemAdicionadoAoCarrinho(configuracao_item.item);
   }
 
+  const [currentPage, setCurrentPage] = useState(1);
+
   const navigate = useNavigate();
 
   return (
@@ -94,7 +96,7 @@ const ShopList = () => {
           </Flex>
         </Heading>
 
-        <TopFilter />
+        <TopFilter current_page={currentPage} />
         <Error error={error ? 'Ocorreu um erro ao buscar os produtos.' : ''} />
         <SimpleGrid ml={bp ? 0 : 4} mr={bp ? 0 : 4} columns={bp ? 1 : [1, 2, 3]} spacing={bp ? 0 : 4}>
 
@@ -175,7 +177,7 @@ const ShopList = () => {
         </SimpleGrid>
         {configuracao_itens && configuracao_itens.data.length === 0 && <Heading size="sm" ml={4}>Nenhum resultado encontrado.</Heading>}
 
-        <Pagination itemsPerPage={configuracao_itens?.per_page || 0} totalItems={configuracao_itens?.total || 0} />
+        <Pagination onChange={setCurrentPage} itemsPerPage={configuracao_itens?.per_page || 0} totalItems={configuracao_itens?.total || 0} />
       </Box >
 
       <ShopCartAddItemDrawer item={itemAdicionadoAoCarrinho} onCloseModal={() => setItemAdicionadoAoCarrinho(undefined)} onContinuarComprando={() => setItemAdicionadoAoCarrinho(undefined)} />

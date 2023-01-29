@@ -32,6 +32,7 @@ export interface IParamsShop {
   subcategoria_id: string;
   search: string;
   orderby: string;
+  page: number;
 }
 
 const initialState: TInitialState = {
