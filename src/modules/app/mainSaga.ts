@@ -4,6 +4,7 @@ import { clienteSaga } from "../cliente/saga";
 import { loginSaga } from "../login/saga";
 import { sistemaSaga } from "../sistema/saga";
 import { pedidoSaga } from "../pedido/saga";
+import { socketsSaga } from "../sockets/saga";
 
 export function* mainSaga() {
   yield all([
@@ -12,5 +13,6 @@ export function* mainSaga() {
     clienteSaga(),
     itemSaga(),
     pedidoSaga(),
+    socketsSaga(),
   ]);
 }

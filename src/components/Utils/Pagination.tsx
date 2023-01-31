@@ -9,7 +9,7 @@ type IPagination = {
 
 const Pagination = ({ itemsPerPage, totalItems, onChange }: IPagination) => {
   const [currentPage, setCurrentPage] = useState(1);
-  const totalPages = Math.ceil(totalItems / itemsPerPage);
+  const totalPages = Math.ceil(totalItems / itemsPerPage) || 1;
 
   const handlePageChange = (page: number) => {
     setCurrentPage(page);

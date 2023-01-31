@@ -2,11 +2,11 @@ import { useToast } from '@chakra-ui/react';
 import { Socket } from 'socket.io-client';
 import { Notification as NotificationType } from './types';
 
-const InitializateSocket = (socket: Socket, user_id: string) => {
+const InitializateSocket = (socket: Socket, user_id: string, token: string) => {
   const toast = useToast();
 
   socket.on('connect', () => {
-    socket.emit("set_user_logged", { user_id: user_id });
+    socket.emit("set_user_logged", { user_id, token, });
 
     socket.on('notification', (notification: NotificationType) => {
       new Notification(notification.message);
@@ -19,6 +19,12 @@ const InitializateSocket = (socket: Socket, user_id: string) => {
         isClosable: true,
       })
     });
+  })
+}
+
+export const InitializateSocketChat = (socket: Socket, user_id: string, token: string) => {
+  socket.on('connect', () => {
+    socket.emit("set_user_logged", { user_id, token, });
   })
 }
 

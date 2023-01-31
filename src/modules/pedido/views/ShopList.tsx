@@ -103,7 +103,7 @@ const ShopList = () => {
           {isLoading && [1, 2, 3, 4, 5, 6].map((i) => (
             <Skeleton key={i} height='120px' mb={1} />
           ))}
-          {!isLoading && configuracao_itens && configuracao_itens.data.map((configuracao_item: HotelConfiguracaoItem) =>
+          {!isLoading && configuracao_itens?.data && configuracao_itens.data.map((configuracao_item: HotelConfiguracaoItem) =>
             <Box key={configuracao_item.id as string} shadow="md" bg="white" borderRadius={bp ? '' : '10px'}>
               <Flex>
                 <Flex width="150px">
@@ -175,7 +175,7 @@ const ShopList = () => {
             </Box>
           )}
         </SimpleGrid>
-        {configuracao_itens && configuracao_itens.data.length === 0 && <Heading size="sm" ml={4}>Nenhum resultado encontrado.</Heading>}
+        {configuracao_itens?.data && configuracao_itens.data.length === 0 && <Heading size="sm" ml={4}>Nenhum resultado encontrado.</Heading>}
 
         <Pagination onChange={setCurrentPage} itemsPerPage={configuracao_itens?.per_page || 0} totalItems={configuracao_itens?.total || 0} />
       </Box >

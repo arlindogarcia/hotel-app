@@ -17,12 +17,14 @@ import getEnv from "../../utils/getEnv";
 import { useSelector } from "react-redux";
 import { RootState } from "./mainReducer";
 import InitializateSocket from "../sockets";
+import { ChatUsuario } from "../sockets/views";
+import ChatRecepcao from "../sockets/views/ChatRecepcao";
 
 export const App: React.FC<{}> = () => {
   const usuario = useSelector((state: RootState) => state.login.user ? state.login.user : state.login.user_temp);
   const socket = io.connect(`${getEnv('REACT_APP_API_HOST')}/notificacoes`);
-
-  InitializateSocket(socket, usuario?.id as string);
+  const token = useSelector((state: RootState) => state.login.token);
+  InitializateSocket(socket, usuario?.id as string, token);
 
   return (
     <BrowserRouter>
@@ -56,6 +58,10 @@ export const App: React.FC<{}> = () => {
         <Route path="/pedidos" element={<PedidoList />} />
         <Route path="/pedidos/:id" element={<PedidoEdit />} />
         <Route path="/meus-pedidos" element={<MeusPedidos />} />
+        <Route path="/chat" element={<ChatUsuario />} />
+        <Route path="/chat/:id" element={<ChatUsuario />} />
+        <Route path="/chats" element={<ChatRecepcao />} />
+        <Route path="/chats/:id" element={<ChatRecepcao />} />
       </Routes>
     </BrowserRouter>
   );

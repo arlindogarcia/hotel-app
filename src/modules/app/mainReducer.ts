@@ -9,6 +9,7 @@ import clienteSlice from "../cliente/reducer";
 import itemSlice from "../item/reducer";
 import pedidoSlice from "../pedido/reducer";
 import { createLogger } from 'redux-logger';
+import socketsSlice from "../sockets/reducer";
 
 const sagaMiddleware = createSagaMiddleware();
 const logger = createLogger();
@@ -22,6 +23,7 @@ const rootReducer = combineReducers({
   cliente: clienteSlice.reducer,
   item: itemSlice.reducer,
   pedido: pedidoSlice.reducer,
+  sockets: socketsSlice.reducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

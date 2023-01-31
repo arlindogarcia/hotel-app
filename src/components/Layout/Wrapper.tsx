@@ -49,14 +49,22 @@ interface LinkItemProps {
 export default function Wrapper({
   children,
   padding = true,
+  show = true,
 }: {
   children: ReactNode;
   padding?: boolean;
+  show?: boolean;
 }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
+  if (!show) {
+    return (
+      <>{children}</>
+    )
+  }
+
   return (
-    <Box minH="100vh" bg={useColorModeValue('gray.100', 'gray.900')}>
+    <Box minH="100vh" bg={'gray.100'}>
       <SidebarContent
         onClose={() => onClose}
         display={{ base: 'none', md: 'block' }}
@@ -153,7 +161,7 @@ const NavItem = ({ href, icon, children, ...rest }: NavItemProps) => {
   return (
     <Link style={{ textDecoration: 'none' }} _focus={{ boxShadow: 'none' }}>
       <Flex
-        bg={location.pathname === href ? 'cyan.400' : ''}
+        bg={location.pathname === href ? 'teal.400' : ''}
         color={location.pathname === href ? 'white' : ''}
         align="center"
         p="3"
@@ -163,7 +171,7 @@ const NavItem = ({ href, icon, children, ...rest }: NavItemProps) => {
         role="group"
         cursor="pointer"
         _hover={{
-          bg: 'cyan.400',
+          bg: 'teal.400',
           color: 'white',
         }}
         {...rest}>
